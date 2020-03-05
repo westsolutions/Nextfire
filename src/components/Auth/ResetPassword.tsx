@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fbUpdatePassword } from '../../firebase/auth';
-import * as styles from '../../../styles/main.scss';
+// import { fbUpdatePassword } from '../../firebase/auth';
 import Link from 'next/link';
 import Router from 'next/router';
 
@@ -18,36 +17,35 @@ class ResetPassword extends Component {
     //checkPassword then
     if (this.state.newPassword === this.state.confirmPassword) {
       //this.props.resetPassword(this.state.newPassword) ;}
-      fbUpdatePassword(
-        this.state.currentPassword,
-        this.state.newPassword
-      ).catch(err => {
-        switch (err.code) {
-          case 'auth/wrong-password': {
-            this.setState({ error: 'wrong password' });
-            break;
-          }
-          default:
-            this.setState(err.message);
-        }
-      });
-      Router.push('/dashboard');
+      // fbUpdatePassword(
+      //   this.state.currentPassword,
+      //   this.state.newPassword
+      // ).catch(err => {
+      //   switch (err.code) {
+      //     case 'auth/wrong-password': {
+      //       this.setState({ error: 'wrong password' });
+      //       break;
+      //     }
+      //     default:
+      //       this.setState(err.message);
+      //   }
+      // });
+      // Router.push('/dashboard');
     }
   };
   render() {
     return (
       <div className="sign-up">
-        <div className={styles.panel}>
+        <div >
           <div>{this.state.error || ''}</div>
           <form onSubmit={this.handleSubmit}>
-            <div className={styles['form-group']}>
+            <div>
               <label htmlFor="currenPasswordInput">
                 {' '}
                 Please Enter Your Current Password
               </label>
               <input
                 id="currenPasswordInput"
-                className={styles['form-control']}
                 type="password"
                 name="currentPassword"
                 onChange={event =>
@@ -55,13 +53,12 @@ class ResetPassword extends Component {
                 }
               />
             </div>
-            <div className={styles['form-group']}>
+            <div>
               <label htmlFor="newPassword1Input">
                 {' '}
                 Please Enter Your New Password
               </label>
               <input
-                className={styles['form-control']}
                 id="newPassword1Input"
                 type="password"
                 name="newPassword"
@@ -70,18 +67,13 @@ class ResetPassword extends Component {
                 }
               />
             </div>
-            <div className={styles['form-group']}>
+            <div >
               <label htmlFor="confirmPasswordInput">
                 {' '}
                 Please Confirm Your New Password
               </label>
               <input
-                className={
-                  this.state.confirmPassword &&
-                  this.state.newPassword !== this.state.confirmPassword
-                    ? [styles['form-control'], styles['is-invalid']].join(' ')
-                    : styles['form-control']
-                }
+             
                 id="confirmPasswordInput"
                 type="password"
                 name="confirmPassword"
@@ -97,17 +89,12 @@ class ResetPassword extends Component {
               )}
             </div>
             <button
-              className={[
-                styles['btn-primary'],
-                styles.btn,
-                styles['submit-button']
-              ].join(' ')}
               type="submit"
             >
               {' '}
               Submit{' '}
             </button>
-            <small className={styles['center-text']}>
+            <small >
               {' '}
               Already a user , login{' '}
               <Link href="/signin">

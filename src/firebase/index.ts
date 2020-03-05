@@ -1,7 +1,10 @@
-import firebase from 'firebase';
-import fbconfig from '../../firebaseConfig.json';
+import firebase from 'firebase/app'; 
+import 'firebase/auth';
+import 'firebase/database';
 
-const config = fbconfig;
-if (!firebase.apps.length) firebase.initializeApp(config);
+import config from '../../firebaseConfig.json';
+
+if (!firebase?.apps.length)
+firebase.initializeApp(config);
 
 export default firebase;

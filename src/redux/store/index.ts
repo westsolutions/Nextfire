@@ -1,9 +1,9 @@
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, Store } from 'redux';
 import reducers from '../reducers';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-let store;
+let store: Store;
 if (typeof window === 'undefined') {
   store = createStore(reducers, applyMiddleware(logger, thunk));
 } else {

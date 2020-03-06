@@ -1,5 +1,7 @@
 $primary: #00b3c3;
 $border-radius: 2px;
+$danger: #e20303;
+
 $input-padding-y: 0.75rem;
 $input-padding-x: 0.75rem;
 $btn-padding-y: 0.75rem;
@@ -34,7 +36,7 @@ img {
   h1 {
     font-size: 28px;
     font-weight: normal;
-    margin: 0 0 1rem;
+    margin: 1rem 0;
     color: rgba($bg-dark-text-color, 0.95);
   }
   color: rgba($bg-dark-text-color, 0.8);
@@ -42,6 +44,7 @@ img {
 
 .s-card {
   background: $bg-light;
+  padding-bottom: 2rem;
 }
 
 .c-card {
@@ -91,10 +94,58 @@ img {
   }
   &:hover {
     .dropdown-menu {
-      margin-top: -0.5rem;
+      margin-top: -0.25rem;
       right: 0;
-      width: 200px;
+      left: auto;
+      width: 150px;
       display: block;
+      padding-top: 0;
+      padding-bottom: 0;
+      .dropdown-item {
+        cursor: pointer;
+      }
     }
+  }
+}
+
+.loader {
+  background: $bg-dark;
+  height: 100vh;
+}
+
+.c-youtube {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25;
+  height: 0;
+  margin-bottom: 1rem;
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.c-live {
+  border: 2px solid $danger;
+  border-radius: 2px;
+  text-transform: uppercase;
+  padding: 1px 5px 1px 20px;
+  position: relative;
+  color: $danger;
+  line-height: 20px;
+  &:before {
+    content: "";
+    $size: 10px;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    border-radius: $size;
+    width: $size;
+    height: $size;
+    background: $danger;
+    transform: translate(-50%, -50%);
   }
 }

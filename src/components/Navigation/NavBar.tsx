@@ -24,7 +24,7 @@ const NavBar: React.FC<{}> = () => {
       </Link>
       <div className="media align-items-center navbar-profile">
         <div className="media-body">
-          <h6>Welcome, {auth?.currentUser?.displayName}</h6>
+          <h6>{auth?.currentUser?.displayName}</h6>
           <div className="dropdown-menu">
             <a
               className="dropdown-item"

@@ -1,6 +1,7 @@
 import React from "react";
 import MainLayout from "@layouts/MainLayout";
 import Head from "next/head";
+import YouTube from "@components/YoutubeIframe";
 
 const Index: React.FC<{}> = () => {
   return (
@@ -14,7 +15,12 @@ const Index: React.FC<{}> = () => {
             <div className="col-12 col-sm-8">
               <div className="c-video">
                 <div className="c-video__content">
-                  <h1>Video title</h1>
+                  <YouTube youtubeId={"NvqKZHpKs-g"} />
+                  <div className="d-flex justify-content-between align-items-center">
+                    <h1>Video title</h1>
+                    <div className="c-live">WE'RE LIVE</div>
+                  </div>
+
                   <p>
                     asdfasdfasdfasdfasdfasdfasdfasdfasdf
                     asdfasdfasdfasdfasdfasdfasdfasdfasdf
@@ -27,7 +33,7 @@ const Index: React.FC<{}> = () => {
           </div>
         </div>
       </div>
-      <div className="">
+      <div className="s-card">
         <div className="container">
           <div className="row">
             <div className="col-12 col-sm-4">

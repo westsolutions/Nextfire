@@ -34,7 +34,7 @@ const SignUpForm: React.FC<{}> = () => {
 
   const auth = useAuth();
 
-  const signIn = ({ email, password, displayName }: User) => {
+  const signUp = ({ email, password, displayName }: User) => {
     setError(null);
     setSuccess(null);
     auth
@@ -63,7 +63,7 @@ const SignUpForm: React.FC<{}> = () => {
         }}
         validationSchema={SignupSchema}
         onSubmit={values => {
-          signIn(values);
+          signUp(values);
         }}
       >
         {({ errors, touched }) => (
@@ -130,15 +130,15 @@ const SignUpForm: React.FC<{}> = () => {
               ) : null}
             </div>
             <button className="btn btn-primary btn-block" type="submit">
-              Submit
+              Sign Up
             </button>
           </Form>
         )}
       </Formik>
       <div className="text-center mt-2">
-        Already a member?
+        Already a member?&nbsp;
         <Link href={SIGN_IN}>
-          <a> Login</a>
+          <a>Login</a>
         </Link>
       </div>
       {isError && <div className="alert alert-danger mt-4">{isError}</div>}

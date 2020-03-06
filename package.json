@@ -7,6 +7,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "export": "next export",
     "format": "prettier --write \"src/**/*.+(js|ts|tsx|scss)\""
   },
   "repository": {
@@ -35,6 +36,7 @@
     "pretty-quick": "^2.0.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-loader": "^2.4.7",
     "react-redux": "^6.0.0",
     "react-spinners": "^0.4.8",
     "reactfire": "2.0.0-rc.1",

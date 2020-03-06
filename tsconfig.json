@@ -17,7 +17,8 @@
     "paths": {
       "@components/*": ["components/*"],
       "@constants/*": ["constants/*"],
-      "@layouts/*": ["layouts/*"]
+      "@layouts/*": ["layouts/*"],
+      "@pages/*": ["pages/*"]
     }
   },
   "exclude": ["node_modules"],

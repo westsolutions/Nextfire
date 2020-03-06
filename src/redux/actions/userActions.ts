@@ -6,7 +6,7 @@ import { IUserSignUp, IUser } from "../../interfaces";
 //   fbCheckAuth,
 //   fbReauthenticateUser
 // } from '../../firebase/auth';
-import firebase from "../../firebase";
+// import firebase from "../../firebase";
 
 export const setUser = (user: IUser | { photoURL: string }, error: any) => ({
   type: "SET_USER",

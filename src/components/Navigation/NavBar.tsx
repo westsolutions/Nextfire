@@ -1,41 +1,44 @@
-import React, { Component } from "react";
-import Router from "next/router";
-import { connect } from "react-redux";
-import { signOutUser } from "../../redux/actions";
+import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+//TODO: useUser not working in current relase
+import { useAuth } from "reactfire";
+import { SIGN_IN } from "@constants/routes";
 
-class NavBar extends Component<
-  { signOutUser: () => void },
-  { dropdownOpen: boolean }
-> {
-  constructor(props) {
-    super(props);
-    this.state = { dropdownOpen: false };
-  }
-  render() {
-    return (
-      <nav className="navbar navbar-light bg-light justify-content-between">
-        <Link href="/">
-          <a className="navbar-brand">
-            <img src={process.env.LOGO_URL} />
-          </a>
-        </Link>
-        <div className="media align-items-center">
-          <div className="media-body">
-            <h5 className="mt-0">John doe</h5>
+const NavBar: React.FC<{}> = () => {
+  const auth = useAuth();
+  const router = useRouter();
+
+  const logout = () => {
+    auth.signOut().then(res => {
+      router.push(SIGN_IN);
+    });
+  };
+
+  return (
+    <nav className="navbar navbar-light bg-light justify-content-between">
+      <Link href="/">
+        <a className="navbar-brand">
+          <img src={process.env.LOGO_URL} />
+        </a>
+      </Link>
+      <div className="media align-items-center navbar-profile">
+        <div className="media-body">
+          <h6>Welcome, {auth?.currentUser?.displayName}</h6>
+          <div className="dropdown-menu">
+            <a
+              className="dropdown-item"
+              onClick={() => {
+                logout();
+              }}
+            >
+              Logout
+            </a>
           </div>
-          <img
-            className="ml-2 rounded-circle"
-            src="https://via.placeholder.com/64x64"
-          />
         </div>
-      </nav>
-    );
-  }
-}
-
-const mapStateToProps = ({ user, auth }) => {
-  return { user, auth };
+      </div>
+    </nav>
+  );
 };
 
-export default connect(mapStateToProps, { signOutUser })(NavBar);
+export default NavBar;

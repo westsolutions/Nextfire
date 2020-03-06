@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 // import { fbUpdatePassword } from '../../firebase/auth';
-import Link from 'next/link';
-import Router from 'next/router';
+import Link from "next/link";
+import Router from "next/router";
 
 class ResetPassword extends Component {
   state = {
@@ -36,12 +36,12 @@ class ResetPassword extends Component {
   render() {
     return (
       <div className="sign-up">
-        <div >
-          <div>{this.state.error || ''}</div>
+        <div>
+          <div>{this.state.error || ""}</div>
           <form onSubmit={this.handleSubmit}>
             <div>
               <label htmlFor="currenPasswordInput">
-                {' '}
+                {" "}
                 Please Enter Your Current Password
               </label>
               <input
@@ -55,7 +55,7 @@ class ResetPassword extends Component {
             </div>
             <div>
               <label htmlFor="newPassword1Input">
-                {' '}
+                {" "}
                 Please Enter Your New Password
               </label>
               <input
@@ -67,13 +67,12 @@ class ResetPassword extends Component {
                 }
               />
             </div>
-            <div >
+            <div>
               <label htmlFor="confirmPasswordInput">
-                {' '}
+                {" "}
                 Please Confirm Your New Password
               </label>
               <input
-             
                 id="confirmPasswordInput"
                 type="password"
                 name="confirmPassword"
@@ -83,20 +82,15 @@ class ResetPassword extends Component {
               />
               {this.state.confirmPassword &&
               this.state.newPassword !== this.state.confirmPassword ? (
-                <small style={{ color: 'red' }}> Passwords doesn't match</small>
+                <small style={{ color: "red" }}> Passwords doesn't match</small>
               ) : (
                 true
               )}
             </div>
-            <button
-              type="submit"
-            >
-              {' '}
-              Submit{' '}
-            </button>
-            <small >
-              {' '}
-              Already a user , login{' '}
+            <button type="submit"> Submit </button>
+            <small>
+              {" "}
+              Already a user , login{" "}
               <Link href="/signin">
                 <a>here</a>
               </Link>

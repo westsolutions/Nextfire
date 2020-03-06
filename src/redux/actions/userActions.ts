@@ -1,4 +1,4 @@
-import { IUserSignUp, IUser } from '../../interfaces';
+import { IUserSignUp, IUser } from "../../interfaces";
 // import {
 //   fbSignInUser,
 //   fbSignUpUser,
@@ -6,16 +6,16 @@ import { IUserSignUp, IUser } from '../../interfaces';
 //   fbCheckAuth,
 //   fbReauthenticateUser
 // } from '../../firebase/auth';
-import firebase from '../../firebase';
+import firebase from "../../firebase";
 
 export const setUser = (user: IUser | { photoURL: string }, error: any) => ({
-  type: 'SET_USER',
+  type: "SET_USER",
   payload: user,
   error
 });
 
 export const setAuth = (status: boolean, error: any) => ({
-  type: 'SET_AUTH',
+  type: "SET_AUTH",
   payload: status,
   error
 });
@@ -67,16 +67,16 @@ export const signUpUser = ({
   password
 }: IUserSignUp) => {
   // return async dispatch => {}
-    // fbSignUpUser(email, password).then(user => {
-    //   const ref = firebase
-    //     .database()
-    //     .ref()
-    //     .child('user');
-    //   ref.child(user.user.uid).set({ email, gender, dob, name });
-    //   //  dispatch(setUser({ email, gender, dob, name }, false));
-    // });
+  // fbSignUpUser(email, password).then(user => {
+  //   const ref = firebase
+  //     .database()
+  //     .ref()
+  //     .child('user');
+  //   ref.child(user.user.uid).set({ email, gender, dob, name });
+  //   //  dispatch(setUser({ email, gender, dob, name }, false));
+  // });
   // .catch(err => {
-    //
+  //
   // });
 };
 
@@ -99,7 +99,6 @@ export const updateUser = (
     //   .child(uid)
     //   .set({ email, gender, dob, name })
     //   .then(() => dispatch(setUser({ email, gender, dob, name }, false)));
-
     // return true;
   };
 };

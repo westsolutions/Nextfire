@@ -1,4 +1,4 @@
-import { Reducer, AnyAction } from 'redux';
+import { Reducer, AnyAction } from "redux";
 
 const INITIAL_STATE = null;
 
@@ -10,7 +10,7 @@ export const UserReducer: Reducer<Iuser, AnyAction> = (
   action
 ): Iuser => {
   switch (action.type) {
-    case 'SET_USER': {
+    case "SET_USER": {
       return {
         ...state,
         ...action.payload

@@ -1,7 +1,6 @@
-import firebase from '.';
+import firebase from ".";
 
 // let auth = typeof firebase.auth === 'function' ? firebase.auth() : {};
-
 
 // export const fbSignUpUser = (email, password) =>
 //   auth.createUserWithEmailAndPassword(email, password);

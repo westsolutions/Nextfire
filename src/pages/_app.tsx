@@ -1,11 +1,10 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { FirebaseAppProvider } from 'reactfire';
-import store from '../redux/store';
-import '../styles/main.scss';
-import firebaseConfig from '../../firebaseConfig.json';
-import '@firebase/auth';
-
+import React from "react";
+import { Provider } from "react-redux";
+import { FirebaseAppProvider } from "reactfire";
+import store from "../redux/store";
+import "../styles/main.scss";
+import firebaseConfig from "../../firebaseConfig.json";
+import "@firebase/auth";
 
 export default function App({ Component, pageProps }) {
   // static async getInitialProps({ Component, ctx }) {
@@ -21,7 +20,7 @@ export default function App({ Component, pageProps }) {
   // }
 
   // componentDidMount() {
-    // fetchUser()(store.dispatch);
+  // fetchUser()(store.dispatch);
   // }
   return (
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>

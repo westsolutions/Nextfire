@@ -16,7 +16,8 @@
     "baseUrl": "src",
     "paths": {
       "@components/*": ["components/*"],
-      "@layouts/*": ["layouts/*"],
+      "@constants/*": ["constants/*"],
+      "@layouts/*": ["layouts/*"]
     }
   },
   "exclude": ["node_modules"],

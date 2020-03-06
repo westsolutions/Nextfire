@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Link from 'next/link';
-import Router from 'next/router';
-import { MoonLoader } from 'react-spinners';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Link from "next/link";
+import Router from "next/router";
+import { MoonLoader } from "react-spinners";
 
-import { IUser } from '../../interfaces';
-import { signInUser } from '../../redux/actions';
+import { IUser } from "../../interfaces";
+import { signInUser } from "../../redux/actions";
 
 type Props = {
   user?: IUser;
@@ -22,16 +22,16 @@ type Props = {
 };
 
 type State = {
-    email: string;
-    password: string;
-    error: string;
-    signingIn: boolean;
-}
+  email: string;
+  password: string;
+  error: string;
+  signingIn: boolean;
+};
 
 class SignIn extends Component<Props, State> {
   state = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     error: null,
     signingIn: false
   };
@@ -47,8 +47,8 @@ class SignIn extends Component<Props, State> {
       })
       .then(response => {
         this.setState({ signingIn: false });
-        if (!Router.router.query.current || Router.router.query.current === '/')
-          response && Router.push('/dashboard');
+        if (!Router.router.query.current || Router.router.query.current === "/")
+          response && Router.push("/dashboard");
         else {
           response &&
             Router.router.query.current &&
@@ -61,40 +61,30 @@ class SignIn extends Component<Props, State> {
 
     return (
       <div>
-        <nav
-        >
+        <nav>
           <span className="navbar-brand">
             <Link href="/dashboard">
               <a>Dashboard</a>
             </Link>
           </span>
-          <form
-            onSubmit={this.handleSubmit}
-          >
-            <div
-
-              style={{ color: 'whitesmoke' }}
-            >
+          <form onSubmit={this.handleSubmit}>
+            <div style={{ color: "whitesmoke" }}>
               <label htmlFor="emailInput"> Email Address</label>
               <input
-                
                 id="emailInput"
                 type="email"
                 name="email"
                 onChange={event => this.setState({ email: event.target.value })}
               />
               <small>
-                {' '}
-                Not a user ? register{' '}
+                {" "}
+                Not a user ? register{" "}
                 <Link href="/signup">
                   <a>here</a>
-                </Link>{' '}
+                </Link>{" "}
               </small>
             </div>
-            <div
-
-              style={{ color: 'whitesmoke' }}
-            >
+            <div style={{ color: "whitesmoke" }}>
               <label htmlFor="passwordInput"> Password</label>
               <input
                 id="password"
@@ -105,7 +95,7 @@ class SignIn extends Component<Props, State> {
                 }
               />
               <small>
-                Forgot your password , click{' '}
+                Forgot your password , click{" "}
                 <Link href="/forgot-password">
                   <a> here</a>
                 </Link>
@@ -115,50 +105,37 @@ class SignIn extends Component<Props, State> {
             <div>
               {this.state.signingIn ? (
                 <div>
-                  <MoonLoader sizeUnit={'px'} size={30} color={'whitesmoke'} />{' '}
+                  <MoonLoader sizeUnit={"px"} size={30} color={"whitesmoke"} />{" "}
                 </div>
               ) : (
-                  <button
-                    disabled={this.state.signingIn}
-                    type="submit"
-                    style={{ marginTop: '40%' }}
-                  >
-                    Submit
+                <button
+                  disabled={this.state.signingIn}
+                  type="submit"
+                  style={{ marginTop: "40%" }}
+                >
+                  Submit
                 </button>
-                )}
+              )}
             </div>
           </form>
         </nav>
-        <div
-          
-          style={{ margin: 'auto', width: 'fit-content', color: 'red' }}
-        >
+        <div style={{ margin: "auto", width: "fit-content", color: "red" }}>
           {this.state.error
             ? this.state.error
-              .split('/')[1]
-              .split('-')
-              .join(' ')
-            : ''}
+                .split("/")[1]
+                .split("-")
+                .join(" ")
+            : ""}
         </div>
         <div>
           {facts &&
             facts.all &&
             facts.all.map(item => (
-              <div
-                key={item._id}
-              >
+              <div key={item._id}>
                 <div>
-                  <h5>
-                    {item.user && item.user.name.first}
-                  </h5>
-                  <h6
-                  >
-                    {item.user && item.user.name.last}
-                  </h6>
-                  <p>
-                    {' '}
-                    {item.text.substr(0, 100)}
-                  </p>
+                  <h5>{item.user && item.user.name.first}</h5>
+                  <h6>{item.user && item.user.name.last}</h6>
+                  <p> {item.text.substr(0, 100)}</p>
                 </div>
               </div>
             ))}
@@ -173,6 +150,6 @@ const mapStateToProps = ({ user }) => {
 };
 
 export default connect(
-  mapStateToProps,
+  mapStateToProps
   // { signInUser }
 )(SignIn);

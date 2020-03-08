@@ -27,6 +27,7 @@
     "bootstrap": "^4.4.1",
     "classnames": "^2.2.6",
     "dotenv-webpack": "^1.7.0",
+    "emoji-mart": "^2.11.2",
     "firebase": "^7.9.3",
     "formik": "^2.1.4",
     "husky": "^4.2.3",
@@ -36,6 +37,7 @@
     "pretty-quick": "^2.0.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-file-utils": "0.3.13",
     "react-loader": "^2.4.7",
     "react-redux": "^6.0.0",
     "react-spinners": "^0.4.8",
@@ -43,6 +45,7 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "stream-chat-react": "^0.8.5",
     "yup": "^0.28.1"
   },
   "devDependencies": {

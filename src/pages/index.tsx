@@ -1,9 +1,13 @@
 import React from "react";
 import MainLayout from "@layouts/MainLayout";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import YouTube from "@components/YoutubeIframe";
+const ChatBox = dynamic(() => import("@components/Chat"), { ssr: false });
+import { StreamChat } from "stream-chat";
 
-const Index: React.FC<{}> = () => {
+function Index({ userToken }) {
+  // const auth = useAuth();
   return (
     <MainLayout>
       <Head>
@@ -29,7 +33,9 @@ const Index: React.FC<{}> = () => {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-sm-4"></div>
+            <div className="col-12 col-sm-4">
+              <ChatBox userToken={userToken} />
+            </div>
           </div>
         </div>
       </div>
@@ -50,6 +56,18 @@ const Index: React.FC<{}> = () => {
       </div>
     </MainLayout>
   );
+}
+
+Index.getInitialProps = async ctx => {
+  // const auth = useAuth();
+  // debugger;
+  const chatClient = new StreamChat(
+    "hxewefpgsj8j",
+    "rsusyvfkm2wgppvjc4mbpqwt9wvwtg5txqzantj3x4a9tctnrq7ngx5aay6adued"
+  );
+  const userToken = chatClient.createToken("user-1");
+  // console.log({ chatClient, userToken });
+  return { userToken };
 };
 
 export default Index;

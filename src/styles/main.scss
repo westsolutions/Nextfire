@@ -12,6 +12,7 @@ $bg-light: #f5f8fd;
 $card-bg: #ebebeb;
 
 @import "~bootstrap/scss/bootstrap";
+@import "chat/index";
 
 img {
   max-width: 100%;
@@ -147,5 +148,11 @@ img {
     height: $size;
     background: $danger;
     transform: translate(-50%, -50%);
+  }
+}
+
+.rfu-file-upload-button {
+  label {
+    margin-bottom: 0;
   }
 }

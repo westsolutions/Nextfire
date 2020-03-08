@@ -7,7 +7,6 @@ const ChatBox = dynamic(() => import("@components/Chat"), { ssr: false });
 import { StreamChat } from "stream-chat";
 
 function Index({ userToken }) {
-  // const auth = useAuth();
   return (
     <MainLayout>
       <Head>
@@ -19,17 +18,12 @@ function Index({ userToken }) {
             <div className="col-12 col-sm-8">
               <div className="c-video">
                 <div className="c-video__content">
-                  <YouTube youtubeId={"NvqKZHpKs-g"} />
+                  <YouTube youtubeId={process.env.CONTENT_VIDEO_YOUTUBE_ID} />
                   <div className="d-flex justify-content-between align-items-center">
-                    <h1>Video title</h1>
+                    <h1>{process.env.CONTENT_VIDEO_TITLE}</h1>
                     <div className="c-live">WE'RE LIVE</div>
                   </div>
-
-                  <p>
-                    asdfasdfasdfasdfasdfasdfasdfasdfasdf
-                    asdfasdfasdfasdfasdfasdfasdfasdfasdf
-                    asdfasdfasdfasdfasdfasdfasdfasdfasdf
-                  </p>
+                  <p>{process.env.CONTENT_VIDEO_CONTENT}</p>
                 </div>
               </div>
             </div>
@@ -43,13 +37,19 @@ function Index({ userToken }) {
         <div className="container">
           <div className="row">
             <div className="col-12 col-sm-4">
-              <div className="c-card"></div>
+              <div className="c-card">
+                <img src={process.env.CONTENT_IMG_1} alt="" />
+              </div>
             </div>
             <div className="col-12 col-sm-4">
-              <div className="c-card"></div>
+              <div className="c-card">
+                <img src={process.env.CONTENT_IMG_2} alt="" />
+              </div>
             </div>
             <div className="col-12 col-sm-4">
-              <div className="c-card"></div>
+              <div className="c-card">
+                <img src={process.env.CONTENT_IMG_3} alt="" />
+              </div>
             </div>
           </div>
         </div>
@@ -59,14 +59,11 @@ function Index({ userToken }) {
 }
 
 Index.getInitialProps = async ctx => {
-  // const auth = useAuth();
-  // debugger;
   const chatClient = new StreamChat(
-    "hxewefpgsj8j",
-    "rsusyvfkm2wgppvjc4mbpqwt9wvwtg5txqzantj3x4a9tctnrq7ngx5aay6adued"
+    process.env.GET_STREAM_PUBLIC,
+    process.env.GET_STREAM_SECRET
   );
   const userToken = chatClient.createToken("user-1");
-  // console.log({ chatClient, userToken });
   return { userToken };
 };
 

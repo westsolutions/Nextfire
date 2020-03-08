@@ -36,6 +36,11 @@ const NavBar: React.FC<{}> = () => {
             </a>
           </div>
         </div>
+        <img
+          className="rounded-circle"
+          src={`https://getstream.io/random_svg/?name=${auth.currentUser.displayName}`}
+          alt=""
+        />
       </div>
     </nav>
   );

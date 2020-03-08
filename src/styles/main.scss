@@ -87,12 +87,7 @@ img {
   }
 }
 
-.navbar-profile .media-body {
-  position: relative;
-  h6 {
-    margin-bottom: 0;
-    padding: 0.25rem 0;
-  }
+.navbar-profile {
   &:hover {
     .dropdown-menu {
       margin-top: -0.25rem;
@@ -105,6 +100,17 @@ img {
       .dropdown-item {
         cursor: pointer;
       }
+    }
+  }
+  .media-body {
+    position: relative;
+    h6 {
+      margin-bottom: 0;
+      padding: 0.25rem 0;
+    }
+    + img {
+      max-width: 50px;
+      margin-left: 1rem;
     }
   }
 }

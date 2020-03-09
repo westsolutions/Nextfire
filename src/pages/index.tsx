@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "@layouts/MainLayout";
 import Head from "next/head";
+import { useAuth } from "reactfire";
 import dynamic from "next/dynamic";
+import axios from "axios";
 import YouTube from "@components/YoutubeIframe";
 const ChatBox = dynamic(() => import("@components/Chat"), { ssr: false });
-import { StreamChat } from "stream-chat";
 
-function Index({ userToken }) {
+function Index() {
+  const [userToken, setUserToken] = useState(null);
+  const [userId, setUserName] = useState(null);
+  const auth = useAuth();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((currentUser: any) => {
+      if (currentUser) {
+        fetchUserToken(currentUser);
+      }
+    });
+    const fetchUserToken = async currentUser => {
+      await axios(
+        `${process.env.BACKEND_URL}:${process.env.SERVER_PORT}/chat?user=${currentUser.uid}`
+      ).then(res => {
+        setUserToken(res.data);
+        setUserName(currentUser.uid);
+      });
+    };
+  }, []);
+
   return (
     <MainLayout>
       <Head>
@@ -28,7 +49,7 @@ function Index({ userToken }) {
               </div>
             </div>
             <div className="col-12 col-sm-4">
-              <ChatBox userToken={userToken} />
+              {userToken && <ChatBox userToken={userToken} userId={userId} />}
             </div>
           </div>
         </div>
@@ -57,14 +78,5 @@ function Index({ userToken }) {
     </MainLayout>
   );
 }
-
-Index.getInitialProps = async ctx => {
-  const chatClient = new StreamChat(
-    process.env.GET_STREAM_PUBLIC,
-    process.env.GET_STREAM_SECRET
-  );
-  const userToken = chatClient.createToken("user-1");
-  return { userToken };
-};
 
 export default Index;

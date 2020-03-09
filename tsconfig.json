@@ -18,7 +18,8 @@
       "@components/*": ["components/*"],
       "@constants/*": ["constants/*"],
       "@layouts/*": ["layouts/*"],
-      "@pages/*": ["pages/*"]
+      "@pages/*": ["pages/*"],
+      "@hooks/*": ["hooks/*"]
     }
   },
   "exclude": ["node_modules"],

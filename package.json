@@ -8,9 +8,8 @@
     "dev:local": "npm-run-all --parallel backend dev",
     "backend": "NODE_ENV=development node server.js",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "export": "next export",
-    "heroku-postbuild": "npm run build",
     "format": "prettier --write \"src/**/*.+(js|ts|tsx|scss)\""
   },
   "repository": {

@@ -39,11 +39,11 @@ const SignUpForm: React.FC<{}> = () => {
     setSuccess(null);
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        auth.currentUser.updateProfile({
+      .then((user: any) => {
+        user.currentUser.updateProfile({
           displayName: displayName
         });
-        setSuccess("Your account created. Check your email and login");
+        setSuccess("Your account created");
       })
       .catch(err => {
         setError(err?.message ? err?.message : "Something went wrong");

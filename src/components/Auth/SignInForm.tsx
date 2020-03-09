@@ -30,6 +30,7 @@ const SignInForm: React.FC<{}> = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(res => {
+        localStorage.setItem(email, "TRUE");
         router.push(INDEX);
       })
       .catch(err => {

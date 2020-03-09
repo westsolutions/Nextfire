@@ -10,6 +10,9 @@ const NavBar: React.FC<{}> = () => {
   const router = useRouter();
 
   const logout = () => {
+    if (auth.currentUser.email) {
+      localStorage.removeItem(auth.currentUser.email);
+    }
     auth.signOut().then(res => {
       router.push(SIGN_IN);
     });

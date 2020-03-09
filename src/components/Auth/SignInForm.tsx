@@ -1,0 +1,110 @@
+import React, { useState } from "react";
+import { useAuth } from "reactfire";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import classnames from "classnames";
+import Link from "next/link";
+import { SIGN_UP, PASSWORD_FORGOT, INDEX } from "@constants/routes";
+import "@firebase/auth";
+import { useRouter } from "next/router";
+
+const SignInSchema = Yup.object().shape({
+  email: Yup.string().required("This field is required"),
+  password: Yup.string().required("This field is required")
+});
+
+interface Login {
+  email: string;
+  password: string;
+}
+
+const SignInForm: React.FC<{}> = () => {
+  const [isError, setError] = useState<string | null>(null);
+  const [isSuccess, setSuccess] = useState(null);
+  const router = useRouter();
+  const auth = useAuth();
+
+  const signIn = ({ email, password }: Login) => {
+    setError(null);
+    setSuccess(null);
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(res => {
+        localStorage.setItem(email, "TRUE");
+        router.push(INDEX);
+      })
+      .catch(err => {
+        setError(err?.message ? err?.message : "Something went wrong");
+        console.log(err?.message);
+      });
+  };
+
+  return (
+    <>
+      <h1>Login to your account</h1>
+      <Formik
+        initialValues={{
+          email: "",
+          password: ""
+        }}
+        validationSchema={SignInSchema}
+        onSubmit={values => {
+          signIn(values);
+        }}
+      >
+        {({ errors, touched }) => (
+          <Form className="form">
+            <div className="form-group">
+              <Field
+                name="email"
+                type="email"
+                placeholder="E-mail"
+                className={classnames([
+                  "form-control",
+                  { "is-invalid": errors.email && touched.email }
+                ])}
+              />
+              {errors.email && touched.email ? (
+                <div className="invalid-feedback">{errors.email}</div>
+              ) : null}
+            </div>
+            <div className="form-group">
+              <Field
+                name="password"
+                type="password"
+                placeholder="Password"
+                className={classnames([
+                  "form-control",
+                  { "is-invalid": errors.password && touched.password }
+                ])}
+              />
+              <div className="text-center">
+                <small>
+                  Don't know your password?&nbsp;
+                  <Link href={PASSWORD_FORGOT}>
+                    <a>Forgot password</a>
+                  </Link>
+                </small>
+              </div>
+              {errors.password && touched.password ? (
+                <div className="invalid-feedback">{errors.password}</div>
+              ) : null}
+            </div>
+            <button className="btn btn-primary btn-block" type="submit">
+              Login
+            </button>
+          </Form>
+        )}
+      </Formik>
+      <div className="text-center mt-2">
+        Don't have account yet?&nbsp;
+        <Link href={SIGN_UP}>
+          <a>Create account</a>
+        </Link>
+      </div>
+      {isError && <div className="alert alert-danger mt-4">{isError}</div>}
+      {isSuccess && <div className="alert alert-success mt-4">{isSuccess}</div>}
+    </>
+  );
+};
+export default SignInForm;

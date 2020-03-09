@@ -40,7 +40,7 @@ const SignUpForm: React.FC<{}> = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((user: any) => {
-        user.currentUser.updateProfile({
+        auth.currentUser.updateProfile({
           displayName: displayName
         });
         setSuccess("Your account created");

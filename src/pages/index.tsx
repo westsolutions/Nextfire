@@ -36,7 +36,7 @@ function Index() {
       <div className="s-video">
         <div className="container">
           <div className="row">
-            <div className="col-12 col-sm-8">
+            <div className="col-12 col-md-8">
               <div className="c-video">
                 <div className="c-video__content">
                   <YouTube youtubeId={process.env.CONTENT_VIDEO_YOUTUBE_ID} />
@@ -48,7 +48,7 @@ function Index() {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-md-4">
               {userToken && <ChatBox userToken={userToken} userId={userId} />}
             </div>
           </div>
@@ -57,17 +57,17 @@ function Index() {
       <div className="s-card">
         <div className="container">
           <div className="row">
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-md-4">
               <div className="c-card">
                 <img src={process.env.CONTENT_IMG_1} alt="" />
               </div>
             </div>
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-md-4">
               <div className="c-card">
                 <img src={process.env.CONTENT_IMG_2} alt="" />
               </div>
             </div>
-            <div className="col-12 col-sm-4">
+            <div className="col-12 col-md-4">
               <div className="c-card">
                 <img src={process.env.CONTENT_IMG_3} alt="" />
               </div>

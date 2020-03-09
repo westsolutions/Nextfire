@@ -20,7 +20,7 @@ function Index() {
     });
     const fetchUserToken = async currentUser => {
       await axios(
-        `${process.env.BACKEND_URL}:${process.env.SERVER_PORT}/chat?user=${currentUser.uid}`
+        `${process.env.BACKEND_URL}/chat?user=${currentUser.uid}`
       ).then(res => {
         setUserToken(res.data);
         setUserName(currentUser.uid);

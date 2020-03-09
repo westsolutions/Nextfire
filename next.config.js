@@ -8,7 +8,7 @@ module.exports = withCSS(
       BASE_URL: process.env.BASE_URL || "http://localhost:3000/",
       LOGO_URL: process.env.LOGO_URL || "/logos/logo.png",
       SERVER_PORT: process.env.SERVER_PORT || "4000",
-      BACKEND_URL: process.env.BACKEND_URL || "http://localhost",
+      BACKEND_URL: process.env.BACKEND_URL || "http://localhost:5000/",
       GET_STREAM_PUBLIC: process.env.GET_STREAM_PUBLIC || "hxewefpgsj8j",
       GET_STREAM_SECRET:
         process.env.GET_STREAM_SECRET ||

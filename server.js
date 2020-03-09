@@ -10,11 +10,8 @@ const numCPUs = require("os").cpus().length;
 
 const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 4000;
-const app = express();
 
 dotenv.config();
-
-app.use(cors());
 
 var chatClient = new StreamChat(
   process.env.GET_STREAM_PUBLIC,
@@ -40,6 +37,7 @@ if (!dev && cluster.isMaster) {
 
   nextApp.prepare().then(() => {
     const server = express();
+    server.use(cors());
 
     if (!dev) {
       // Enforce SSL & HSTS in production
@@ -65,6 +63,7 @@ if (!dev && cluster.isMaster) {
     );
 
     server.get("/chat", (req, res, next) => {
+      console.log("xxxx");
       res.json(chatClient.createToken(req.query.user));
     });
 

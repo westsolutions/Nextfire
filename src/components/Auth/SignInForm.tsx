@@ -21,19 +21,24 @@ interface Login {
 const SignInForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+
   const router = useRouter();
   const auth = useAuth();
 
   const signIn = ({ email, password }: Login) => {
     setError(null);
     setSuccess(null);
+    setLoading(true);
     auth
       .signInWithEmailAndPassword(email, password)
       .then(res => {
+        setLoading(false);
         localStorage.setItem(email, "TRUE");
         router.push(INDEX);
       })
       .catch(err => {
+        setLoading(false);
         setError(err?.message ? err?.message : "Something went wrong");
         console.log(err?.message);
       });
@@ -91,7 +96,15 @@ const SignInForm: React.FC<{}> = () => {
               ) : null}
             </div>
             <button className="btn btn-primary btn-block" type="submit">
-              Login
+              {isLoading && (
+                <div
+                  className="spinner-border text-light spinner-border-sm"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
+              {!isLoading && <span>Login</span>}
             </button>
           </Form>
         )}

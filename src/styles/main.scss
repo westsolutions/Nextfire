@@ -173,3 +173,29 @@ body {
     margin-bottom: 3px;
   }
 }
+
+.str-chat__send-button {
+  height: 45px;
+}
+
+.str-chat__input-emojiselect,
+.str-chat__input .rfu-file-upload-button {
+  top: calc(100% - 40px);
+}
+
+.str-chat__header-livestream-right {
+  display: none !important;
+}
+.str-chat__header-livestream {
+  padding-right: 10px;
+}
+
+@include media-breakpoint-down(sm) {
+  .str-chat__input-emojiselect {
+    right: 60px;
+  }
+
+  .str-chat__input .rfu-file-upload-button {
+    right: 80px;
+  }
+}

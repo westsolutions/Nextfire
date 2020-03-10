@@ -31,6 +31,7 @@ interface User {
 const SignUpForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
+  const [isLoaing, setLoading] = useState(false);
 
   const auth = useAuth();
 

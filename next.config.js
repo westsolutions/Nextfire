@@ -33,7 +33,23 @@ module.exports = withCSS(
       CONTENT_IMG_HREF_2:
         process.env.CONTENT_IMG_HREF_2 || "https://dummyimage.com/640x4:3",
       CONTENT_IMG_HREF_3:
-        process.env.CONTENT_IMG_HREF_3 || "https://dummyimage.com/640x4:3"
+        process.env.CONTENT_IMG_HREF_3 || "https://dummyimage.com/640x4:3",
+      FIREBASE_API_KEY:
+        process.env.FIREBASE_API_KEY ||
+        "AIzaSyBb0--6EL3IyFtvA08t9akw8frWBggZzyQ",
+      FIREBASE_AUTH_DOMAIN:
+        process.env.FIREBASE_AUTH_DOMAIN || "tribesocial-a13fb.firebaseapp.com",
+      FIREBASE_DATABASE_URL:
+        process.env.FIREBASE_DATABASE_URL ||
+        "https://tribesocial-a13fb.firebaseio.com",
+      FIREBASE_PROJECTID: process.env.FIREBASE_PROJECTID || "tribesocial-a13fb",
+      FIREBASE_STORAGEBUCKET:
+        process.env.FIREBASE_STORAGEBUCKET || "tribesocial-a13fb.appspot.com",
+      FIREBASE_MESSAGINGSENDERID:
+        process.env.FIREBASE_MESSAGINGSENDERID || "736494109878",
+      FIREBASE_APPID:
+        process.env.FIREBASE_APPID ||
+        "1:736494109878:web:dac83729db2ddfe78d5217"
     },
     webpack: function(cfg) {
       if (cfg.resolve.plugins) {

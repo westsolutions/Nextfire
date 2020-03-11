@@ -46,7 +46,7 @@ const SignUpForm: React.FC<{}> = () => {
         auth.currentUser.updateProfile({
           displayName: displayName
         });
-        setSuccess("Your account created. Wait few secondds you");
+        setSuccess("Your account is created. Wait a few seconds you");
         auth
           .signInWithEmailAndPassword(email, password)
           .then(res => {
@@ -69,7 +69,7 @@ const SignUpForm: React.FC<{}> = () => {
 
   return (
     <>
-      <h1>Create Your Free account</h1>
+      <h1>Create Your Free account to access the live stream</h1>
       <Formik
         initialValues={{
           displayName: "",

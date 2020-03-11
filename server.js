@@ -1,9 +1,6 @@
-const express = require("express");
 const dotenv = require("dotenv");
 const StreamChat = require("stream-chat").StreamChat;
-const cors = require("cors");
 const next = require("next");
-const path = require("path");
 const { createServer } = require("http");
 const { parse } = require("url");
 
@@ -20,10 +17,12 @@ var chatClient = new StreamChat(
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-app.use(cors());
-
 app.prepare().then(() => {
   createServer((req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Request-Method", "*");
+    res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
+    res.setHeader("Access-Control-Allow-Headers", "*");
     // Be sure to pass `true` as the second argument to `url.parse`.
     // This tells it to parse the query portion of the URL.
     const parsedUrl = parse(req.url, true);

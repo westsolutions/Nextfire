@@ -66,21 +66,21 @@ function Index() {
           <div className="row">
             <div className="col-12 col-md-4">
               <div className="c-card">
-                <a href={process.env.CONTENT_IMG_HREF_1}>
+                <a target="_blank" href={process.env.CONTENT_IMG_HREF_1}>
                   <img src={process.env.CONTENT_IMG_1} alt="" />
                 </a>
               </div>
             </div>
             <div className="col-12 col-md-4">
               <div className="c-card">
-                <a href={process.env.CONTENT_IMG_HREF_2}>
+                <a target="_blank" href={process.env.CONTENT_IMG_HREF_2}>
                   <img src={process.env.CONTENT_IMG_2} alt="" />
                 </a>
               </div>
             </div>
             <div className="col-12 col-md-4">
               <div className="c-card">
-                <a href={process.env.CONTENT_IMG_HREF_3}>
+                <a target="_blank" href={process.env.CONTENT_IMG_HREF_3}>
                   <img src={process.env.CONTENT_IMG_3} alt="" />
                 </a>
               </div>

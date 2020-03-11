@@ -55,7 +55,7 @@ const ResetPasswordForm: React.FC<{}> = () => {
 
   return (
     <>
-      <h1>Enter your password</h1>
+      <h1>Type your new password</h1>
       <Formik
         initialValues={{
           password: "",

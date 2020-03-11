@@ -35,7 +35,6 @@
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
     "emoji-mart": "^2.11.2",
-    "express": "4.17.1",
     "firebase": "^7.9.3",
     "formik": "^2.1.4",
     "husky": "^4.2.3",

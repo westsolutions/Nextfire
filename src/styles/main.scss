@@ -18,6 +18,10 @@ img {
   max-width: 100%;
 }
 
+body {
+  background: $bg-light;
+}
+
 .navbar-brand {
   img {
     max-width: 140px;
@@ -168,4 +172,40 @@ img {
   label {
     margin-bottom: 3px;
   }
+}
+
+.str-chat__send-button {
+  height: 45px;
+}
+
+.str-chat__input-emojiselect,
+.str-chat__input .rfu-file-upload-button {
+  top: calc(100% - 40px);
+}
+
+.str-chat__header-livestream-right {
+  display: none !important;
+}
+.str-chat__header-livestream {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@include media-breakpoint-down(sm) {
+  .str-chat__input-emojiselect {
+    right: 60px;
+  }
+
+  .str-chat__input .rfu-file-upload-button {
+    right: 80px;
+  }
+}
+
+.messaging.str-chat .str-chat__list {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.str-chat__message-simple__actions {
+  min-width: 20px;
+  flex-direction: column;
 }

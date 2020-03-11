@@ -4,7 +4,8 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import classnames from "classnames";
 import Link from "next/link";
-import { SIGN_IN } from "@constants/routes";
+import { useRouter } from "next/router";
+import { SIGN_IN, INDEX } from "@constants/routes";
 
 const SignupSchema = Yup.object().shape({
   displayName: Yup.string()
@@ -31,21 +32,36 @@ interface User {
 const SignUpForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
-
+  const [isLoading, setLoading] = useState(false);
+  const router = useRouter();
   const auth = useAuth();
 
   const signUp = ({ email, password, displayName }: User) => {
     setError(null);
     setSuccess(null);
+    setLoading(true);
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((user: any) => {
         auth.currentUser.updateProfile({
           displayName: displayName
         });
-        setSuccess("Your account created");
+        setSuccess("Your account created. Wait few secondds you");
+        auth
+          .signInWithEmailAndPassword(email, password)
+          .then(res => {
+            setLoading(false);
+            localStorage.setItem(email, "TRUE");
+            router.push(INDEX);
+          })
+          .catch(err => {
+            setLoading(false);
+            setError(err?.message ? err?.message : "Something went wrong");
+            console.log(err?.message);
+          });
       })
       .catch(err => {
+        setLoading(false);
         setError(err?.message ? err?.message : "Something went wrong");
         console.log(err?.message);
       });
@@ -129,8 +145,20 @@ const SignUpForm: React.FC<{}> = () => {
                 </div>
               ) : null}
             </div>
-            <button className="btn btn-primary btn-block" type="submit">
-              Sign Up
+            <button
+              className="btn btn-primary btn-block"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading && (
+                <div
+                  className="spinner-border text-light spinner-border-sm"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
+              {!isLoading && <span>Sign Up</span>}
             </button>
           </Form>
         )}

@@ -31,7 +31,7 @@ function Index() {
   return (
     <MainLayout>
       <Head>
-        <title>Welcome</title>
+        <title>Tribe Social</title>
       </Head>
       <div className="s-video">
         <div className="container">

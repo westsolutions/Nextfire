@@ -31,7 +31,7 @@ const ResetPasswordForm: React.FC<{}> = () => {
       .sendPasswordResetEmail(email)
       .then(res => {
         setLoading(false);
-        setSuccess("Check your mail box");
+        setSuccess("Check your email");
         console.log(res);
       })
       .catch(err => {

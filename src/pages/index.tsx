@@ -31,7 +31,7 @@ function Index() {
   return (
     <MainLayout>
       <Head>
-        <title>Tribe Social</title>
+        <title>Live Stream Event | Tribe</title>
       </Head>
       <div className="s-video">
         <div className="container">

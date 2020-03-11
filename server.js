@@ -5,7 +5,7 @@ const { createServer } = require("http");
 const { parse } = require("url");
 
 const dev = process.env.NODE_ENV !== "production";
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
 dotenv.config();
 

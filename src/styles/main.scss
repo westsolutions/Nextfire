@@ -187,7 +187,8 @@ body {
   display: none !important;
 }
 .str-chat__header-livestream {
-  padding-right: 10px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 @include media-breakpoint-down(sm) {
@@ -198,4 +199,13 @@ body {
   .str-chat__input .rfu-file-upload-button {
     right: 80px;
   }
+}
+
+.messaging.str-chat .str-chat__list {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.str-chat__message-simple__actions {
+  min-width: 20px;
+  flex-direction: column;
 }

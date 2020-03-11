@@ -4,21 +4,24 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import classnames from "classnames";
 import Link from "next/link";
-import { SIGN_UP, PASSWORD_FORGOT, INDEX } from "@constants/routes";
-import "@firebase/auth";
+import { SIGN_UP, SIGN_IN } from "@constants/routes";
 import { useRouter } from "next/router";
 
-const SignInSchema = Yup.object().shape({
-  email: Yup.string().required("This field is required"),
-  password: Yup.string().required("This field is required")
+const ChangePasswordSchema = Yup.object().shape({
+  password: Yup.string()
+    .min(6, "Too Short!")
+    .required("This field is required"),
+  passwordConfirmation: Yup.string()
+    .required("This field is required")
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
 });
 
-interface Login {
-  email: string;
+interface ChangePasswordDto {
   password: string;
+  passwordConfirmation: string;
 }
 
-const SignInForm: React.FC<{}> = () => {
+const ResetPasswordForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -26,16 +29,22 @@ const SignInForm: React.FC<{}> = () => {
   const router = useRouter();
   const auth = useAuth();
 
-  const signIn = ({ email, password }: Login) => {
+  const forgotChangeConfirmationRequest = ({ password }: ChangePasswordDto) => {
     setError(null);
     setSuccess(null);
     setLoading(true);
+
+    const oobCode: string = router.query.oobCode as string;
     auth
-      .signInWithEmailAndPassword(email, password)
+      .confirmPasswordReset(oobCode, password)
       .then(res => {
         setLoading(false);
-        localStorage.setItem(email, "TRUE");
-        router.push(INDEX);
+        setSuccess(
+          "Your password is changed. You will landed to login page in 5 seconds"
+        );
+        setTimeout(() => {
+          router.push(SIGN_IN);
+        }, 5000);
       })
       .catch(err => {
         setLoading(false);
@@ -46,33 +55,19 @@ const SignInForm: React.FC<{}> = () => {
 
   return (
     <>
-      <h1>Login to your account</h1>
+      <h1>Enter your password</h1>
       <Formik
         initialValues={{
-          email: "",
-          password: ""
+          password: "",
+          passwordConfirmation: ""
         }}
-        validationSchema={SignInSchema}
+        validationSchema={ChangePasswordSchema}
         onSubmit={values => {
-          signIn(values);
+          forgotChangeConfirmationRequest(values);
         }}
       >
         {({ errors, touched }) => (
           <Form className="form">
-            <div className="form-group">
-              <Field
-                name="email"
-                type="email"
-                placeholder="E-mail"
-                className={classnames([
-                  "form-control",
-                  { "is-invalid": errors.email && touched.email }
-                ])}
-              />
-              {errors.email && touched.email ? (
-                <div className="invalid-feedback">{errors.email}</div>
-              ) : null}
-            </div>
             <div className="form-group">
               <Field
                 name="password"
@@ -80,19 +75,33 @@ const SignInForm: React.FC<{}> = () => {
                 placeholder="Password"
                 className={classnames([
                   "form-control",
-                  { "is-invalid": errors.password && touched.password }
+                  {
+                    "is-invalid": errors.password && touched.password
+                  }
                 ])}
               />
-              <div className="text-center">
-                <small>
-                  Don't know your password?&nbsp;
-                  <Link href={PASSWORD_FORGOT}>
-                    <a>Forgot password</a>
-                  </Link>
-                </small>
-              </div>
               {errors.password && touched.password ? (
                 <div className="invalid-feedback">{errors.password}</div>
+              ) : null}
+            </div>
+            <div className="form-group">
+              <Field
+                name="passwordConfirmation"
+                type="password"
+                placeholder="Password confirmation"
+                className={classnames([
+                  "form-control",
+                  {
+                    "is-invalid":
+                      errors.passwordConfirmation &&
+                      touched.passwordConfirmation
+                  }
+                ])}
+              />
+              {errors.passwordConfirmation && touched.passwordConfirmation ? (
+                <div className="invalid-feedback">
+                  {errors.passwordConfirmation}
+                </div>
               ) : null}
             </div>
             <button
@@ -108,7 +117,7 @@ const SignInForm: React.FC<{}> = () => {
                   <span className="sr-only">Loading...</span>
                 </div>
               )}
-              {!isLoading && <span>Login</span>}
+              {!isLoading && <span>Reset password</span>}
             </button>
           </Form>
         )}
@@ -116,7 +125,7 @@ const SignInForm: React.FC<{}> = () => {
       <div className="text-center mt-2">
         Don't have account yet?&nbsp;
         <Link href={SIGN_UP}>
-          <a>Create account</a>
+          <a> Create account</a>
         </Link>
       </div>
       {isError && <div className="alert alert-danger mt-4">{isError}</div>}
@@ -124,4 +133,4 @@ const SignInForm: React.FC<{}> = () => {
     </>
   );
 };
-export default SignInForm;
+export default ResetPasswordForm;

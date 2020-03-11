@@ -33,6 +33,7 @@ const SignUpForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
   const [isLoading, setLoading] = useState(false);
+
   const router = useRouter();
   const auth = useAuth();
 

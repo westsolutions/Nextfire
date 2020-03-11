@@ -49,7 +49,14 @@ function Index() {
               </div>
             </div>
             <div className="col-12 col-md-4">
-              {userToken && <ChatBox userToken={userToken} userId={userId} />}
+              {userToken && (
+                <ChatBox
+                  userToken={userToken}
+                  userId={userId}
+                  image={process.env.CONTENT_CHAT_AVATAR}
+                  name={process.env.CONTENT_CHAT_TITLE}
+                />
+              )}
             </div>
           </div>
         </div>

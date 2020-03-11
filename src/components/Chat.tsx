@@ -10,7 +10,7 @@ import { MessageList, MessageInput } from "stream-chat-react";
 import { StreamChat } from "stream-chat";
 import { useAuth } from "reactfire";
 
-const ChatBox = ({ userToken, userId }) => {
+const ChatBox = ({ userToken, userId, image, name }) => {
   const auth = useAuth();
   const chatClient = new StreamChat(
     process.env.GET_STREAM_PUBLIC,
@@ -27,9 +27,9 @@ const ChatBox = ({ userToken, userId }) => {
       userToken
     );
 
-    channel = chatClient.channel("messaging", "stream-live-chat", {
-      image: process.env.CONTENT_CHAT_AVATAR,
-      name: process.env.CONTENT_CHAT_TITLE
+    channel = chatClient.channel("messaging", process.env.CONTENT_CHAT_ID, {
+      image,
+      name
     });
 
     channel.addMembers([userId]);

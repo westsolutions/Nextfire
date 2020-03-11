@@ -95,7 +95,11 @@ const SignInForm: React.FC<{}> = () => {
                 <div className="invalid-feedback">{errors.password}</div>
               ) : null}
             </div>
-            <button className="btn btn-primary btn-block" type="submit">
+            <button
+              className="btn btn-primary btn-block"
+              disabled={isLoading}
+              type="submit"
+            >
               {isLoading && (
                 <div
                   className="spinner-border text-light spinner-border-sm"

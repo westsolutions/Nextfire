@@ -19,34 +19,36 @@ const NavBar: React.FC<{}> = () => {
   };
 
   return (
-    <nav className="navbar navbar-light bg-light d-flex justify-content-between">
-      <Link href="/">
-        <a className="navbar-brand">
-          <img src={process.env.LOGO_URL} />
-        </a>
-      </Link>
-      <div className="media align-items-center navbar-profile">
-        <div className="media-body">
-          <h6>{auth?.currentUser?.displayName}</h6>
-          <div className="dropdown-menu">
-            <a
-              className="dropdown-item"
-              onClick={() => {
-                logout();
-              }}
-            >
-              Logout
-            </a>
+    <nav className="navbar navbar-light bg-light">
+      <div className="container pl-0 pr-0 d-flex justify-content-between">
+        <Link href="/">
+          <a className="navbar-brand">
+            <img src={process.env.LOGO_URL} />
+          </a>
+        </Link>
+        <div className="media align-items-center navbar-profile">
+          <div className="media-body">
+            <h6>{auth?.currentUser?.displayName}</h6>
+            <div className="dropdown-menu">
+              <a
+                className="dropdown-item"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                Logout
+              </a>
+            </div>
           </div>
-        </div>
 
-        {auth?.currentUser?.displayName && (
-          <img
-            className="rounded-circle"
-            src={`https://getstream.io/random_svg/?name=${auth?.currentUser?.displayName}`}
-            alt={auth?.currentUser?.displayName}
-          />
-        )}
+          {auth?.currentUser?.displayName && (
+            <img
+              className="rounded-circle"
+              src={`https://getstream.io/random_svg/?name=${auth?.currentUser?.displayName}`}
+              alt={auth?.currentUser?.displayName}
+            />
+          )}
+        </div>
       </div>
     </nav>
   );

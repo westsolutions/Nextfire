@@ -54,18 +54,21 @@ const SignUpForm: React.FC<{}> = () => {
           .signInWithEmailAndPassword(email, password)
           .then(res => {
             setLoading(false);
-            firestore
-              .collection(UserTable)
-              .add({
-                displayName,
-                email,
-                // password,
-                platform: process.env.BASE_URL
-              })
-              .then(() => {
-                localStorage.setItem(email, "TRUE");
-                router.push(INDEX);
-              });
+            // debugger;
+            if (process.browser) {
+              firestore
+                .collection(UserTable)
+                .add({
+                  displayName,
+                  email,
+                  // password,
+                  platform: window.location.origin
+                })
+                .then(() => {
+                  localStorage.setItem(email, "TRUE");
+                  router.push(INDEX);
+                });
+            }
           })
           .catch(err => {
             setLoading(false);

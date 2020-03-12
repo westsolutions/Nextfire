@@ -22,7 +22,8 @@ const ChatBox = ({ userToken, userId, image, name }) => {
       {
         id: userId,
         name: auth?.currentUser?.displayName,
-        image: `https://getstream.io/random_svg/?name=${auth?.currentUser?.displayName}`
+        image: `https://getstream.io/random_svg/?name=${auth?.currentUser?.displayName}`,
+        role: "GUEST"
       },
       userToken
     );

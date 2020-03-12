@@ -212,10 +212,27 @@ body {
 }
 
 .messaging.str-chat .str-chat__list {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 .str-chat__message-simple__actions {
   min-width: 20px;
   flex-direction: column;
+}
+
+.messaging.str-chat .str-chat__thread {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  z-index: 100;
+  margin: 0;
+}
+
+.str-chat__container {
+  position: relative;
+}
+
+.str-chat__date-separator {
+  margin: 20px;
 }

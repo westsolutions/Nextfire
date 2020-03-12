@@ -40,7 +40,7 @@ function Index() {
               <div className="c-video">
                 <div className="c-video__content">
                   <YouTube youtubeId={process.env.CONTENT_VIDEO_YOUTUBE_ID} />
-                  <div className="d-flex justify-content-between align-items-center">
+                  <div className="d-md-flex justify-content-md-between align-items-center">
                     <h1>{process.env.CONTENT_VIDEO_TITLE}</h1>
                     <div className="c-live">WE'RE LIVE</div>
                   </div>

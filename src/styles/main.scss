@@ -113,10 +113,18 @@ body {
     h6 {
       margin-bottom: 0;
       padding: 0.25rem 0;
+      font-size: 1rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 120px;
+      @include media-breakpoint-up(sm) {
+        max-width: 200px;
+      }
     }
     + img {
-      max-width: 50px;
-      margin-left: 1rem;
+      max-width: 40px;
+      margin-left: 0.5rem;
     }
   }
 }
@@ -148,6 +156,8 @@ body {
   padding: 1px 5px 1px 20px;
   position: relative;
   color: $danger;
+  display: inline-block;
+  margin: 5px 0;
   line-height: 20px;
   &:before {
     content: "";

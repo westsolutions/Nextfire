@@ -239,3 +239,10 @@ body {
 .str-chat__date-separator {
   margin: 20px;
 }
+
+@media screen and (min-width: 420px) {
+  .str-chat__message-inner,
+  .str-chat__message-simple-inner {
+    margin-right: 0;
+  }
+}

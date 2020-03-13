@@ -159,7 +159,8 @@ body {
   padding: 1px 5px 1px 20px;
   position: relative;
   color: $danger;
-  display: inline-block;
+  // display: inline-block;
+  display: none;
   margin: 5px 0;
   line-height: 20px;
   &:before {
@@ -250,4 +251,53 @@ body {
 .messaging.str-chat .str-chat__list {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.str-chat__message--received {
+  &.str-chat__message--me {
+    .str-chat__message-text,
+    .str-chat__message-simple-text {
+      max-width: 100%;
+    }
+    .str-chat__message-attachment-container {
+      max-width: 100%;
+    }
+  }
+
+  .str-chat__message-text,
+  .str-chat__message-simple-text {
+    max-width: calc(100% - 80px);
+  }
+}
+
+.str-chat__li--single .str-chat__message-text-inner--has-attachment {
+  max-width: 100%;
+}
+
+.str-chat__message-simple-text-inner a {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+  display: inline-block;
+}
+
+@media screen and (min-width: 420px) {
+  .str-chat__message-inner,
+  .str-chat__message-simple-inner {
+    max-width: 100%;
+  }
+  .str-chat__message--me .str-chat__message-inner,
+  .str-chat__message--me .str-chat__message-inner {
+    // margin-left: 0;
+    max-width: calc(100% - 50px);
+  }
+}
+
+.messaging.str-chat .str-chat__message,
+.messaging.str-chat .str-chat__message--me {
+  max-width: 100%;
+}
+.str-chat__message-attachment-container {
+  max-width: calc(100% - 90px);
 }

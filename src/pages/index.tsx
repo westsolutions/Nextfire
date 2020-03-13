@@ -64,7 +64,7 @@ function Index() {
       <div className="s-card">
         <div className="container">
           <div className="row">
-            <div className="col-12 ml-auto mr-auto col-md-8">
+            <div className="col-12 col-md-8">
               <div className="c-card">
                 <a target="_blank" href={process.env.CONTENT_IMG_HREF_1}>
                   <img src={process.env.CONTENT_IMG_1} alt="" />

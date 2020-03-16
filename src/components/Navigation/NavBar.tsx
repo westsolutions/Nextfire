@@ -20,7 +20,7 @@ const NavBar: React.FC<{}> = () => {
 
   return (
     <nav className="navbar navbar-light bg-light">
-      <div className="container d-flex justify-content-between">
+      <div className="container pl-0 pr-0 d-flex justify-content-between">
         <Link href="/">
           <a className="navbar-brand">
             <img src={process.env.LOGO_URL} />

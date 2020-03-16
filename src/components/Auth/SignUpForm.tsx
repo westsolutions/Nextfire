@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useAuth } from "reactfire";
+import { useAuth, useFirestore } from "reactfire";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import classnames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { SIGN_IN, INDEX } from "@constants/routes";
+import { UserTable } from "@constants/db";
 
 const SignupSchema = Yup.object().shape({
   displayName: Yup.string()
@@ -36,6 +37,7 @@ const SignUpForm: React.FC<{}> = () => {
 
   const router = useRouter();
   const auth = useAuth();
+  const firestore = useFirestore();
 
   const signUp = ({ email, password, displayName }: User) => {
     setError(null);
@@ -52,8 +54,21 @@ const SignUpForm: React.FC<{}> = () => {
           .signInWithEmailAndPassword(email, password)
           .then(res => {
             setLoading(false);
-            localStorage.setItem(email, "TRUE");
-            router.push(INDEX);
+            // debugger;
+            if (process.browser) {
+              firestore
+                .collection(UserTable)
+                .add({
+                  displayName,
+                  email,
+                  // password,
+                  platform: window.location.origin
+                })
+                .then(() => {
+                  localStorage.setItem(email, "TRUE");
+                  router.push(INDEX);
+                });
+            }
           })
           .catch(err => {
             setLoading(false);

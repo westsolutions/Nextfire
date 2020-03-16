@@ -40,7 +40,7 @@ function Index() {
               <div className="c-video">
                 <div className="c-video__content">
                   <YouTube youtubeId={process.env.CONTENT_VIDEO_YOUTUBE_ID} />
-                  <div className="d-flex justify-content-between align-items-center">
+                  <div className="d-md-flex justify-content-md-between align-items-center">
                     <h1>{process.env.CONTENT_VIDEO_TITLE}</h1>
                     <div className="c-live">WE'RE LIVE</div>
                   </div>
@@ -64,14 +64,14 @@ function Index() {
       <div className="s-card">
         <div className="container">
           <div className="row">
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-8">
               <div className="c-card">
                 <a target="_blank" href={process.env.CONTENT_IMG_HREF_1}>
                   <img src={process.env.CONTENT_IMG_1} alt="" />
                 </a>
               </div>
             </div>
-            <div className="col-12 col-md-4">
+            {/* <div className="col-12 col-md-4">
               <div className="c-card">
                 <a target="_blank" href={process.env.CONTENT_IMG_HREF_2}>
                   <img src={process.env.CONTENT_IMG_2} alt="" />
@@ -84,7 +84,7 @@ function Index() {
                   <img src={process.env.CONTENT_IMG_3} alt="" />
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

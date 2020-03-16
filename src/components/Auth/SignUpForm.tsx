@@ -47,7 +47,7 @@ const SignUpForm: React.FC<{}> = () => {
         auth.currentUser.updateProfile({
           displayName: displayName
         });
-        setSuccess("Your account is created. Wait a few seconds you");
+        setSuccess("Your account is created... we're signing you in...");
         auth
           .signInWithEmailAndPassword(email, password)
           .then(res => {

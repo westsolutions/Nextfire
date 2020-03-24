@@ -1,0 +1,41 @@
+.c-video-list {
+  padding: 50px 0;
+  &__title {
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 38px;
+    margin-bottom: 35px;
+    @media (min-width: 768px) {
+      margin-bottom: 65px;
+    }
+  }
+}
+
+.c-video-card {
+  margin-bottom: 25px;
+  display: block;
+  text-decoration: none;
+  color: $bg-dark-text-color;
+  @media (min-width: 768px) {
+    margin-bottom: 50px;
+  }
+  &:hover {
+    text-decoration: none;
+    color: $bg-dark-text-color;
+    opacity: 0.75;
+  }
+  &__title {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 25px;
+    margin-top: 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+  &__duration {
+    font-size: 14px;
+  }
+}

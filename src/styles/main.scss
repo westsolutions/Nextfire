@@ -13,13 +13,16 @@ $card-bg: #ebebeb;
 
 @import "~bootstrap/scss/bootstrap";
 @import "chat/index";
+@import "components/video-card";
 
 img {
   max-width: 100%;
+  height: auto;
 }
 
 body {
-  background: $bg-light;
+  background: $bg-dark;
+  color: $bg-dark-text-color;
 }
 
 .navbar-brand {
@@ -300,4 +303,8 @@ body {
 }
 .str-chat__message-attachment-container {
   max-width: calc(100% - 90px);
+}
+
+.container {
+  max-width: 960px;
 }

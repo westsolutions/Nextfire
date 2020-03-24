@@ -8,18 +8,18 @@ import Loader from "react-loader";
 const MainLayout: React.FC<{}> = ({ children }) => {
   const auth = useAuth();
   const router = useRouter();
-  const [isLoaded, setLoaing] = useState(false);
+  const [isLoaded, setLoading] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((currentUser: any) => {
       if (currentUser && localStorage.getItem(currentUser.email)) {
-        setLoaing(true);
+        setLoading(true);
       } else {
         router.push(SIGN_IN);
       }
     });
     return () => {
-      setLoaing(true);
+      setLoading(true);
     };
   });
 

@@ -23,18 +23,11 @@ module.exports = withCSS(
       CONTENT_CHAT_AVATAR:
         process.env.CONTENT_CHAT_AVATAR ||
         "https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png",
-      CONTENT_IMG_1:
-        process.env.CONTENT_IMG_1 || "https://dummyimage.com/640x4:3",
-      CONTENT_IMG_2:
-        process.env.CONTENT_IMG_2 || "https://dummyimage.com/640x4:3",
-      CONTENT_IMG_3:
-        process.env.CONTENT_IMG_3 || "https://dummyimage.com/640x4:3",
-      CONTENT_IMG_HREF_1:
-        process.env.CONTENT_IMG_HREF_1 || "https://dummyimage.com/640x4:3",
-      CONTENT_IMG_HREF_2:
-        process.env.CONTENT_IMG_HREF_2 || "https://dummyimage.com/640x4:3",
-      CONTENT_IMG_HREF_3:
-        process.env.CONTENT_IMG_HREF_3 || "https://dummyimage.com/640x4:3",
+      CONTENT_CHAT_ENABLED: process.env.CONTENT_CHAT_ENABLED || true,
+      CONTENT_IMG:
+        process.env.CONTENT_IMG ||
+        "https://dummyimage.com/640x4:3, https://dummyimage.com/640x4:3, https://dummyimage.com/640x4:3",
+      CONTENT_IMG_HREF: process.env.CONTENT_IMG_HREF || "#, #, #",
       FIREBASE_API_KEY:
         process.env.FIREBASE_API_KEY ||
         "AIzaSyBb0--6EL3IyFtvA08t9akw8frWBggZzyQ",

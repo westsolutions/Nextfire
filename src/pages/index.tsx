@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MainLayout from "@layouts/MainLayout";
 import VideoList from "@components/Video/VideoList";
-import Link from "next/link";
 import Head from "next/head";
 import { useAuth } from "reactfire";
 import axios from "axios";
@@ -12,7 +11,6 @@ function Index({ source }) {
   const auth = useAuth();
 
   useEffect(() => {
-    console.log(source);
     auth.onAuthStateChanged((currentUser: any) => {
       if (currentUser) {
         fetchUserToken(currentUser);

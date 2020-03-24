@@ -6,6 +6,8 @@ $input-padding-y: 0.75rem;
 $input-padding-x: 0.75rem;
 $btn-padding-y: 0.75rem;
 
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900&display=swap");
+
 $bg-dark: #1a1d29;
 $bg-dark-text-color: #fff;
 $bg-light: #f5f8fd;
@@ -23,6 +25,7 @@ img {
 body {
   background: $bg-dark;
   color: $bg-dark-text-color;
+  font-family: "Source+Sans+Pro", sans-serif;
 }
 
 .navbar-brand {
@@ -51,8 +54,7 @@ body {
 }
 
 .s-card {
-  background: $bg-light;
-  padding-bottom: 2rem;
+  padding-top: 2rem;
 }
 
 .c-card {
@@ -307,4 +309,10 @@ body {
 
 .container {
   max-width: 960px;
+}
+
+.s-video-single ~ .c-video-list {
+  .c-video-list__title {
+    margin-bottom: 25px;
+  }
 }

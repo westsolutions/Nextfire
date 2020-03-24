@@ -1,7 +1,23 @@
+.c-video {
+  padding: 35px 0;
+  @media (min-width: 768px) {
+    padding: 65px 0 30px;
+  }
+  &__sub-title {
+    font-size: 14px;
+    line-height: 19px;
+  }
+  &__title {
+    font-size: 28px;
+    line-height: 38px;
+    margin-top: 0 !important;
+  }
+}
+
 .c-video-list {
   padding: 50px 0;
   &__title {
-    font-weight: 800;
+    font-weight: 700;
     font-size: 28px;
     line-height: 38px;
     margin-bottom: 35px;
@@ -16,6 +32,9 @@
   display: block;
   text-decoration: none;
   color: $bg-dark-text-color;
+  &__img {
+    position: relative;
+  }
   @media (min-width: 768px) {
     margin-bottom: 50px;
   }
@@ -26,7 +45,7 @@
   }
   &__title {
     font-style: normal;
-    font-weight: 800;
+    font-weight: 700;
     font-size: 18px;
     line-height: 25px;
     margin-top: 15px;
@@ -37,5 +56,16 @@
   }
   &__duration {
     font-size: 14px;
+  }
+  &__progress {
+    height: 6px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    > span {
+      position: absolute;
+      height: 100%;
+      background: #fff;
+    }
   }
 }

@@ -50,7 +50,14 @@ module.exports = withCSS(
         process.env.FIREBASE_MESSAGINGSENDERID || "736494109878",
       FIREBASE_APPID:
         process.env.FIREBASE_APPID ||
-        "1:736494109878:web:dac83729db2ddfe78d5217"
+        "1:736494109878:web:dac83729db2ddfe78d5217",
+      CONTENT_JWT_NAME: process.env.CONTENT_JWT_NAME || "tribe_social",
+      CONTENT_JWT_SECRET:
+        process.env.CONTENT_JWT_SECRET ||
+        "RL8cqhtmJ8qyDIk0FNv_gmInUjJ4VFdHODNha2wxZG5rd04wYzJlRk5WY0hCblpHdFkn",
+      CONTENT_JWT_SOURCE:
+        process.env.CONTENT_JWT_SOURCE ||
+        "https://cdn.jwplayer.com/v2/playlists/n8OU0HJb"
     },
     webpack: function(cfg) {
       if (cfg.resolve.plugins) {

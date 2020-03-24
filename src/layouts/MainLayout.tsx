@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import NavBar from "@components/Navigation/NavBar";
 import { useRouter } from "next/router";
 import { useAuth } from "reactfire";
-import { SIGN_UP } from "@constants/routes";
+import { SIGN_IN } from "@constants/routes";
 import Loader from "react-loader";
 
 const MainLayout: React.FC<{}> = ({ children }) => {
@@ -15,7 +15,7 @@ const MainLayout: React.FC<{}> = ({ children }) => {
       if (currentUser && localStorage.getItem(currentUser.email)) {
         setLoaing(true);
       } else {
-        router.push(SIGN_UP);
+        router.push(SIGN_IN);
       }
     });
     return () => {

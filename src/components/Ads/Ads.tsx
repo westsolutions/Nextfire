@@ -2,8 +2,12 @@ import classname from "classnames";
 
 export default () => {
   // TODO: video selector
-  const hrefs = process.env.CONTENT_IMG_HREF.split(", ");
-  const images = process.env.CONTENT_IMG.split(", ");
+  const hrefs = process.env.CONTENT_IMG_HREF
+    ? process.env.CONTENT_IMG_HREF.split(", ")
+    : [];
+  const images = process.env.CONTENT_IMG
+    ? process.env.CONTENT_IMG.split(", ")
+    : [];
   const ads = hrefs.map((item, index) => {
     return {
       href: hrefs[index],

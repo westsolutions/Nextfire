@@ -34,6 +34,10 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
       setError("Access code is missing");
       return;
     }
+    if (accessCode !== process.env.ACCESS_CODE) {
+      setError("Access Code is invalid");
+      return;
+    }
     auth
       .createUserWithEmailAndPassword(email, accessCode)
       .then((user: any) => {
@@ -72,7 +76,9 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
 
   return (
     <>
-      <h1>Step 2 | Enter your email address.</h1>
+      <h1>
+        Step 2 | <span>Enter your email address.</span>
+      </h1>
       <Formik
         initialValues={{
           email: ""
@@ -88,7 +94,7 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
               <Field
                 name="email"
                 type="email"
-                placeholder="Email"
+                placeholder="Email Address"
                 className={classnames([
                   "form-control",
                   { "is-invalid": errors.email && touched.email }

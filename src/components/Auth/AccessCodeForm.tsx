@@ -34,7 +34,7 @@ const AccessCodeForm: React.FC<{}> = () => {
 
   return (
     <>
-      <h1>Step 1 | Enter your password</h1>
+      <h1>Step 1 | Enter your Access code</h1>
       <Formik
         initialValues={{
           code: ""
@@ -50,7 +50,7 @@ const AccessCodeForm: React.FC<{}> = () => {
               <Field
                 name="code"
                 type="text"
-                placeholder="Code"
+                placeholder="Access Code"
                 className={classnames([
                   "form-control",
                   { "is-invalid": errors.code && touched.code }

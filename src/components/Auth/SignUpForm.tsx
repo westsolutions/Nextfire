@@ -46,7 +46,7 @@ const SignUpForm: React.FC<{}> = () => {
     setError(null);
     setSuccess(null);
     setLoading(true);
-    var provider = new firebase.auth.FacebookAuthProvider();
+    const provider = new firebase.auth.FacebookAuthProvider();
 
     firebase
       .auth()
@@ -215,7 +215,7 @@ const SignUpForm: React.FC<{}> = () => {
             </button>
             <button
               onClick={() => signUpWithFacebook()}
-              className="btn btn-primary btn-block"
+              className="btn btn-primary btn-block btn-facebook"
               disabled={isLoading}
             >
               {isLoading && (

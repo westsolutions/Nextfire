@@ -345,3 +345,12 @@ body {
     }
   }
 }
+
+.btn-facebook {
+  background: #4267b2;
+  border: 1px solid #4267b2;
+  &:hover {
+    background: #426792;
+    border: 1px solid #426792;
+  }
+}

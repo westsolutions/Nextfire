@@ -7,6 +7,7 @@ import Link from "next/link";
 import { SIGN_UP, PASSWORD_FORGOT, INDEX } from "@constants/routes";
 import "@firebase/auth";
 import { useRouter } from "next/router";
+import * as firebase from "firebase";
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().required("This field is required"),
@@ -25,6 +26,28 @@ const SignInForm: React.FC<{}> = () => {
 
   const router = useRouter();
   const auth = useAuth();
+  const provider = new firebase.auth.FacebookAuthProvider();
+
+  const signInWithFacebook = () => {
+    setError(null);
+    setSuccess(null);
+    setLoading(true);
+    var provider = new firebase.auth.FacebookAuthProvider();
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        setLoading(false);
+        localStorage.setItem(result.user.email, "TRUE");
+        router.push(INDEX);
+      })
+      .catch(err => {
+        setLoading(false);
+        setError(err?.message ? err?.message : "Something went wrong");
+        console.log(err?.message);
+      });
+  };
 
   const signIn = ({ email, password }: Login) => {
     setError(null);
@@ -109,6 +132,21 @@ const SignInForm: React.FC<{}> = () => {
                 </div>
               )}
               {!isLoading && <span>Login</span>}
+            </button>
+            <button
+              onClick={() => signInWithFacebook()}
+              className="btn btn-primary btn-block btn-facebook"
+              disabled={isLoading}
+            >
+              {isLoading && (
+                <div
+                  className="spinner-border text-light spinner-border-sm"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
+              {!isLoading && <span>Login with Facebook</span>}
             </button>
           </Form>
         )}

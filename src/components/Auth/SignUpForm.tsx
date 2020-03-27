@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth, useFirestore } from "reactfire";
+import { useAuth, useFirestore, useFirebaseApp } from "reactfire";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import classnames from "classnames";
@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { SIGN_IN, INDEX } from "@constants/routes";
 import { UserTable } from "@constants/db";
+//TODO: fix this later
+import * as firebase from "firebase";
 
 const SignupSchema = Yup.object().shape({
   displayName: Yup.string()
@@ -36,8 +38,44 @@ const SignUpForm: React.FC<{}> = () => {
   const [isLoading, setLoading] = useState(false);
 
   const router = useRouter();
+
   const auth = useAuth();
   const firestore = useFirestore();
+
+  const signUpWithFacebook = () => {
+    setError(null);
+    setSuccess(null);
+    setLoading(true);
+    var provider = new firebase.auth.FacebookAuthProvider();
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        setLoading(false);
+        let user = result.user;
+        const { displayName, email } = user;
+        if (process.browser) {
+          firestore
+            .collection(UserTable)
+            .add({
+              displayName,
+              email,
+              // password,
+              platform: window.location.origin
+            })
+            .then(() => {
+              localStorage.setItem(email, "TRUE");
+              router.push(INDEX);
+            });
+        }
+      })
+      .catch(err => {
+        setLoading(false);
+        setError(err?.message ? err?.message : "Something went wrong");
+        console.log(err?.message);
+      });
+  };
 
   const signUp = ({ email, password, displayName }: User) => {
     setError(null);
@@ -54,7 +92,6 @@ const SignUpForm: React.FC<{}> = () => {
           .signInWithEmailAndPassword(email, password)
           .then(res => {
             setLoading(false);
-            // debugger;
             if (process.browser) {
               firestore
                 .collection(UserTable)
@@ -175,6 +212,21 @@ const SignUpForm: React.FC<{}> = () => {
                 </div>
               )}
               {!isLoading && <span>Sign Up</span>}
+            </button>
+            <button
+              onClick={() => signUpWithFacebook()}
+              className="btn btn-primary btn-block"
+              disabled={isLoading}
+            >
+              {isLoading && (
+                <div
+                  className="spinner-border text-light spinner-border-sm"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
+              {!isLoading && <span>Sign Up with Facebook</span>}
             </button>
           </Form>
         )}

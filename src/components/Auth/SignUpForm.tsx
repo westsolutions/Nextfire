@@ -53,34 +53,28 @@ const SignUpForm: React.FC<{}> = () => {
       .signInWithPopup(provider)
       .then(result => {
         setLoading(false);
-        // var token = result.credential.accessToken;
-        // var user = result.user;
-        // if (process.browser) {
-        //   firestore
-        //     .collection(UserTable)
-        //     .add({
-        //       displayName,
-        //       email,
-        //       // password,
-        //       platform: window.location.origin
-        //     })
-        //     .then(() => {
-        //       localStorage.setItem(email, "TRUE");
-        //       router.push(INDEX);
-        //     });
-        // }
+        let user = result.user;
+        const { displayName, email } = user;
+        if (process.browser) {
+          firestore
+            .collection(UserTable)
+            .add({
+              displayName,
+              email,
+              // password,
+              platform: window.location.origin
+            })
+            .then(() => {
+              localStorage.setItem(email, "TRUE");
+              router.push(INDEX);
+            });
+        }
       })
       .catch(err => {
         setLoading(false);
         setError(err?.message ? err?.message : "Something went wrong");
         console.log(err?.message);
       });
-    // })
-    //       .catch (err => {
-    //   setLoading(false);
-    //   setError(err?.message ? err?.message : "Something went wrong");
-    //   console.log(err?.message);
-    // });
   };
 
   const signUp = ({ email, password, displayName }: User) => {

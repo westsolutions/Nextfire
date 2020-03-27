@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { useAuth } from "reactfire";
 import Loader from "react-loader";
 import { INDEX } from "@constants/routes";
@@ -34,7 +35,14 @@ const AccessLayout: React.FC<{}> = ({ children }) => {
     >
       <div className="layout-access">
         <div className="container">
-          <div className="layout-access__container">{children}</div>
+          <div className="layout-access__container">
+            <div className="layout-auth__logo">
+              <Link href="/">
+                <img src={process.env.LOGO_URL} />
+              </Link>
+            </div>
+            {children}
+          </div>
         </div>
       </div>
     </Loader>

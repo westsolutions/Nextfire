@@ -1,30 +1,83 @@
 import React, { useState } from "react";
-import { useAuth } from "reactfire";
+import { useAuth, useFirestore } from "reactfire";
 import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 import classnames from "classnames";
+import { useRouter } from "next/router";
+import { INDEX } from "@constants/routes";
+import { UserTable } from "@constants/db";
 
-interface AccessCodeDto {
+const AccessCodeEmailSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email")
+    .required("This field is required")
+});
+
+interface AccessEmailDto {
   email: string;
 }
 
 const AccessCodeEmailForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
+  const router = useRouter();
   const auth = useAuth();
+  const firestore = useFirestore();
 
-  const checkCode = ({ email }: AccessCodeDto) => {
+  const checkCode = ({ email }: AccessEmailDto) => {
     setError(null);
     setSuccess(null);
+    const accessCode: string = router.query.code as string;
+    if (!accessCode) {
+      setError("Access code is missing");
+      return;
+    }
+    auth
+      .createUserWithEmailAndPassword(email, accessCode)
+      .then((user: any) => {
+        setSuccess("Your account is created... we're signing you in...");
+        auth
+          .signInWithEmailAndPassword(email, accessCode)
+          .then(res => {
+            setLoading(false);
+            // debugger;
+            if (process.browser) {
+              firestore
+                .collection(UserTable)
+                .add({
+                  email,
+                  // password,
+                  platform: window.location.origin
+                })
+                .then(() => {
+                  localStorage.setItem(email, "TRUE");
+                  router.push(INDEX);
+                });
+            }
+          })
+          .catch(err => {
+            setLoading(false);
+            setError(err?.message ? err?.message : "Something went wrong");
+            console.log(err?.message);
+          });
+      })
+      .catch(err => {
+        setLoading(false);
+        setError(err?.message ? err?.message : "Something went wrong");
+        console.log(err?.message);
+      });
   };
 
   return (
     <>
-      <h1>Enter your password</h1>
+      <h1>Step 2 | Enter your email address.</h1>
       <Formik
         initialValues={{
           email: ""
         }}
+        validationSchema={AccessCodeEmailSchema}
         onSubmit={values => {
           checkCode(values);
         }}
@@ -45,8 +98,20 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
                 <div className="invalid-feedback">{errors.email}</div>
               ) : null}
             </div>
-            <button className="btn btn-primary btn-block" type="submit">
-              <span>Verify Access Code</span>
+            <button
+              className="btn btn-danger btn-block"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading && (
+                <div
+                  className="spinner-border text-light spinner-border-sm"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
+              {!isLoading && <span>Get Access</span>}
             </button>
           </Form>
         )}

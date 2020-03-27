@@ -49,7 +49,7 @@ module.exports = withCSS(
       CONTENT_JWT_SOURCE:
         process.env.CONTENT_JWT_SOURCE ||
         "https://cdn.jwplayer.com/v2/playlists/n8OU0HJb",
-      ACCESS_CODE: process.env.ACCESS_CODE || "WWWES2020"
+      ACCESS_CODE: process.env.ACCESS_CODE || "CATWEST2020"
     },
     webpack: function(cfg) {
       if (cfg.resolve.plugins) {

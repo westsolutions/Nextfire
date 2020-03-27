@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { useAuth } from "reactfire";
+import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import classnames from "classnames";
 import { ACCESS_STEP2 } from "@constants/routes";
 import { useRouter } from "next/router";
+
+const AccessCodeSchema = Yup.object().shape({
+  code: Yup.string().required("This field is required")
+});
 
 interface AccessCodeDto {
   code: string;
@@ -19,7 +23,10 @@ const AccessCodeForm: React.FC<{}> = () => {
     setError(null);
     setSuccess(null);
     if (code === process.env.ACCESS_CODE) {
-      router.push(ACCESS_STEP2);
+      router.push({
+        pathname: ACCESS_STEP2,
+        query: { code }
+      });
     } else {
       setError("Code is invalid");
     }
@@ -27,11 +34,12 @@ const AccessCodeForm: React.FC<{}> = () => {
 
   return (
     <>
-      <h1>Enter your password</h1>
+      <h1>Step 1 | Enter your password</h1>
       <Formik
         initialValues={{
           code: ""
         }}
+        validationSchema={AccessCodeSchema}
         onSubmit={values => {
           checkCode(values);
         }}
@@ -52,7 +60,7 @@ const AccessCodeForm: React.FC<{}> = () => {
                 <div className="invalid-feedback">{errors.code}</div>
               ) : null}
             </div>
-            <button className="btn btn-primary btn-block" type="submit">
+            <button className="btn btn-danger btn-block" type="submit">
               <span>Verify Access Code</span>
             </button>
           </Form>

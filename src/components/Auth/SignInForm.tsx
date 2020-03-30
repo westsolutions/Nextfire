@@ -119,7 +119,7 @@ const SignInForm: React.FC<{}> = () => {
               ) : null}
             </div>
             <button
-              className="btn btn-primary btn-block"
+              className="btn btn-danger btn-block"
               disabled={isLoading}
               type="submit"
             >

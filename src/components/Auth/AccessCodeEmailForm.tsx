@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import classnames from "classnames";
 import { useRouter } from "next/router";
 import { INDEX } from "@constants/routes";
+import { codeIsCorrect } from "@constants/checkAccessCode";
 import { UserTable } from "@constants/db";
 
 const AccessCodeEmailSchema = Yup.object().shape({
@@ -34,7 +35,7 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
       setError("Access code is missing");
       return;
     }
-    if (accessCode !== process.env.ACCESS_CODE) {
+    if (!codeIsCorrect(accessCode, process.env.ACCESS_CODE)) {
       setError("Access Code is invalid");
       return;
     }

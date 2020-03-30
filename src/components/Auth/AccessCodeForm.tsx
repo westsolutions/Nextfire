@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import classnames from "classnames";
 import { ACCESS_STEP2 } from "@constants/routes";
+import { codeIsCorrect } from "@constants/checkAccessCode";
 import { useRouter } from "next/router";
 
 const AccessCodeSchema = Yup.object().shape({
@@ -22,7 +23,7 @@ const AccessCodeForm: React.FC<{}> = () => {
   const checkCode = ({ code }: AccessCodeDto) => {
     setError(null);
     setSuccess(null);
-    if (code === process.env.ACCESS_CODE) {
+    if (codeIsCorrect(code, process.env.ACCESS_CODE)) {
       router.push({
         pathname: ACCESS_STEP2,
         query: { code }

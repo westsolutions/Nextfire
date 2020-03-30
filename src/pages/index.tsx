@@ -40,7 +40,7 @@ function Index({ source }) {
 }
 
 Index.getInitialProps = async () => {
-  let sources = process.env.CONTENT_JWT_SOURCE.split(" ");
+  let sources = process.env.CONTENT_JWT_SOURCE.split(",");
   let results = await Promise.all(sources.map(source => axios.get(source)));
   return {
     source: results.map(result => result.data)

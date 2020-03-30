@@ -34,8 +34,9 @@ function VideoPage({ source }) {
 
   const router = useRouter();
   const { playlist, videoId } = router.query;
-
-  const videoItem = source.playlist.find(i => i.mediaid === videoId);
+  const sourcePlaylist = source.find(source => source.feedid === playlist)
+    .playlist;
+  const videoItem = sourcePlaylist.find(i => i.mediaid === videoId);
   const videoColumnClass = classNames({
     "col-12": true,
     "col-sm-8": process.env.CONTENT_CHAT_ENABLED
@@ -70,7 +71,7 @@ function VideoPage({ source }) {
       </div>
       <Ads />
       <VideoList
-        playlist={source.playlist}
+        playlist={sourcePlaylist}
         title="Up Next"
         excludedId={videoId}
       />
@@ -79,9 +80,10 @@ function VideoPage({ source }) {
 }
 
 VideoPage.getInitialProps = async ({}) => {
-  let results = await axios.get(process.env.CONTENT_JWT_SOURCE);
+  let sources = process.env.CONTENT_JWT_SOURCE.split(",");
+  let results = await Promise.all(sources.map(source => axios.get(source)));
   return {
-    source: results.data
+    source: results.map(result => result.data)
   };
 };
 

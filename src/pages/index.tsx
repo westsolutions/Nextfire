@@ -25,21 +25,25 @@ function Index({ source }) {
       });
     };
   }, []);
-
   return (
     <MainLayout>
       <Head>
         <title>Live Stream Event | Tribe</title>
       </Head>
-      {source && <VideoList playlist={source.playlist} title={source.title} />}
+      {source &&
+        source.length &&
+        source.map((s, i) => (
+          <VideoList playlist={s.playlist} title={s.title} key={i} />
+        ))}
     </MainLayout>
   );
 }
 
 Index.getInitialProps = async () => {
-  let results = await axios.get(process.env.CONTENT_JWT_SOURCE);
+  let sources = process.env.CONTENT_JWT_SOURCE.split(" ");
+  let results = await Promise.all(sources.map(source => axios.get(source)));
   return {
-    source: results.data
+    source: results.map(result => result.data)
   };
 };
 

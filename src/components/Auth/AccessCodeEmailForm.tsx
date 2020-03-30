@@ -47,7 +47,6 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
           .signInWithEmailAndPassword(email, accessCode)
           .then(res => {
             setLoading(false);
-            // debugger;
             if (process.browser) {
               firestore
                 .collection(UserTable)

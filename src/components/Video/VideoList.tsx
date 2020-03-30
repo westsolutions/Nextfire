@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Cookies from "js-cookie";
+import ScrollMenu from "react-horizontal-scrolling-menu";
 
 export default ({ playlist, title, excludedId = null }) => {
   playlist = excludedId
@@ -27,21 +28,34 @@ export default ({ playlist, title, excludedId = null }) => {
 
   console.log(playlist);
 
+  const videoItems = playlist.map((s, i) => (
+    <div key={s.mediaid} className="menu-item">
+      {renderVideoItem(s, i)}
+    </div>
+  ));
+
   return (
     <div className="c-video-list">
       <div className="container">
         {title && <h1 className="c-video-list__title">{title}</h1>}
-        <div className="row">
-          {playlist.map((s, i) => (
-            <div key={i} className="col-12 col-md-4">
-              {renderVideoItem(s, i)}
-            </div>
-          ))}
-        </div>
+        <ScrollMenu
+          data={videoItems}
+          arrowLeft={ArrowLeft}
+          arrowRight={ArrowRight}
+          alignCenter={false}
+          hideArrows={false}
+        />
       </div>
     </div>
   );
 };
+
+const Arrow = ({ text, className }) => {
+  return <div className={className}>{text}</div>;
+};
+
+const ArrowLeft = Arrow({ text: "<", className: "arrow-prev" });
+const ArrowRight = Arrow({ text: ">", className: "arrow-next" });
 
 const renderVideoItem = ({ finished, ...item }, index) => {
   return (

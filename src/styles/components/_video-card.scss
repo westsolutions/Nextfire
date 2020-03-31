@@ -28,7 +28,10 @@
 }
 
 .c-video-card {
-  // margin-bottom: 25px;
+  -webkit-user-drag: none;
+  * {
+    -webkit-user-drag: none;
+  }
   display: block;
   text-decoration: none;
   color: $bg-dark-text-color;

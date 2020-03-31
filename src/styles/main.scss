@@ -27,6 +27,7 @@ body {
   background: $bg-dark;
   color: $bg-dark-text-color;
   font-family: "Source Sans Pro", sans-serif;
+  overflow-x: hidden;
 }
 
 .navbar-brand {
@@ -47,7 +48,7 @@ body {
 .c-video {
   h1 {
     font-size: 28px;
-    font-weight: normal;
+    font-weight: bold;
     margin: 1rem 0;
     color: rgba($bg-dark-text-color, 0.95);
   }
@@ -375,6 +376,39 @@ body {
 }
 
 .horizontal-menu {
-  margin-left: -30px;
-  margin-right: -30px;
+  margin-left: -7.5px;
+  margin-right: -7.5px;
+}
+
+.menu-wrapper--inner {
+  white-space: nowrap;
+}
+
+.menu-item-wrapper,
+.menu-item {
+  outline: none;
+}
+
+.menu-wrapper {
+  max-width: 100%;
+  overflow: initial !important;
+  position: relative;
+  &:after,
+  &:before {
+    content: "";
+    top: 0;
+    position: absolute;
+    width: 10000px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.76);
+    z-index: 1;
+  }
+  &:after {
+    left: 100%;
+    margin-left: -7.5px;
+  }
+  &:before {
+    right: 100%;
+    margin-right: -7.5px;
+  }
 }

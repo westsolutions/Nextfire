@@ -23,6 +23,10 @@ const AuthLayout: React.FC<{}> = ({ children }) => {
     };
   });
 
+  const backgroundImage = process.env.BG_AUTH_URL
+    ? `url("${process.env.BG_AUTH_URL}")`
+    : null;
+
   return (
     <Loader
       loaded={isLoaded}
@@ -33,12 +37,12 @@ const AuthLayout: React.FC<{}> = ({ children }) => {
       left={"50%"}
       position={"fixed"}
     >
-      <div className="layout-auth">
+      <div className="layout-auth" style={{ backgroundImage }}>
         <div className="container">
           <div className="layout-auth__container">
             <div className="layout-auth__logo">
               <Link href="/">
-                <img src={process.env.LOGO_URL} />
+                <img src={process.env.LOGO_AUTH_URL} />
               </Link>
             </div>
             {children}

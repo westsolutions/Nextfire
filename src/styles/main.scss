@@ -45,6 +45,13 @@ body {
   }
 }
 
+@media (max-width: 767px) {
+  .navbar .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .c-video {
   h1 {
     font-size: 28px;
@@ -71,10 +78,22 @@ body {
   }
 }
 
+.layout-main {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .layout-auth {
   background: $bg-dark;
   display: flex;
   flex-direction: column;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  &__logo {
+    text-align: center;
+  }
   .container {
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -324,6 +343,9 @@ body {
   background: $bg-dark;
   display: flex;
   flex-direction: column;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   .container {
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -366,16 +388,18 @@ body {
   cursor: pointer;
   border: none;
 }
+
 .menu-item-wrapper {
+  max-width: 66%;
   @media screen and (min-width: 768px) {
     max-width: 28.5%;
   }
 }
 
 .horizontal-menu {
+  position: relative;
   margin-left: -7.5px;
   margin-right: -7.5px;
-  position: relative;
 }
 
 .menu-wrapper--inner {
@@ -412,13 +436,17 @@ body {
 }
 
 .scroll-menu-arrow {
-  z-index: 2;
-  &--disabled {
-    display: none;
+  display: none;
+  @media screen and (min-width: 768px) {
+    display: block;
+    z-index: 2;
+    &--disabled {
+      display: none;
+    }
   }
   .arrow-next,
   .arrow-prev {
-    top: 50%;
+    top: 35%;
     transform: translateY(-50%);
     position: absolute;
     cursor: pointer;

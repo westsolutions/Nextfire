@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Cookies from "js-cookie";
 import ScrollMenu from "react-horizontal-scrolling-menu";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 
 export default ({ playlist, title, excludedId = null }) => {
+  const refScrollMenu = useRef();
+
   playlist = excludedId
     ? playlist.filter(i => i.mediaid !== excludedId)
     : playlist;
@@ -39,6 +41,7 @@ export default ({ playlist, title, excludedId = null }) => {
       <div className="container">
         {title && <h1 className="c-video-list__title">{title}</h1>}
         <ScrollMenu
+          ref={refScrollMenu}
           data={videoItems}
           arrowLeft={ArrowLeft}
           arrowRight={ArrowRight}

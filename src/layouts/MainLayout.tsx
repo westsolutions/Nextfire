@@ -23,6 +23,10 @@ const MainLayout: React.FC<{}> = ({ children }) => {
     };
   });
 
+  const backgroundImage = process.env.BG_DASHBOARD_URL
+    ? `url("${process.env.BG_DASHBOARD_URL}")`
+    : null;
+
   return (
     <Loader
       loaded={isLoaded}
@@ -33,7 +37,7 @@ const MainLayout: React.FC<{}> = ({ children }) => {
       color="#fff"
       position={"fixed"}
     >
-      <div className="layout-main">
+      <div className="layout-main" style={{ backgroundImage }}>
         <NavBar />
         {children}
       </div>

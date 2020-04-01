@@ -43,7 +43,7 @@ export default ({ playlist, title, excludedId = null }) => {
           arrowLeft={ArrowLeft}
           arrowRight={ArrowRight}
           alignCenter={false}
-          translate={7.5}
+          // translate={7.5}
           hideSingleArrow={true}
           inertiaScrollingSlowdown={0}
         />

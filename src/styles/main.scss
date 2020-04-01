@@ -375,6 +375,7 @@ body {
 .horizontal-menu {
   margin-left: -7.5px;
   margin-right: -7.5px;
+  position: relative;
 }
 
 .menu-wrapper--inner {
@@ -409,16 +410,29 @@ body {
     margin-right: -7.5px;
   }
 }
+
 .scroll-menu-arrow {
   z-index: 2;
   &--disabled {
     display: none;
   }
-  cursor: pointer;
+  .arrow-next,
+  .arrow-prev {
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
   .arrow-next {
+    right: 100%;
     margin-left: -15px;
   }
   .arrow-prev {
+    left: 100%;
     margin-right: -15px;
   }
 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Cookies from "js-cookie";
 import ScrollMenu from "react-horizontal-scrolling-menu";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default ({ playlist, title, excludedId = null }) => {
   playlist = excludedId
@@ -26,10 +28,10 @@ export default ({ playlist, title, excludedId = null }) => {
     };
   });
 
-  console.log(playlist);
+  //console.log(playlist);
 
   const videoItems = playlist.map((s, i) => (
-    <div key={s.mediaid} className="menu-item">
+    <div key={s.mediaid + i} className="menu-item">
       {renderVideoItem(s, i)}
     </div>
   ));
@@ -40,10 +42,10 @@ export default ({ playlist, title, excludedId = null }) => {
         {title && <h1 className="c-video-list__title">{title}</h1>}
         <ScrollMenu
           data={videoItems}
-          // arrowLeft={false}
-          // arrowRight={false}
+          arrowLeft={ArrowLeft}
+          arrowRight={ArrowRight}
           alignCenter={false}
-          hideArrows={true}
+          //hideArrows={true}
           hideSingleArrow={true}
           inertiaScrollingSlowdown={0}
         />
@@ -91,16 +93,34 @@ const ArrowLeft = Arrow({
 });
 
 const renderVideoItem = ({ finished, ...item }, index) => {
+  const [isSwiping, setSwiping] = useState(false);
+  const router = useRouter();
   return (
-    <div className="c-video-card">
+    <div
+      className="c-video-card"
+      onMouseDown={() => {
+        setSwiping(false);
+      }}
+      onMouseMove={() => {
+        setSwiping(true);
+      }}
+      onMouseUp={e => {
+        if (isSwiping) {
+          e.preventDefault;
+        } else {
+          router.push(`/${item.feedid}/${item.mediaid}/`);
+        }
+        setSwiping(false);
+      }}
+    >
       <div className="c-video-card__img">
-        <Link href={`/${item.feedid}/${item.mediaid}/`}>
+        <div>
           <img
             className="c-video-card__image"
             src={item.image}
             alt={item.title}
           />
-        </Link>
+        </div>
         {finished && (
           <div className="c-video-card__overlay">
             <svg

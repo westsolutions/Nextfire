@@ -412,3 +412,13 @@ body {
     margin-right: -7.5px;
   }
 }
+.scroll-menu-arrow {
+  z-index: 2;
+  cursor: pointer;
+  .arrow-next {
+    padding-right: 7.5px;
+  }
+  .arrow-prev {
+    padding-left: 7.5px;
+  }
+}

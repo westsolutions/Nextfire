@@ -28,8 +28,6 @@ export default ({ playlist, title, excludedId = null }) => {
     };
   });
 
-  //console.log(playlist);
-
   const videoItems = playlist.map((s, i) => (
     <div key={s.mediaid + i} className="menu-item">
       {renderVideoItem(s, i)}
@@ -45,7 +43,7 @@ export default ({ playlist, title, excludedId = null }) => {
           arrowLeft={ArrowLeft}
           arrowRight={ArrowRight}
           alignCenter={false}
-          //hideArrows={true}
+          translate={7.5}
           hideSingleArrow={true}
           inertiaScrollingSlowdown={0}
         />

@@ -368,10 +368,7 @@ body {
 }
 .menu-item-wrapper {
   @media screen and (min-width: 768px) {
-    max-width: 33.33%;
-  }
-  @media screen and (min-width: 768px) {
-    max-width: 25%;
+    max-width: 28.5%;
   }
 }
 
@@ -414,11 +411,14 @@ body {
 }
 .scroll-menu-arrow {
   z-index: 2;
+  &--disabled {
+    display: none;
+  }
   cursor: pointer;
   .arrow-next {
-    padding-right: 7.5px;
+    margin-left: -15px;
   }
   .arrow-prev {
-    padding-left: 7.5px;
+    margin-right: -15px;
   }
 }

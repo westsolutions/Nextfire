@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export default ({ videoItem, title, subTitle }) => {
+export default ({ videoItem, title, subTitle, onEnd }) => {
   const onPlay = () => {
     let cookieData = Cookies.get(`video__${videoItem.mediaid}`);
 
@@ -33,6 +33,7 @@ export default ({ videoItem, title, subTitle }) => {
   };
 
   const video = videoItem.sources.filter(s => s.width > 480);
+
   // TODO: video selector
   return (
     <div className="c-video">
@@ -43,6 +44,7 @@ export default ({ videoItem, title, subTitle }) => {
           <ReactJWPlayer
             onReady={onPlay}
             onTime={onTime}
+            onOneHundredPercent={onEnd}
             playerId="my-unique-1"
             playerScript="https://cdn.jwplayer.com/libraries/Izw2Kj6o.js"
             file={video[0].file}

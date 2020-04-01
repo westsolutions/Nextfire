@@ -41,6 +41,18 @@ function VideoPage({ source }) {
     "col-12": true,
     "col-sm-8": process.env.CONTENT_CHAT_ENABLED
   });
+  const onVideoEnded = () => {
+    let mediaIdsList = sourcePlaylist.map(pl => pl.mediaid);
+    let indexOfNext = Number(mediaIdsList.indexOf(videoId)) + 1;
+    if (indexOfNext < sourcePlaylist.length - 1) {
+      let nextMediaId = mediaIdsList[indexOfNext];
+      router.push(`/${playlist}/${nextMediaId}/`);
+    } else {
+      setTimeout(() => {
+        router.push("/");
+      }, 5000);
+    }
+  };
   return (
     <MainLayout>
       <Head>
@@ -54,6 +66,7 @@ function VideoPage({ source }) {
                 subTitle={source.title}
                 title={videoItem.title}
                 videoItem={videoItem}
+                onEnd={onVideoEnded}
               />
             )}
           </div>

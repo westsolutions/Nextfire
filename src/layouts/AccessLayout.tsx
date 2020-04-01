@@ -42,7 +42,7 @@ const AccessLayout: React.FC<{}> = ({ children }) => {
           <div className="layout-access__container">
             <div className="layout-auth__logo">
               <Link href="/">
-                <img src={process.env.LOGO_URL} />
+                <img src={process.env.LOGO_AUTH_URL} />
               </Link>
             </div>
             {children}

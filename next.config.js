@@ -8,12 +8,8 @@ module.exports = withCSS(
       BASE_URL: process.env.BASE_URL || "http://localhost:3000/",
       LOGO_URL: process.env.LOGO_URL || "/logos/catalyst-logo.png",
       LOGO_AUTH_URL: process.env.LOGO_URL || "/logos/catalist-logo-auth.png",
-      BG_AUTH_URL:
-        process.env.BG_AUTH_URL ||
-        "//cdn.mytribe.network.s3.amazonaws.com/images/cat-login-bg.png",
-      BG_DASHBOARD_URL:
-        process.env.BG_DASHBOARD_URL ||
-        "//cdn.mytribe.network.s3.amazonaws.com/images/cat_Video%20Player_BG.png",
+      BG_AUTH_URL: process.env.BG_AUTH_URL || null,
+      BG_DASHBOARD_URL: process.env.BG_DASHBOARD_URL || null,
       BACKEND_URL: process.env.BACKEND_URL || "http://localhost:5000/",
       GET_STREAM_PUBLIC: process.env.GET_STREAM_PUBLIC || "hxewefpgsj8j",
       GET_STREAM_SECRET:

@@ -133,21 +133,23 @@ const SignInForm: React.FC<{}> = () => {
               )}
               {!isLoading && <span>Login</span>}
             </button>
-            <button
-              onClick={() => signInWithFacebook()}
-              className="btn btn-primary btn-block btn-facebook"
-              disabled={isLoading}
-            >
-              {isLoading && (
-                <div
-                  className="spinner-border text-light spinner-border-sm"
-                  role="status"
-                >
-                  <span className="sr-only">Loading...</span>
-                </div>
-              )}
-              {!isLoading && <span>Login with Facebook</span>}
-            </button>
+            {process.env.FACEBOOK_AUTH_ENABLED && (
+              <button
+                onClick={() => signInWithFacebook()}
+                className="btn btn-primary btn-block btn-facebook"
+                disabled={isLoading}
+              >
+                {isLoading && (
+                  <div
+                    className="spinner-border text-light spinner-border-sm"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                )}
+                {!isLoading && <span>Login with Facebook</span>}
+              </button>
+            )}
           </Form>
         )}
       </Formik>

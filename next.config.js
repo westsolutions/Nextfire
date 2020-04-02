@@ -53,7 +53,8 @@ module.exports = withCSS(
       CONTENT_JWT_SOURCE:
         process.env.CONTENT_JWT_SOURCE ||
         "https://cdn.jwplayer.com/v2/playlists/n8OU0HJb, https://cdn.jwplayer.com/v2/playlists/yYYotlJD",
-      ACCESS_CODE: process.env.ACCESS_CODE || "CATWEST20"
+      ACCESS_CODE: process.env.ACCESS_CODE || "CATWEST20",
+      FACEBOOK_AUTH_ENABLED: process.env.FACEBOOK_AUTH_ENABLED || false
     },
     webpack: function(cfg) {
       if (cfg.resolve.plugins) {

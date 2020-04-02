@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { useAuth } from "reactfire";
+import { useAuth, useFirestore, useFirebaseApp } from "reactfire";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import classnames from "classnames";
 import Link from "next/link";
-import { SIGN_IN } from "@constants/routes";
+import { useRouter } from "next/router";
+import { SIGN_IN, INDEX } from "@constants/routes";
+import { UserTable } from "@constants/db";
+//TODO: fix this later
+import * as firebase from "firebase";
 
 const SignupSchema = Yup.object().shape({
   displayName: Yup.string()
@@ -31,21 +35,86 @@ interface User {
 const SignUpForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   const auth = useAuth();
+  const firestore = useFirestore();
+
+  const signUpWithFacebook = () => {
+    setError(null);
+    setSuccess(null);
+    setLoading(true);
+    const provider = new firebase.auth.FacebookAuthProvider();
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        setLoading(false);
+        let user = result.user;
+        const { displayName, email } = user;
+        if (process.browser) {
+          firestore
+            .collection(UserTable)
+            .add({
+              displayName,
+              email,
+              // password,
+              platform: window.location.origin
+            })
+            .then(() => {
+              localStorage.setItem(email, "TRUE");
+              router.push(INDEX);
+            });
+        }
+      })
+      .catch(err => {
+        setLoading(false);
+        setError(err?.message ? err?.message : "Something went wrong");
+        console.log(err?.message);
+      });
+  };
 
   const signUp = ({ email, password, displayName }: User) => {
     setError(null);
     setSuccess(null);
+    setLoading(true);
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((user: any) => {
         auth.currentUser.updateProfile({
           displayName: displayName
         });
-        setSuccess("Your account created. Check your email and login");
+        setSuccess("Your account is created... we're signing you in...");
+        auth
+          .signInWithEmailAndPassword(email, password)
+          .then(res => {
+            setLoading(false);
+            if (process.browser) {
+              firestore
+                .collection(UserTable)
+                .add({
+                  displayName,
+                  email,
+                  // password,
+                  platform: window.location.origin
+                })
+                .then(() => {
+                  localStorage.setItem(email, "TRUE");
+                  router.push(INDEX);
+                });
+            }
+          })
+          .catch(err => {
+            setLoading(false);
+            setError(err?.message ? err?.message : "Something went wrong");
+            console.log(err?.message);
+          });
       })
       .catch(err => {
+        setLoading(false);
         setError(err?.message ? err?.message : "Something went wrong");
         console.log(err?.message);
       });
@@ -53,7 +122,7 @@ const SignUpForm: React.FC<{}> = () => {
 
   return (
     <>
-      <h1>Create Your Free account</h1>
+      <h1>Create Your Free account to access the live stream</h1>
       <Formik
         initialValues={{
           displayName: "",
@@ -129,8 +198,35 @@ const SignUpForm: React.FC<{}> = () => {
                 </div>
               ) : null}
             </div>
-            <button className="btn btn-primary btn-block" type="submit">
-              Sign Up
+            <button
+              className="btn btn-danger btn-block"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading && (
+                <div
+                  className="spinner-border text-light spinner-border-sm"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
+              {!isLoading && <span>Sign Up</span>}
+            </button>
+            <button
+              onClick={() => signUpWithFacebook()}
+              className="btn btn-primary btn-block btn-facebook"
+              disabled={isLoading}
+            >
+              {isLoading && (
+                <div
+                  className="spinner-border text-light spinner-border-sm"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
+              {!isLoading && <span>Sign Up with Facebook</span>}
             </button>
           </Form>
         )}

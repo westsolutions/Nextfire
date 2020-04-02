@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { useAuth } from "reactfire";
 import Loader from "react-loader";
 import { INDEX } from "@constants/routes";
 
-const AuthLayout: React.FC<{}> = ({ children }) => {
+const AccessLayout: React.FC<{}> = ({ children }) => {
   const auth = useAuth();
   const router = useRouter();
   const [isLoaded, setLoaing] = useState(false);
@@ -37,9 +37,9 @@ const AuthLayout: React.FC<{}> = ({ children }) => {
       left={"50%"}
       position={"fixed"}
     >
-      <div className="layout-auth" style={{ backgroundImage }}>
+      <div className="layout-access" style={{ backgroundImage }}>
         <div className="container">
-          <div className="layout-auth__container">
+          <div className="layout-access__container">
             <div className="layout-auth__logo">
               <Link href="/">
                 <img src={process.env.LOGO_AUTH_URL} />
@@ -53,4 +53,4 @@ const AuthLayout: React.FC<{}> = ({ children }) => {
   );
 };
 
-export default AuthLayout;
+export default AccessLayout;

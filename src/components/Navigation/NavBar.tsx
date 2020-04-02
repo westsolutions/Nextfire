@@ -10,37 +10,45 @@ const NavBar: React.FC<{}> = () => {
   const router = useRouter();
 
   const logout = () => {
+    if (auth.currentUser.email) {
+      localStorage.removeItem(auth.currentUser.email);
+    }
     auth.signOut().then(res => {
       router.push(SIGN_IN);
     });
   };
 
   return (
-    <nav className="navbar navbar-light bg-light justify-content-between">
-      <Link href="/">
-        <a className="navbar-brand">
-          <img src={process.env.LOGO_URL} />
-        </a>
-      </Link>
-      <div className="media align-items-center navbar-profile">
-        <div className="media-body">
-          <h6>{auth?.currentUser?.displayName}</h6>
-          <div className="dropdown-menu">
-            <a
-              className="dropdown-item"
-              onClick={() => {
-                logout();
-              }}
-            >
-              Logout
-            </a>
+    <nav className="navbar">
+      <div className="container d-flex justify-content-between">
+        <Link href="/">
+          <a className="navbar-brand">
+            <img src={process.env.LOGO_URL} />
+          </a>
+        </Link>
+        <div className="media align-items-center navbar-profile">
+          <div className="media-body">
+            <h6>My Account</h6>
+            <div className="dropdown-menu">
+              <a
+                className="dropdown-item"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                Logout
+              </a>
+            </div>
           </div>
+
+          {auth?.currentUser?.displayName && (
+            <img
+              className="rounded-circle"
+              src={`https://getstream.io/random_svg/?name=${auth?.currentUser?.displayName}`}
+              alt={auth?.currentUser?.displayName}
+            />
+          )}
         </div>
-        <img
-          className="rounded-circle"
-          src={`https://getstream.io/random_svg/?name=${auth.currentUser.displayName}`}
-          alt=""
-        />
       </div>
     </nav>
   );

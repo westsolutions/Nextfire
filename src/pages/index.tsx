@@ -1,70 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "@layouts/MainLayout";
+import VideoList from "@components/Video/VideoList";
 import Head from "next/head";
-import dynamic from "next/dynamic";
-import YouTube from "@components/YoutubeIframe";
-const ChatBox = dynamic(() => import("@components/Chat"), { ssr: false });
-import { StreamChat } from "stream-chat";
+import { useAuth } from "reactfire";
+import axios from "axios";
 
-function Index({ userToken }) {
+function Index({ source }) {
+  const [userToken, setUserToken] = useState(null);
+  const [userId, setUserName] = useState(null);
+  const auth = useAuth();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((currentUser: any) => {
+      if (currentUser) {
+        fetchUserToken(currentUser);
+      }
+    });
+    const fetchUserToken = async currentUser => {
+      await axios(
+        `${process.env.BACKEND_URL}chat?user=${currentUser.uid}`
+      ).then(res => {
+        setUserToken(res.data);
+        setUserName(currentUser.uid);
+      });
+    };
+  }, []);
   return (
     <MainLayout>
       <Head>
-        <title>Welcome</title>
+        <title>Live Stream Event | Tribe</title>
       </Head>
-      <div className="s-video">
-        <div className="container">
-          <div className="row">
-            <div className="col-12 col-sm-8">
-              <div className="c-video">
-                <div className="c-video__content">
-                  <YouTube youtubeId={process.env.CONTENT_VIDEO_YOUTUBE_ID} />
-                  <div className="d-flex justify-content-between align-items-center">
-                    <h1>{process.env.CONTENT_VIDEO_TITLE}</h1>
-                    <div className="c-live">WE'RE LIVE</div>
-                  </div>
-                  <p>{process.env.CONTENT_VIDEO_CONTENT}</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-sm-4">
-              <ChatBox userToken={userToken} />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="s-card">
-        <div className="container">
-          <div className="row">
-            <div className="col-12 col-sm-4">
-              <div className="c-card">
-                <img src={process.env.CONTENT_IMG_1} alt="" />
-              </div>
-            </div>
-            <div className="col-12 col-sm-4">
-              <div className="c-card">
-                <img src={process.env.CONTENT_IMG_2} alt="" />
-              </div>
-            </div>
-            <div className="col-12 col-sm-4">
-              <div className="c-card">
-                <img src={process.env.CONTENT_IMG_3} alt="" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {source &&
+        source.length &&
+        source.map((s, i) => (
+          <VideoList playlist={s.playlist} title={s.title} key={i} />
+        ))}
     </MainLayout>
   );
 }
 
-Index.getInitialProps = async ctx => {
-  const chatClient = new StreamChat(
-    process.env.GET_STREAM_PUBLIC,
-    process.env.GET_STREAM_SECRET
-  );
-  const userToken = chatClient.createToken("user-1");
-  return { userToken };
+Index.getInitialProps = async () => {
+  let sources = process.env.CONTENT_JWT_SOURCE.split(",");
+  let results = await Promise.all(sources.map(source => axios.get(source)));
+  return {
+    source: results.map(result => result.data)
+  };
 };
 
 export default Index;

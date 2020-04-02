@@ -19,18 +19,23 @@ interface ResetPasswordDto {
 const ResetPasswordForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const auth = useAuth();
 
   const forgotPasswordRequest = ({ email }: ResetPasswordDto) => {
     setError(null);
     setSuccess(null);
+    setLoading(true);
     auth
       .sendPasswordResetEmail(email)
       .then(res => {
+        setLoading(false);
+        setSuccess("Check your email");
         console.log(res);
       })
       .catch(err => {
+        setLoading(false);
         setError(err?.message ? err?.message : "Something went wrong");
         console.log(err?.message);
       });
@@ -64,8 +69,20 @@ const ResetPasswordForm: React.FC<{}> = () => {
                 <div className="invalid-feedback">{errors.email}</div>
               ) : null}
             </div>
-            <button className="btn btn-primary btn-block" type="submit">
-              Reset password
+            <button
+              disabled={isLoading}
+              className="btn btn-primary btn-block"
+              type="submit"
+            >
+              {isLoading && (
+                <div
+                  className="spinner-border text-light spinner-border-sm"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
+              {!isLoading && <span>Reset password</span>}
             </button>
           </Form>
         )}

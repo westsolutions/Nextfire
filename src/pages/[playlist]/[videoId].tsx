@@ -43,18 +43,13 @@ function VideoPage({ source }) {
     "col-sm-8": process.env.CONTENT_CHAT_ENABLED
   });
   const hasNext = Number(videoIndex) < sourcePlaylist.length - 1;
+  const mediaIdsList = sourcePlaylist.map(pl => pl.mediaid);
+  const indexOfNext = Number(videoIndex) + 1;
 
-  const onVideoEnded = () => {
-    let mediaIdsList = sourcePlaylist.map(pl => pl.mediaid);
-    let indexOfNext = Number(videoIndex) + 1;
-    let redirectLink =
-      indexOfNext < sourcePlaylist.length - 1
-        ? `/${playlist}/${mediaIdsList[indexOfNext]}__${indexOfNext}/`
-        : "/";
-    setTimeout(() => {
-      router.push(redirectLink);
-    }, 5000);
-  };
+  const redirectLink =
+    indexOfNext < sourcePlaylist.length - 1
+      ? `/${playlist}/${mediaIdsList[indexOfNext]}__${indexOfNext}/`
+      : "/";
   return (
     <MainLayout>
       <Head>
@@ -69,7 +64,7 @@ function VideoPage({ source }) {
                 title={videoItem.title}
                 videoItem={videoItem}
                 hasNext={hasNext}
-                onEnd={onVideoEnded}
+                redirectLink={redirectLink}
               />
             )}
           </div>

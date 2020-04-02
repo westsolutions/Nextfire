@@ -1,5 +1,6 @@
 .c-video {
   padding: 35px 0;
+  color: rgba($bg-dark-text-color, 0.8);
   @media (min-width: 768px) {
     padding: 65px 0 30px;
   }
@@ -11,6 +12,39 @@
     font-size: 28px;
     line-height: 38px;
     margin-top: 0 !important;
+  }
+  &__overlay {
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  &__message {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  &__icon {
+    margin: 0 auto 1.5rem;
+    color: #fff;
+    &:hover {
+      opacity: 0.5;
+      cursor: pointer;
+    }
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: rgba($bg-dark-text-color, 0.95);
+  }
+  .container {
+    position: relative;
   }
 }
 

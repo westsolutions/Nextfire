@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { useState } from "react";
 import ReactJWPlayer from "react-jw-player";
 import Cookies from "js-cookie";
 
@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export default ({ videoItem, title, subTitle, onEnd }) => {
+export default ({ videoItem, title, subTitle, onEnd, hasNext = false }) => {
   const onPlay = () => {
     let cookieData = Cookies.get(`video__${videoItem.mediaid}`);
 
@@ -32,7 +32,16 @@ export default ({ videoItem, title, subTitle, onEnd }) => {
     );
   };
 
+  const [isFinished, setFinished] = useState(false);
+  const onVideoEnded = event => {
+    setFinished(true);
+    onEnd(event);
+  };
+
   const video = videoItem.sources.filter(s => s.width > 480);
+  const redirectionMessage = `You will be redirected to the ${
+    hasNext ? "next Video" : "Home Page"
+  } after 5s.`;
 
   // TODO: video selector
   return (
@@ -44,11 +53,16 @@ export default ({ videoItem, title, subTitle, onEnd }) => {
           <ReactJWPlayer
             onReady={onPlay}
             onTime={onTime}
-            onOneHundredPercent={onEnd}
+            onOneHundredPercent={onVideoEnded}
             playerId="my-unique-1"
             playerScript="https://cdn.jwplayer.com/libraries/Izw2Kj6o.js"
             file={video[0].file}
           />
+          {isFinished && (
+            <div className="c-video__overlay">
+              <div className="c-video__message">{redirectionMessage}</div>
+            </div>
+          )}
         </div>
       </div>
     </div>

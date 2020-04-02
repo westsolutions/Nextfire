@@ -109,7 +109,7 @@ const renderVideoItem = ({ finished, ...item }, index) => {
         if (isSwiping) {
           e.preventDefault;
         } else {
-          router.push(`/${item.feedid}/${item.mediaid}/`);
+          router.push(`/${item.feedid}/${item.mediaid}__${index}/`);
         }
         setSwiping(false);
       }}

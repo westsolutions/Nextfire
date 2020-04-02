@@ -36,22 +36,24 @@ function VideoPage({ source }) {
   const { playlist, videoId } = router.query;
   const sourcePlaylist = source.find(source => source.feedid === playlist)
     .playlist;
-  const videoItem = sourcePlaylist.find(i => i.mediaid === videoId);
+  const [id, videoIndex] = (videoId as string).split("__");
+  const videoItem = sourcePlaylist.find(i => i.mediaid === id);
   const videoColumnClass = classNames({
     "col-12": true,
     "col-sm-8": process.env.CONTENT_CHAT_ENABLED
   });
+  const hasNext = Number(videoIndex) < sourcePlaylist.length - 1;
+
   const onVideoEnded = () => {
     let mediaIdsList = sourcePlaylist.map(pl => pl.mediaid);
-    let indexOfNext = Number(mediaIdsList.indexOf(videoId)) + 1;
-    if (indexOfNext < sourcePlaylist.length - 1) {
-      let nextMediaId = mediaIdsList[indexOfNext];
-      router.push(`/${playlist}/${nextMediaId}/`);
-    } else {
-      setTimeout(() => {
-        router.push("/");
-      }, 5000);
-    }
+    let indexOfNext = Number(videoIndex) + 1;
+    let redirectLink =
+      indexOfNext < sourcePlaylist.length - 1
+        ? `/${playlist}/${mediaIdsList[indexOfNext]}__${indexOfNext}/`
+        : "/";
+    setTimeout(() => {
+      router.push(redirectLink);
+    }, 5000);
   };
   return (
     <MainLayout>
@@ -66,6 +68,7 @@ function VideoPage({ source }) {
                 subTitle={source.title}
                 title={videoItem.title}
                 videoItem={videoItem}
+                hasNext={hasNext}
                 onEnd={onVideoEnded}
               />
             )}
@@ -83,11 +86,7 @@ function VideoPage({ source }) {
         </div>
       </div>
       <Ads />
-      <VideoList
-        playlist={sourcePlaylist}
-        title="Up Next"
-        excludedId={videoId}
-      />
+      <VideoList playlist={sourcePlaylist} title="Up Next" excludedId={id} />
     </MainLayout>
   );
 }

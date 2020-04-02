@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import ReactJWPlayer from "react-jw-player";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 declare global {
   interface Window {
@@ -8,7 +10,13 @@ declare global {
   }
 }
 
-export default ({ videoItem, title, subTitle, onEnd, hasNext = false }) => {
+export default ({
+  videoItem,
+  title,
+  subTitle,
+  redirectLink = "/",
+  hasNext = false
+}) => {
   const onPlay = () => {
     let cookieData = Cookies.get(`video__${videoItem.mediaid}`);
 
@@ -32,16 +40,25 @@ export default ({ videoItem, title, subTitle, onEnd, hasNext = false }) => {
     );
   };
 
+  const [counter, setCounter] = useState(null);
+  useEffect(() => {
+    if (counter && counter > 0) {
+      setTimeout(() => setCounter(counter - 1), 1000);
+    } else if (counter == -0) {
+      router.push(redirectLink);
+    }
+  }, [counter]);
+
   const [isFinished, setFinished] = useState(false);
-  const onVideoEnded = event => {
+
+  const router = useRouter();
+  const onVideoEnded = () => {
     setFinished(true);
-    onEnd(event);
+    setCounter(5);
   };
 
   const video = videoItem.sources.filter(s => s.width > 480);
-  const redirectionMessage = `You will be redirected to the ${
-    hasNext ? "next Video" : "Home Page"
-  } after 5s.`;
+  const redirectionMessage = hasNext ? " next Video " : " Home Page ";
 
   // TODO: video selector
   return (
@@ -60,7 +77,11 @@ export default ({ videoItem, title, subTitle, onEnd, hasNext = false }) => {
           />
           {isFinished && (
             <div className="c-video__overlay">
-              <div className="c-video__message">{redirectionMessage}</div>
+              <div className="c-video__message">
+                You will be redirected to the
+                <Link href={redirectLink}>{redirectionMessage}</Link>
+                after {counter} s.
+              </div>
             </div>
           )}
         </div>

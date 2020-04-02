@@ -7,7 +7,8 @@ module.exports = withCSS(
     env: {
       BASE_URL: process.env.BASE_URL || "http://localhost:3000/",
       LOGO_URL: process.env.LOGO_URL || "/logos/catalyst-logo.png",
-      LOGO_AUTH_URL: process.env.LOGO_URL || "/logos/catalist-logo-auth.png",
+      LOGO_AUTH_URL:
+        process.env.LOGO_AUTH_URL || "/logos/catalist-logo-auth.png",
       BG_AUTH_URL: process.env.BG_AUTH_URL || null,
       BG_DASHBOARD_URL: process.env.BG_DASHBOARD_URL || null,
       BACKEND_URL: process.env.BACKEND_URL || "http://localhost:5000/",

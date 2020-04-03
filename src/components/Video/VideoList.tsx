@@ -63,8 +63,8 @@ const ArrowRight = Arrow({
   child: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24px"
-      height="24px"
+      width="40px"
+      height="40px"
       viewBox="0 0 492.004 492.004"
     >
       <path
@@ -80,8 +80,8 @@ const ArrowLeft = Arrow({
   child: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24px"
-      height="24px"
+      width="40px"
+      height="40px"
       viewBox="0 0 492 492"
     >
       <path

@@ -146,14 +146,9 @@ const renderVideoItem = ({ finished, ...item }, index) => {
           </div>
         )}
       </div>
-      <Link
-        href={`/${item.feedid}/${item.mediaid}__${index}/`}
-        as={`/${item.feedid}/${item.mediaid}__${index}/`}
-      >
-        <h4 className="c-video-card__title" title={item.title}>
-          {item.title}
-        </h4>
-      </Link>
+      <h4 className="c-video-card__title" title={item.title}>
+        {item.title}
+      </h4>
       <small className="c-video-card__duration">
         {durationInMinutes(item.duration)}
       </small>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import MainLayout from "@layouts/MainLayout";
 import VideoList from "@components/Video/VideoList";
 import Head from "next/head";
-import { useAuth } from "reactfire";
 import axios from "axios";
 
 function Index({ source }) {
@@ -10,7 +9,10 @@ function Index({ source }) {
     <MainLayout>
       <Head>
         <title>Live Stream Event | Tribe</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
       </Head>
       {source &&
         source.length &&

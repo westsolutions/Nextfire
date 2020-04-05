@@ -30,6 +30,7 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
   const checkCode = ({ email }: AccessEmailDto) => {
     setError(null);
     setSuccess(null);
+    setLoading(true);
     const accessCode: string = router.query.code as string;
     if (!accessCode) {
       setError("Access code is missing");

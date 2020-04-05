@@ -17,12 +17,14 @@ interface AccessCodeDto {
 const AccessCodeForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const router = useRouter();
 
   const checkCode = ({ code }: AccessCodeDto) => {
     setError(null);
     setSuccess(null);
+    setLoading(true);
     if (codeIsCorrect(code, process.env.ACCESS_CODE)) {
       router.push({
         pathname: ACCESS_STEP2,
@@ -31,6 +33,7 @@ const AccessCodeForm: React.FC<{}> = () => {
     } else {
       setError("Code is invalid");
     }
+    setLoading(false);
   };
 
   return (
@@ -61,8 +64,20 @@ const AccessCodeForm: React.FC<{}> = () => {
                 <div className="invalid-feedback">{errors.code}</div>
               ) : null}
             </div>
-            <button className="btn btn-danger btn-block" type="submit">
-              <span>Verify Access Code</span>
+            <button
+              className="btn btn-danger btn-block"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading && (
+                <div
+                  className="spinner-border text-light spinner-border-sm"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
+              {!isLoading && <span>Verify Access Code</span>}
             </button>
           </Form>
         )}

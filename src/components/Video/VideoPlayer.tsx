@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import ReactJWPlayer from "react-jw-player";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import DOMPurify from "dompurify";
 
 declare global {
   interface Window {
@@ -98,11 +99,20 @@ export default ({
               </Link>
               <div className="c-video__message">
                 You will be redirected to the&nbsp;
-                <Link href={redirectLink}>{redirectionMessage}</Link>&nbsp;after{" "}
-                {counter} s.
+                <Link href={redirectLink}>
+                  {redirectionMessage}
+                </Link>&nbsp;after {counter} s.
               </div>
             </div>
           )}
+        </div>
+        <div className="container">
+          <div
+            className="c-video__description"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(videoItem.description)
+            }}
+          ></div>
         </div>
       </div>
     </div>

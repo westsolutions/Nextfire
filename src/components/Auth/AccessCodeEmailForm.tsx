@@ -46,7 +46,6 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
         auth
           .signInWithEmailAndPassword(email, accessCode)
           .then(res => {
-            setLoading(false);
             if (process.browser) {
               firestore
                 .collection(UserTable)
@@ -56,10 +55,12 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
                   platform: window.location.origin
                 })
                 .then(() => {
+                  setLoading(false);
                   localStorage.setItem(email, "TRUE");
                   router.push(INDEX);
                 });
             }
+            setLoading(false);
           })
           .catch(err => {
             setLoading(false);

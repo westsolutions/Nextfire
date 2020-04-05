@@ -46,6 +46,10 @@
   .container {
     position: relative;
   }
+  &__description {
+    margin-top: 2.5rem;
+    font-size: 1.25rem;
+  }
 }
 
 .c-video-list {

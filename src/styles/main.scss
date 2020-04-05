@@ -54,7 +54,10 @@ body {
 }
 
 .s-card {
-  padding-top: 2rem;
+  padding-top: 0rem;
+  @media (min-width: 768px) {
+    padding-top: 2rem;
+  }
 }
 
 .c-card {

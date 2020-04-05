@@ -47,9 +47,14 @@
     position: relative;
   }
   &__description {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     font-size: 1.25rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    @media (min-width: 768px) {
+      margin-top: 1.5rem;
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
   }
 }
 

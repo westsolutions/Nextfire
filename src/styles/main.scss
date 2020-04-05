@@ -405,8 +405,10 @@ body {
 
 .menu-wrapper {
   max-width: 100%;
-  overflow: initial !important;
   position: relative;
+  @media (min-width: 960px) {
+    overflow: initial !important;
+  }
   //   &:after,
   //   &:before {
   //     content: "";

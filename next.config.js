@@ -27,7 +27,7 @@ module.exports = withCSS(
       CONTENT_CHAT_AVATAR:
         process.env.CONTENT_CHAT_AVATAR ||
         "https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png",
-      CONTENT_CHAT_ENABLED: process.env.CONTENT_CHAT_ENABLED,
+      CONTENT_CHAT_ENABLED: process.env.CONTENT_CHAT_ENABLED || false,
       CONTENT_IMG: process.env.CONTENT_IMG,
       CONTENT_IMG_HREF: process.env.CONTENT_IMG_HREF,
       FIREBASE_API_KEY:

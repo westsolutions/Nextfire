@@ -15,7 +15,7 @@ export default () => {
     };
   });
   const cols = hrefs.length ? Math.ceil(12 / hrefs.length) : 12;
-  const desktopClassName = `col-12 col-md-${cols}`;
+  const desktopClassName = `col-6 col-md-${cols}`;
 
   return (
     <div className="s-card">

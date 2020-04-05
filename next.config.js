@@ -4,7 +4,7 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = withCSS(
   withSass({
-    distDir: ".next",
+    distDir: "_next",
     env: {
       BASE_URL: process.env.BASE_URL || "http://localhost:3000/",
       LOGO_URL: process.env.LOGO_URL || "/logos/catalyst-logo.png",

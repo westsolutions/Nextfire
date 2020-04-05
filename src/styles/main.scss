@@ -367,12 +367,11 @@ body {
         max-width: 100%;
       }
 
-      input[name=code] {
+      input[name="code"] {
         color: red;
         font-weight: bold;
         text-transform: uppercase;
       }
-
     }
     h1 {
       font-size: 28px;
@@ -383,7 +382,6 @@ body {
         text-align: center;
         font-size: 20px;
       }
-
     }
   }
 }
@@ -399,6 +397,7 @@ body {
 
 .menu-wrapper--inner {
   max-width: 100%;
+  transition: transform 0.5s !important;
 }
 
 .menu-item {
@@ -416,8 +415,8 @@ body {
 
 .horizontal-menu {
   position: relative;
-  margin-left: -7.5px;
-  margin-right: -7.5px;
+  // margin-left: -7.5px;
+  // margin-right: -7.5px;
 }
 
 .menu-wrapper--inner {

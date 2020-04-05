@@ -16,20 +16,21 @@ function VideoPage({ source }) {
   const [userId, setUserName] = useState(null);
   const auth = useAuth();
 
+  const fetchUserToken = async currentUser => {
+    await axios(`${process.env.BACKEND_URL}chat?user=${currentUser.uid}`).then(
+      res => {
+        setUserToken(res.data);
+        setUserName(currentUser.uid);
+      }
+    );
+  };
+
   useEffect(() => {
     auth.onAuthStateChanged((currentUser: any) => {
-      if (currentUser && process.env.CONTENT_CHAT_ENABLED) {
+      if (process.env.CONTENT_CHAT_ENABLED && currentUser) {
         fetchUserToken(currentUser);
       }
     });
-    const fetchUserToken = async currentUser => {
-      await axios(
-        `${process.env.BACKEND_URL}chat?user=${currentUser.uid}`
-      ).then(res => {
-        setUserToken(res.data);
-        setUserName(currentUser.uid);
-      });
-    };
   }, []);
 
   const router = useRouter();

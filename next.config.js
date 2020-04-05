@@ -22,8 +22,8 @@ module.exports = withCSS(
       CONTENT_VIDEO_CONTENT:
         process.env.CONTENT_VIDEO_CONTENT ||
         "asdfasdfasdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdfasdfasdfasdfasdfasdf",
-      CONTENT_CHAT_TITLE: process.env.CONTENT_CHAT_TITLE || "CHAT title",
-      CONTENT_CHAT_ID: process.env.CONTENT_CHAT_ID || "test",
+      CONTENT_CHAT_TITLE: process.env.CONTENT_CHAT_TITLE || "",
+      CONTENT_CHAT_ID: process.env.CONTENT_CHAT_ID || null,
       CONTENT_CHAT_AVATAR:
         process.env.CONTENT_CHAT_AVATAR ||
         "https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png",

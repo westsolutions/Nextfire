@@ -31,6 +31,7 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
     setError(null);
     setSuccess(null);
     setLoading(true);
+
     const accessCode: string = router.query.code as string;
     if (!accessCode) {
       setError("Access code is missing");
@@ -43,32 +44,23 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
     auth
       .createUserWithEmailAndPassword(email, accessCode)
       .then((user: any) => {
+        localStorage.setItem(email, "TRUE");
         setSuccess("Your account is created... we're signing you in...");
-        auth
-          .signInWithEmailAndPassword(email, accessCode)
-          .then(res => {
-            if (process.browser) {
-              firestore
-                .collection(UserTable)
-                .add({
-                  email,
-                  // password,
-                  platform: window.location.origin
-                })
-                .then(() => {
-                  setLoading(false);
-                  localStorage.setItem(email, "TRUE");
-                  router.push(INDEX);
-                });
-              return;
-            }
-            setLoading(false);
-          })
-          .catch(err => {
-            setLoading(false);
-            setError(err?.message ? err?.message : "Something went wrong");
-            console.log(err?.message);
-          });
+        if (process.browser) {
+          firestore
+            .collection(UserTable)
+            .add({
+              email,
+              // password,
+              platform: window.location.origin
+            })
+            .then(() => {
+              router.push(INDEX);
+              setLoading(false);
+            });
+          return;
+        }
+        setLoading(false);
       })
       .catch(err => {
         setLoading(false);

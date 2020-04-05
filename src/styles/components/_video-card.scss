@@ -61,7 +61,10 @@
 .c-video-list {
   padding: 8vh 0 1vh;
   &:first-of-type {
-    padding-top: 20vh;
+    padding-top: 10vh;
+    @media (min-width: 768px) {
+      padding-top: 20vh;
+    }
   }
   &__title {
     font-weight: 700;

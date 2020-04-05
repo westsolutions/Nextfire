@@ -18,7 +18,7 @@ function VideoPage({ source }) {
 
   useEffect(() => {
     auth.onAuthStateChanged((currentUser: any) => {
-      if (currentUser) {
+      if (currentUser && process.env.CONTENT_CHAT_ENABLED) {
         fetchUserToken(currentUser);
       }
     });
@@ -87,6 +87,11 @@ function VideoPage({ source }) {
 }
 
 VideoPage.getInitialProps = async ({}) => {
+  if (!process.env.CONTENT_JWT_SOURCE) {
+    return {
+      source: []
+    };
+  }
   let sources = process.env.CONTENT_JWT_SOURCE.split(", ");
   let results = await Promise.all(sources.map(source => axios.get(source)));
   return {

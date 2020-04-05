@@ -60,6 +60,7 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
                   localStorage.setItem(email, "TRUE");
                   router.push(INDEX);
                 });
+              return;
             }
             setLoading(false);
           })

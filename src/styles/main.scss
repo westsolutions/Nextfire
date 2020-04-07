@@ -72,11 +72,30 @@ body {
   }
 }
 
+@keyframes fadeInBackground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .layout-main {
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
+  padding-bottom: 10vh;
+  animation: fadeInBackground .6s ease-in-out  ;
+
+  height: 100%;   /* ges Hoehe der Seite -> weitere Hoehenangaben werden relativ hierzu ausgewertet */
+  overflow: hidden;   /*  hide scrollbars */
+  opacity: 1.0;
+
+  background: url('http://cdn.mytribe.network.s3.amazonaws.com/images/cat_Video%20Player_BG.jpg')
+
+
 }
 
 .layout-auth {

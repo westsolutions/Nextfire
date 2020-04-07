@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import ReactJWPlayer from "react-jw-player";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import DOMPurify from "dompurify";
 
 declare global {
   interface Window {
@@ -27,8 +28,8 @@ export default ({
     const [resumeAt, duration] = cookieData.split(":");
 
     if (parseFloat(resumeAt) < parseFloat(duration)) {
-      var player = window.jwplayer();
-      player.seek(resumeAt);
+      const player = window.jwplayer();
+      player.seek(parseFloat(resumeAt));
       return;
     }
   };
@@ -57,7 +58,9 @@ export default ({
     setCounter(5);
   };
 
-  const video = videoItem.sources.filter(s => s.width > 480);
+  const manifestFile = videoItem.sources.filter(
+    s => s.type === "application/vnd.apple.mpegurl"
+  );
   const redirectionMessage = hasNext ? "next Video" : "Home Page";
 
   // TODO: video selector
@@ -73,7 +76,8 @@ export default ({
             onOneHundredPercent={onVideoEnded}
             playerId="my-unique-1"
             playerScript="https://cdn.jwplayer.com/libraries/Izw2Kj6o.js"
-            file={video[0].file}
+            file={manifestFile[0].file}
+            isAutoPlay={true}
           />
           {isFinished && (
             <div className="c-video__overlay">
@@ -98,11 +102,20 @@ export default ({
               </Link>
               <div className="c-video__message">
                 You will be redirected to the&nbsp;
-                <Link href={redirectLink}>{redirectionMessage}</Link>&nbsp;after{" "}
-                {counter} s.
+                <Link href={redirectLink}>
+                  {redirectionMessage}
+                </Link>&nbsp;after {counter} s.
               </div>
             </div>
           )}
+        </div>
+        <div className="container">
+          <div
+            className="c-video__description"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(videoItem.description)
+            }}
+          ></div>
         </div>
       </div>
     </div>

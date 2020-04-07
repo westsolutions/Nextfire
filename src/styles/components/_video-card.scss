@@ -46,10 +46,26 @@
   .container {
     position: relative;
   }
+  &__description {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    @media (min-width: 768px) {
+      margin-top: 1.5rem;
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+  }
 }
 
 .c-video-list {
-  padding: 30px 0;
+  padding: 8vh 0 1vh;
+  &:first-of-type {
+    padding-top: 10vh;
+    @media (min-width: 768px) {
+      padding-top: 20vh;
+    }
+  }
   &__title {
     font-weight: 700;
     font-size: 28px;

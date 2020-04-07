@@ -31,6 +31,7 @@
     "cookies-js": "^1.2.3",
     "cors": "^2.8.5",
     "date-fns": "^2.11.0",
+    "dompurify": "^2.0.8",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
     "emoji-mart": "^2.11.2",

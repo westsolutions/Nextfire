@@ -2,33 +2,17 @@ import React, { useEffect, useState } from "react";
 import MainLayout from "@layouts/MainLayout";
 import VideoList from "@components/Video/VideoList";
 import Head from "next/head";
-import { useAuth } from "reactfire";
 import axios from "axios";
 
 function Index({ source }) {
-  const [userToken, setUserToken] = useState(null);
-  const [userId, setUserName] = useState(null);
-  const auth = useAuth();
-
-  useEffect(() => {
-    auth.onAuthStateChanged((currentUser: any) => {
-      if (currentUser) {
-        fetchUserToken(currentUser);
-      }
-    });
-    const fetchUserToken = async currentUser => {
-      await axios(
-        `${process.env.BACKEND_URL}chat?user=${currentUser.uid}`
-      ).then(res => {
-        setUserToken(res.data);
-        setUserName(currentUser.uid);
-      });
-    };
-  }, []);
   return (
     <MainLayout>
       <Head>
         <title>Live Stream Event | Tribe</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
       </Head>
       {source &&
         source.length &&

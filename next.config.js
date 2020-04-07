@@ -4,6 +4,8 @@ const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = withCSS(
   withSass({
+    distDir: "_next",
+    pageExtensions: ["tsx", "ts"],
     env: {
       BASE_URL: process.env.BASE_URL || "http://localhost:3000/",
       LOGO_URL: process.env.LOGO_URL || "/logos/catalyst-logo.png",
@@ -22,12 +24,12 @@ module.exports = withCSS(
       CONTENT_VIDEO_CONTENT:
         process.env.CONTENT_VIDEO_CONTENT ||
         "asdfasdfasdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdfasdfasdfasdfasdfasdf",
-      CONTENT_CHAT_TITLE: process.env.CONTENT_CHAT_TITLE || "CHAT title",
-      CONTENT_CHAT_ID: process.env.CONTENT_CHAT_ID || "test",
+      CONTENT_CHAT_TITLE: process.env.CONTENT_CHAT_TITLE || "",
+      CONTENT_CHAT_ID: process.env.CONTENT_CHAT_ID || null,
       CONTENT_CHAT_AVATAR:
         process.env.CONTENT_CHAT_AVATAR ||
         "https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png",
-      CONTENT_CHAT_ENABLED: process.env.CONTENT_CHAT_ENABLED,
+      CONTENT_CHAT_ENABLED: process.env.CONTENT_CHAT_ENABLED || false,
       CONTENT_IMG: process.env.CONTENT_IMG,
       CONTENT_IMG_HREF: process.env.CONTENT_IMG_HREF,
       FIREBASE_API_KEY:

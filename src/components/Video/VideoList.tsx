@@ -46,7 +46,7 @@ export default ({ playlist, title, excludedId = null }) => {
           arrowLeft={ArrowLeft}
           arrowRight={ArrowRight}
           alignCenter={false}
-          // translate={7.5}
+          wheel={false}
           hideSingleArrow={true}
           inertiaScrollingSlowdown={0}
         />
@@ -63,8 +63,8 @@ const ArrowRight = Arrow({
   child: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24px"
-      height="24px"
+      width="40px"
+      height="40px"
       viewBox="0 0 492.004 492.004"
     >
       <path
@@ -80,8 +80,8 @@ const ArrowLeft = Arrow({
   child: (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24px"
-      height="24px"
+      width="40px"
+      height="40px"
       viewBox="0 0 492 492"
     >
       <path
@@ -146,11 +146,9 @@ const renderVideoItem = ({ finished, ...item }, index) => {
           </div>
         )}
       </div>
-      <Link href={`/${item.feedid}/${item.mediaid}/`}>
-        <h4 className="c-video-card__title" title={item.title}>
-          {item.title}
-        </h4>
-      </Link>
+      <h4 className="c-video-card__title" title={item.title}>
+        {item.title}
+      </h4>
       <small className="c-video-card__duration">
         {durationInMinutes(item.duration)}
       </small>

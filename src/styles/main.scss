@@ -82,18 +82,34 @@ body {
 }
 
 .layout-main {
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-size: cover;
+
+  &:before {
+    content: "";
+    left:0;
+    top:0;
+    height: 100vh;
+    width: 100%;
+    position:fixed;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    animation: fadeInBackground .6s ease-in-out  ;
+    z-index: -1;
+    background: url('http://cdn.mytribe.network.s3.amazonaws.com/images/cat_Video%20Player_BG.jpg')
+
+
+  }
+
+
   min-height: 100vh;
-  padding-bottom: 10vh;
-  animation: fadeInBackground .6s ease-in-out  ;
+  padding-bottom: 20vh;
 
   height: 100%;   /* ges Hoehe der Seite -> weitere Hoehenangaben werden relativ hierzu ausgewertet */
   overflow: hidden;   /*  hide scrollbars */
   opacity: 1.0;
 
-  background: url('http://cdn.mytribe.network.s3.amazonaws.com/images/cat_Video%20Player_BG.jpg')
+
 
 
 }
@@ -105,7 +121,7 @@ body {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  position: fixed;
+
 
   &__logo {
     text-align: center;
@@ -362,7 +378,6 @@ body {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  position: fixed;
 
   .container {
     padding-top: 1rem;

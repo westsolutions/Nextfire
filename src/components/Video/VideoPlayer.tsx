@@ -24,6 +24,7 @@ export default ({
     const player = window.jwplayer();
 
     if (!cookieData) {
+      player.seek(0);
       return;
     }
 
@@ -31,14 +32,8 @@ export default ({
 
     if (parseFloat(resumeAt) < parseFloat(duration)) {
       player.seek(parseFloat(resumeAt));
-      setTimeout(() => {
-        player.play();
-      }, 1000);
       return;
     }
-    setTimeout(() => {
-      player.play();
-    }, 1000);
   };
 
   const onTime = event => {

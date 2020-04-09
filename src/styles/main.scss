@@ -520,3 +520,15 @@ body {
 .jw-icon.jw-button-color.jw-icon-playback {
   display: flex !important;
 }
+
+.mobile-video {
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  .menu-item {
+    padding-bottom: 2rem;
+  }
+}

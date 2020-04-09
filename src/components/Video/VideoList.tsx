@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 import { useState, useRef } from "react";
 import { useRouter } from "next/router";
+import { isMobile } from "../../helpers";
 
 export default ({ playlist, title, excludedId = null }) => {
   const refScrollMenu = useRef();
@@ -40,16 +41,19 @@ export default ({ playlist, title, excludedId = null }) => {
     <div className="c-video-list">
       <div className="container">
         {title && <h1 className="c-video-list__title">{title}</h1>}
-        <ScrollMenu
-          ref={refScrollMenu}
-          data={videoItems}
-          arrowLeft={ArrowLeft}
-          arrowRight={ArrowRight}
-          alignCenter={false}
-          wheel={false}
-          hideSingleArrow={true}
-          inertiaScrollingSlowdown={0}
-        />
+        {!isMobile && (
+          <ScrollMenu
+            ref={refScrollMenu}
+            data={videoItems}
+            arrowLeft={ArrowLeft}
+            arrowRight={ArrowRight}
+            alignCenter={false}
+            wheel={false}
+            hideSingleArrow={true}
+            inertiaScrollingSlowdown={0}
+          />
+        )}
+        {isMobile && <div className="mobile-video">{videoItems}</div>}
       </div>
     </div>
   );

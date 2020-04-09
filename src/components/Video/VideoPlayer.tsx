@@ -21,6 +21,8 @@ export default ({
   const onPlay = () => {
     let cookieData = Cookies.get(`video__${videoItem.mediaid}`);
 
+    const player = window.jwplayer();
+
     if (!cookieData) {
       return;
     }
@@ -28,10 +30,15 @@ export default ({
     const [resumeAt, duration] = cookieData.split(":");
 
     if (parseFloat(resumeAt) < parseFloat(duration)) {
-      const player = window.jwplayer();
       player.seek(parseFloat(resumeAt));
+      setTimeout(() => {
+        player.play();
+      }, 1000);
       return;
     }
+    setTimeout(() => {
+      player.play();
+    }, 1000);
   };
 
   const onTime = event => {
@@ -77,8 +84,7 @@ export default ({
             playerId="my-unique-1"
             playerScript="https://cdn.jwplayer.com/libraries/Izw2Kj6o.js"
             file={manifestFile[0].file}
-            isMuted={isMobile()}
-            isAutoPlay={true}
+            isAutoPlay={!isMobile()}
           />
           {isFinished && (
             <div className="c-video__overlay">

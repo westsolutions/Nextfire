@@ -429,78 +429,23 @@ body {
   transition: transform 0.4s ease 0s;
 }
 
-.menu-item {
-  margin: 0 7.5px;
-  cursor: pointer;
-  border: none;
-}
-
-.menu-item-wrapper {
-  max-width: 66%;
-  @media screen and (min-width: 768px) {
-    max-width: 28.5%;
-  }
-}
-
-.horizontal-menu {
-  position: relative;
-  // margin-left: -7.5px;
-  // margin-right: -7.5px;
-}
-
-.menu-wrapper--inner {
-  white-space: nowrap;
-}
-
-.menu-item-wrapper,
-.menu-item {
-  outline: none;
-}
-
-.menu-wrapper {
-  max-width: 100%;
-  position: relative;
-  @media (min-width: 960px) {
-    overflow: initial !important;
-  }
-  //   &:after,
-  //   &:before {
-  //     content: "";
-  //     top: 0;
-  //     position: absolute;
-  //     width: 21vw;
-  //     height: 100%;
-  //     background: transparent;
-  //     z-index: 1;
-  //   }
-  //   &:after {
-  //     left: 100%;
-  //     margin-left: -7.5px;
-  //     background: transparent;
-  //   }
-  //   &:before {
-  //     right: 100%;
-  //     margin-right: -7.5px;
-  //   }
-}
-
-.scroll-menu-arrow {
-  display: none;
-  @media screen and (min-width: 768px) {
-    display: block;
-    z-index: 2;
-    &--disabled {
-      display: none;
-    }
+.c-video-list {
+  .container {
+    position: relative;
   }
   .arrow-next,
   .arrow-prev {
-    top: -50px;
+    display: none;
+    z-index: 2;
+    top: 22px;
     transform: translateY(-50%);
     position: absolute;
     cursor: pointer;
     &:hover {
       opacity: 0.5;
+    }
+    @media (min-width: 768px) {
+      display: block;
     }
   }
 
@@ -513,6 +458,7 @@ body {
     margin-right: -15px;
   }
 }
+
 .jw-display-icon-container {
   display: none !important;
 }
@@ -521,14 +467,14 @@ body {
   display: flex !important;
 }
 
-.mobile-video {
-  display: flex;
-  overflow-y: hidden;
-  overflow-x: auto;
-  flex-wrap: nowrap;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  .menu-item {
-    padding-bottom: 2rem;
+.swiper-wrapper {
+  white-space: nowrap;
+  padding: 0 !important;
+  .c-video-card {
+    display: inline-block;
+    max-width: 225px;
+    @media (min-width: 768px) {
+      max-width: 275px;
+    }
   }
 }

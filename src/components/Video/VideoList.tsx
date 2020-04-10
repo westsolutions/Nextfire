@@ -1,12 +1,11 @@
 import Link from "next/link";
 import Cookies from "js-cookie";
-import ScrollMenu from "react-horizontal-scrolling-menu";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { isMobile } from "../../helpers";
+import Swiper from "react-id-swiper";
 
 export default ({ playlist, title, excludedId = null }) => {
-  const refScrollMenu = useRef();
+  const [swiper, setSwiper] = useState(null);
 
   playlist = excludedId
     ? playlist.filter(i => i.mediaid !== excludedId)
@@ -31,77 +30,90 @@ export default ({ playlist, title, excludedId = null }) => {
     };
   });
 
-  const videoItems = playlist.map((s, i) => (
-    <div key={s.mediaid + i} className="menu-item">
-      {renderVideoItem(s, i)}
-    </div>
-  ));
+  const videoItems = playlist.map((s, i) => renderVideoItem(s, i));
+
+  const Arrow = ({ child, className }) => {
+    return <div className={className}>{child}</div>;
+  };
+
+  const goNext = () => {
+    console.log(swiper);
+    swiper.navigation.update();
+    if (swiper !== null) {
+      swiper.slideNext();
+    }
+  };
+
+  const goPrev = () => {
+    console.log(swiper);
+    swiper.navigation.update();
+    if (swiper !== null) {
+      swiper.slidePrev();
+    }
+  };
+
+  const ArrowRight = Arrow({
+    child: (
+      <svg
+        onClick={goNext}
+        xmlns="http://www.w3.org/2000/svg"
+        width="40px"
+        height="40px"
+        viewBox="0 0 492.004 492.004"
+      >
+        <path
+          fill="currentColor"
+          d="M382.678 226.804L163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z"
+        />
+      </svg>
+    ),
+    className: "arrow-prev"
+  });
+
+  const ArrowLeft = Arrow({
+    child: (
+      <svg
+        onClick={goPrev}
+        xmlns="http://www.w3.org/2000/svg"
+        width="40px"
+        height="40px"
+        viewBox="0 0 492 492"
+      >
+        <path
+          fill="currentColor"
+          d="M198.608 246.104L382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z"
+        />
+      </svg>
+    ),
+    className: "arrow-next"
+  });
+
+  const settings = {
+    slidesPerView: "auto",
+    observer: true,
+    spaceBetween: 15
+  };
 
   return (
     <div className="c-video-list">
       <div className="container">
         {title && <h1 className="c-video-list__title">{title}</h1>}
-        {!isMobile && (
-          <ScrollMenu
-            ref={refScrollMenu}
-            data={videoItems}
-            arrowLeft={ArrowLeft}
-            arrowRight={ArrowRight}
-            alignCenter={false}
-            wheel={false}
-            hideSingleArrow={true}
-            inertiaScrollingSlowdown={0}
-          />
-        )}
-        {isMobile && <div className="mobile-video">{videoItems}</div>}
+        {/* {swiper && !swiper.isBeginning ? ArrowLeft : ''} */}
+        <Swiper getSwiper={setSwiper} {...settings}>
+          {videoItems}
+        </Swiper>
+        {/* {swiper && !swiper.isEnd ? ArrowRight : ''} */}
       </div>
     </div>
   );
 };
-
-const Arrow = ({ child, className }) => {
-  return <div className={className}>{child}</div>;
-};
-
-const ArrowRight = Arrow({
-  child: (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="40px"
-      height="40px"
-      viewBox="0 0 492.004 492.004"
-    >
-      <path
-        fill="currentColor"
-        d="M382.678 226.804L163.73 7.86C158.666 2.792 151.906 0 144.698 0s-13.968 2.792-19.032 7.86l-16.124 16.12c-10.492 10.504-10.492 27.576 0 38.064L293.398 245.9l-184.06 184.06c-5.064 5.068-7.86 11.824-7.86 19.028 0 7.212 2.796 13.968 7.86 19.04l16.124 16.116c5.068 5.068 11.824 7.86 19.032 7.86s13.968-2.792 19.032-7.86L382.678 265c5.076-5.084 7.864-11.872 7.848-19.088.016-7.244-2.772-14.028-7.848-19.108z"
-      />
-    </svg>
-  ),
-  className: "arrow-prev"
-});
-
-const ArrowLeft = Arrow({
-  child: (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="40px"
-      height="40px"
-      viewBox="0 0 492 492"
-    >
-      <path
-        fill="currentColor"
-        d="M198.608 246.104L382.664 62.04c5.068-5.056 7.856-11.816 7.856-19.024 0-7.212-2.788-13.968-7.856-19.032l-16.128-16.12C361.476 2.792 354.712 0 347.504 0s-13.964 2.792-19.028 7.864L109.328 227.008c-5.084 5.08-7.868 11.868-7.848 19.084-.02 7.248 2.76 14.028 7.848 19.112l218.944 218.932c5.064 5.072 11.82 7.864 19.032 7.864 7.208 0 13.964-2.792 19.032-7.864l16.124-16.12c10.492-10.492 10.492-27.572 0-38.06L198.608 246.104z"
-      />
-    </svg>
-  ),
-  className: "arrow-next"
-});
 
 const renderVideoItem = ({ finished, ...item }, index) => {
   const [isSwiping, setSwiping] = useState(false);
   const router = useRouter();
   return (
     <div
+      key={item.mediaid + index}
       className="c-video-card"
       onMouseDown={() => {
         setSwiping(false);

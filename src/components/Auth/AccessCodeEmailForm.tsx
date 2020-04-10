@@ -41,8 +41,10 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
       setError("Access Code is invalid");
       return;
     }
+    let _accessCode = accessCode.toLowerCase();
+
     auth
-      .createUserWithEmailAndPassword(email, accessCode)
+      .createUserWithEmailAndPassword(email, _accessCode)
       .then((user: any) => {
         localStorage.setItem(email, "TRUE");
         setSuccess("Your account is created... we're signing you in...");
@@ -63,9 +65,24 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
         setLoading(false);
       })
       .catch(err => {
-        setLoading(false);
-        setError(err?.message ? err?.message : "Something went wrong");
-        console.log(err?.message);
+        if (err && err.code === "auth/email-already-in-use") {
+          auth
+            .signInWithEmailAndPassword(email, _accessCode)
+            .then(() => {
+              localStorage.setItem(email, "TRUE");
+              router.push(INDEX);
+              setLoading(false);
+            })
+            .catch(err => {
+              setLoading(false);
+              setError(err?.message ? err?.message : "Something went wrong");
+              console.log(err?.message);
+            });
+        } else {
+          setLoading(false);
+          setError(err?.message ? err?.message : "Something went wrong");
+          console.log(err?.message);
+        }
       });
   };
 

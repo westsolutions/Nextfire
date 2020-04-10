@@ -6,6 +6,7 @@ import Swiper from "react-id-swiper";
 
 export default ({ playlist, title, excludedId = null }) => {
   const [swiper, setSwiper] = useState(null);
+  const [force, forceUpdate] = useState(0);
 
   playlist = excludedId
     ? playlist.filter(i => i.mediaid !== excludedId)
@@ -37,18 +38,16 @@ export default ({ playlist, title, excludedId = null }) => {
   };
 
   const goNext = () => {
-    console.log(swiper);
-    swiper.navigation.update();
     if (swiper !== null) {
       swiper.slideNext();
+      forceUpdate(force + 1);
     }
   };
 
   const goPrev = () => {
-    console.log(swiper);
-    swiper.navigation.update();
     if (swiper !== null) {
       swiper.slidePrev();
+      forceUpdate(force + 1);
     }
   };
 
@@ -98,11 +97,11 @@ export default ({ playlist, title, excludedId = null }) => {
     <div className="c-video-list">
       <div className="container">
         {title && <h1 className="c-video-list__title">{title}</h1>}
-        {/* {swiper && !swiper.isBeginning ? ArrowLeft : ''} */}
+        {swiper && !swiper.isBeginning ? ArrowLeft : ""}
         <Swiper getSwiper={setSwiper} {...settings}>
           {videoItems}
         </Swiper>
-        {/* {swiper && !swiper.isEnd ? ArrowRight : ''} */}
+        {swiper && !swiper.isEnd ? ArrowRight : ""}
       </div>
     </div>
   );

@@ -55,18 +55,18 @@ body {
 
 .s-card {
   padding-top: 0rem;
-  @media (min-width: 768px) {
-    padding-top: 2rem;
-  }
+  // @media (min-width: 768px) {
+  //   padding-top: 2rem;
+  // }
 }
 
 .c-card {
   background: $card-bg;
   margin-top: 30px;
   text-align: center;
-  @include media-breakpoint-up(md) {
-    margin-top: -30px;
-  }
+  // @include media-breakpoint-up(md) {
+  //   margin-top: -30px;
+  // }
   img {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
   }

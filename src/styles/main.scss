@@ -61,7 +61,7 @@ body {
 }
 
 .c-card {
-  // background: $card-bg;
+  background: $card-bg;
   margin-top: 30px;
   text-align: center;
   @include media-breakpoint-up(md) {
@@ -472,6 +472,7 @@ body {
   white-space: nowrap;
   padding: 0 !important;
   .c-video-card {
+    vertical-align: top;
     display: inline-block;
     max-width: 225px;
     @media (min-width: 768px) {

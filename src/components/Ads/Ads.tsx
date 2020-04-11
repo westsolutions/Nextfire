@@ -14,7 +14,8 @@ export default () => {
       image: images[index]
     };
   });
-  const cols = hrefs.length ? Math.ceil(12 / hrefs.length) : 12;
+  let cols = hrefs.length ? Math.ceil(12 / hrefs.length) : 12;
+  cols = cols < 3 ? cols : 3;
   const desktopClassName = `col-6 col-md-${cols}`;
 
   return (

@@ -15,7 +15,7 @@ export default () => {
     };
   });
   let cols = hrefs.length ? Math.ceil(12 / hrefs.length) : 12;
-  cols = cols < 2 ? 2 : cols;
+  cols = cols < 4 ? 4 : cols;
   const desktopClassName = `col-6 col-md-${cols}`;
 
   return (

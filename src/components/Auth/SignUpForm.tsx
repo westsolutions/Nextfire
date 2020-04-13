@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { SIGN_IN, INDEX } from "@constants/routes";
 import { UserTable } from "@constants/db";
+import { pushUserToFullStory } from "../../helpers";
 //TODO: fix this later
 import * as firebase from "firebase";
 
@@ -84,6 +85,12 @@ const SignUpForm: React.FC<{}> = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((user: any) => {
+        pushUserToFullStory({
+          id: email,
+          email,
+          displayName,
+          platform: window.location.origin
+        });
         auth.currentUser.updateProfile({
           displayName: displayName
         });

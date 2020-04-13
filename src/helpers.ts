@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    FS: any;
+  }
+}
+
 export const isMobile = () => {
   let isMobile = false;
   if (
@@ -11,4 +17,20 @@ export const isMobile = () => {
     isMobile = true;
   }
   return isMobile;
+};
+
+export const pushUserToFullStory = ({
+  id,
+  displayName = "",
+  email,
+  platform
+}) => {
+  debugger;
+  window.FS.identify(id, {
+    displayName,
+    email,
+    platform,
+    signUpDate: new Date(),
+    reviewsWritten_int: 14
+  });
 };

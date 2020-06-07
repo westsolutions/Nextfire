@@ -39,7 +39,7 @@ const ChatBox = ({ userToken, userId, image, name }) => {
   return (
     <>
       {userId && (
-        <Chat client={chatClient} theme={"messaging light"}>
+        <Chat client={chatClient} theme={"messaging dark"}>
           <Channel channel={channel}>
             <Window>
               <ChannelHeader />

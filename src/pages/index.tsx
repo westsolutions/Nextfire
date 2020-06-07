@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import MainLayout from "@layouts/MainLayout";
 import VideoList from "@components/Video/VideoList";
 import Head from "next/head";
-import axios from "axios";
+import fetch from "isomorphic-fetch";
 
 function Index({ source }) {
+  console.log(source);
   return (
     <MainLayout>
       <Head>
@@ -25,9 +26,11 @@ function Index({ source }) {
 
 Index.getInitialProps = async () => {
   let sources = process.env.CONTENT_JWT_SOURCE.split(",");
-  let results = await Promise.all(sources.map(source => axios.get(source)));
+  let results = await Promise.all(
+    sources.map(source => fetch(source).then(response => response.json()))
+  );
   return {
-    source: results.map(result => result.data)
+    source: results.map(result => result)
   };
 };
 

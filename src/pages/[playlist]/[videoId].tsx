@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "reactfire";
 import MainLayout from "@layouts/MainLayout";
 import Head from "next/head";
-import axios from "axios";
 import VideoList from "@components/Video/VideoList";
 import VideoPlayer from "@components/Video/VideoPlayer";
 import Ads from "@components/Ads/Ads";
@@ -10,6 +9,7 @@ import classNames from "classnames";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 const ChatBox = dynamic(() => import("@components/Chat"), { ssr: false });
+import fetch from "isomorphic-fetch";
 
 function VideoPage({ source }) {
   const [userToken, setUserToken] = useState(null);
@@ -17,12 +17,12 @@ function VideoPage({ source }) {
   const auth = useAuth();
 
   const fetchUserToken = async currentUser => {
-    await axios(`${process.env.BACKEND_URL}chat?user=${currentUser.uid}`).then(
-      res => {
+    await fetch(`${process.env.BACKEND_URL}chat?user=${currentUser.uid}`)
+      .then(response => response.json())
+      .then(res => {
         setUserToken(res.data);
         setUserName(currentUser.uid);
-      }
-    );
+      });
   };
 
   useEffect(() => {
@@ -94,9 +94,11 @@ VideoPage.getInitialProps = async ({}) => {
     };
   }
   let sources = process.env.CONTENT_JWT_SOURCE.split(", ");
-  let results = await Promise.all(sources.map(source => axios.get(source)));
+  let results = await Promise.all(
+    sources.map(source => fetch(source).then(response => response.json()))
+  );
   return {
-    source: results.map(result => result.data)
+    source: results.map(result => result)
   };
 };
 

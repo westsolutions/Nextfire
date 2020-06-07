@@ -150,7 +150,7 @@ export default ({
           )}
         </div>
       </div>
-      <div className="container">
+      <div>
         <div
           className="c-video__description"
           dangerouslySetInnerHTML={{

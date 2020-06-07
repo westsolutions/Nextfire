@@ -5,7 +5,6 @@ import Head from "next/head";
 import fetch from "isomorphic-fetch";
 
 function Index({ source }) {
-  console.log(source);
   return (
     <MainLayout>
       <Head>

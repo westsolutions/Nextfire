@@ -17,10 +17,10 @@ function VideoPage({ source }) {
   const auth = useAuth();
 
   const fetchUserToken = async currentUser => {
-    await fetch(`${process.env.BACKEND_URL}chat?user=${currentUser.uid}`)
+    await fetch(`${process.env.BASE_URL}api/chat?user=${currentUser.uid}`)
       .then(response => response.json())
       .then(res => {
-        setUserToken(res.data);
+        setUserToken(res.token);
         setUserName(currentUser.uid);
       });
   };

@@ -8,20 +8,20 @@ import Loader from "react-loader";
 const MainLayout: React.FC<{}> = ({ children }) => {
   const auth = useAuth();
   const router = useRouter();
-  const [isLoaded, setLoading] = useState(false);
+  const [isLoaded, setLoading] = useState(true);
 
-  useEffect(() => {
-    auth.onAuthStateChanged((currentUser: any) => {
-      if (currentUser && localStorage.getItem(currentUser.email)) {
-        setLoading(true);
-      } else {
-        router.push(ACCESS);
-      }
-    });
-    return () => {
-      setLoading(true);
-    };
-  });
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((currentUser: any) => {
+  //     if (currentUser && localStorage.getItem(currentUser.email)) {
+  //       setLoading(true);
+  //     } else {
+  //       router.push(ACCESS);
+  //     }
+  //   });
+  //   return () => {
+  //     setLoading(true);
+  //   };
+  // });
 
   const backgroundImage = process.env.BG_DASHBOARD_URL
     ? `url("${process.env.BG_DASHBOARD_URL}")`

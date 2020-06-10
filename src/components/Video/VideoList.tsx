@@ -1,12 +1,26 @@
 import Link from "next/link";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useAuth } from "reactfire";
+import { ACCESS } from "@constants/routes";
 import Swiper from "react-id-swiper";
 
 export default ({ playlist, title, excludedId = null }) => {
   const [swiper, setSwiper] = useState(null);
   const [force, forceUpdate] = useState(0);
+
+  const auth = useAuth();
+  const router = useRouter();
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((currentUser: any) => {
+      if (currentUser && localStorage.getItem(currentUser.email)) {
+        setAuthenticated(true);
+      }
+    });
+  });
 
   playlist = excludedId
     ? playlist.filter(i => i.mediaid !== excludedId)
@@ -31,7 +45,9 @@ export default ({ playlist, title, excludedId = null }) => {
     };
   });
 
-  const videoItems = playlist.map((s, i) => renderVideoItem(s, i));
+  const videoItems = playlist.map((s, i) =>
+    renderVideoItem(s, i, authenticated)
+  );
 
   const Arrow = ({ child, className }) => {
     return <div className={className}>{child}</div>;
@@ -107,7 +123,7 @@ export default ({ playlist, title, excludedId = null }) => {
   );
 };
 
-const renderVideoItem = ({ finished, ...item }, index) => {
+const renderVideoItem = ({ finished, ...item }, index, authenticated?) => {
   const [isSwiping, setSwiping] = useState(false);
   const router = useRouter();
   return (
@@ -124,7 +140,10 @@ const renderVideoItem = ({ finished, ...item }, index) => {
         if (isSwiping) {
           e.preventDefault;
         } else {
-          router.push(`/${item.feedid}/${item.mediaid}__${index}/`);
+          let url = authenticated
+            ? `/${item.feedid}/${item.mediaid}__${index}/`
+            : ACCESS;
+          router.push(url);
         }
         setSwiping(false);
       }}

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 //TODO: useUser not working in current relase
 import { useAuth } from "reactfire";
-import { SIGN_IN } from "@constants/routes";
+import { SIGN_IN, ACCESS } from "@constants/routes";
 
 const NavBar: React.FC<{}> = () => {
   const auth = useAuth();
@@ -30,14 +30,26 @@ const NavBar: React.FC<{}> = () => {
           <div className="media-body">
             <h6>My Account</h6>
             <div className="dropdown-menu">
-              <a
-                className="dropdown-item"
-                onClick={() => {
-                  logout();
-                }}
-              >
-                Logout
-              </a>
+              {!!auth?.currentUser && (
+                <a
+                  className="dropdown-item"
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Logout
+                </a>
+              )}
+              {!auth?.currentUser && (
+                <a
+                  className="dropdown-item"
+                  onClick={() => {
+                    router.push(ACCESS);
+                  }}
+                >
+                  Login
+                </a>
+              )}
             </div>
           </div>
 

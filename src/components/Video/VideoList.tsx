@@ -3,8 +3,8 @@ import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "reactfire";
-import { ACCESS } from "@constants/routes";
 import Swiper from "react-id-swiper";
+import SignInModal from "@components/Modal/SignInModal";
 
 export default ({ playlist, title, excludedId = null }) => {
   const [swiper, setSwiper] = useState(null);
@@ -12,7 +12,8 @@ export default ({ playlist, title, excludedId = null }) => {
 
   const auth = useAuth();
   const router = useRouter();
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(!!auth.currentUser);
+  const [isModalVisible, setModalVisible] = useState(!auth.currentUser);
 
   useEffect(() => {
     auth.onAuthStateChanged((currentUser: any) => {
@@ -45,8 +46,16 @@ export default ({ playlist, title, excludedId = null }) => {
     };
   });
 
+  const onVideoClick = (item, index) => {
+    if (authenticated) {
+      router.push(`/${item.feedid}/${item.mediaid}__${index}/`);
+    } else {
+      setModalVisible(true);
+    }
+  };
+
   const videoItems = playlist.map((s, i) =>
-    renderVideoItem(s, i, authenticated)
+    renderVideoItem(s, i, onVideoClick)
   );
 
   const Arrow = ({ child, className }) => {
@@ -109,8 +118,13 @@ export default ({ playlist, title, excludedId = null }) => {
     spaceBetween: 15
   };
 
+  const onModalClose = () => {
+    setModalVisible(false);
+  };
+
   return (
     <div className="c-video-list">
+      <SignInModal visible={isModalVisible} onClose={onModalClose} />
       <div className="container">
         {title && <h1 className="c-video-list__title">{title}</h1>}
         {swiper && !swiper.isBeginning ? ArrowLeft : ""}
@@ -123,7 +137,18 @@ export default ({ playlist, title, excludedId = null }) => {
   );
 };
 
-const renderVideoItem = ({ finished, ...item }, index, authenticated?) => {
+const durationInMinutes = totalSeconds => {
+  const hours = Math.floor(totalSeconds / 3600);
+  totalSeconds %= 3600;
+  const minutes = Math.floor(totalSeconds / 60);
+  return `${hours ? hours + " h " : ""}${minutes ? minutes + " min" : ""}`;
+};
+
+const renderVideoItem = (
+  { finished, ...item },
+  index,
+  onClick: (item, index) => void
+) => {
   const [isSwiping, setSwiping] = useState(false);
   const router = useRouter();
   return (
@@ -140,10 +165,7 @@ const renderVideoItem = ({ finished, ...item }, index, authenticated?) => {
         if (isSwiping) {
           e.preventDefault;
         } else {
-          let url = authenticated
-            ? `/${item.feedid}/${item.mediaid}__${index}/`
-            : ACCESS;
-          router.push(url);
+          onClick(item, index);
         }
         setSwiping(false);
       }}
@@ -188,11 +210,4 @@ const renderVideoItem = ({ finished, ...item }, index, authenticated?) => {
       </small>
     </div>
   );
-};
-
-const durationInMinutes = totalSeconds => {
-  const hours = Math.floor(totalSeconds / 3600);
-  totalSeconds %= 3600;
-  const minutes = Math.floor(totalSeconds / 60);
-  return `${hours ? hours + " h " : ""}${minutes ? minutes + " min" : ""}`;
 };

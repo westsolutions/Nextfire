@@ -13,7 +13,7 @@ const AccessLayout: React.FC<{}> = ({ children }) => {
   useEffect(() => {
     auth.onAuthStateChanged((currentUser: any) => {
       if (currentUser && localStorage.getItem(currentUser.email)) {
-        router.push(INDEX);
+        //router.push(INDEX);
       } else {
         setLoaing(true);
       }

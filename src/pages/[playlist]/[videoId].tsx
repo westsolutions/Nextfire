@@ -53,38 +53,49 @@ function VideoPage({ source }) {
       : "/";
   return (
     <MainLayout>
-      <Head>
-        <title>Live Stream Event | Tribe</title>
-      </Head>
-      <div className="s-video-single container">
-        <div className="row">
-          <div className={videoColumnClass}>
-            {videoItem && (
-              <VideoPlayer
-                subTitle={source.title}
-                title={videoItem.title}
-                videoItem={videoItem}
-                hasNext={hasNext}
-                redirectLink={redirectLink}
-              />
-            )}
-          </div>
-          {process.env.CONTENT_CHAT_ENABLED && userToken && (
-            <div className="col-12 col-md-4">
-              <div className="c-chat">
-                <ChatBox
-                  userToken={userToken}
-                  userId={userId}
-                  image={process.env.CONTENT_CHAT_AVATAR}
-                  name={process.env.CONTENT_CHAT_TITLE}
-                />
-              </div>
+      {props => (
+        <>
+          <Head>
+            <title>Live Stream Event | Tribe</title>
+          </Head>
+          <div className="s-video-single container">
+            <div className="row">
+              {!!auth.currentUser && (
+                <div className={videoColumnClass}>
+                  {videoItem && (
+                    <VideoPlayer
+                      subTitle={source.title}
+                      title={videoItem.title}
+                      videoItem={videoItem}
+                      hasNext={hasNext}
+                      redirectLink={redirectLink}
+                    />
+                  )}
+                </div>
+              )}
+              {process.env.CONTENT_CHAT_ENABLED && userToken && (
+                <div className="col-12 col-md-4">
+                  <div className="c-chat">
+                    <ChatBox
+                      userToken={userToken}
+                      userId={userId}
+                      image={process.env.CONTENT_CHAT_AVATAR}
+                      name={process.env.CONTENT_CHAT_TITLE}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </div>
-      <Ads />
-      <VideoList playlist={sourcePlaylist} title="Up Next" excludedId={id} />
+          </div>
+          <Ads />
+          <VideoList
+            playlist={sourcePlaylist}
+            title="Up Next"
+            excludedId={id}
+            openAuthModal={props.openAuthModal}
+          />
+        </>
+      )}
     </MainLayout>
   );
 }

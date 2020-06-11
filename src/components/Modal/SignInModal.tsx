@@ -10,12 +10,7 @@ const SignInModal: React.FC<{ visible; onClose }> = ({ visible, onClose }) => {
   const isSignUp = action === "signup";
 
   return (
-    <Modal
-      className="modal-dialog-centered"
-      size="lg"
-      isOpen={visible}
-      toggle={() => onClose()}
-    >
+    <Modal className="modal-dialog-centered" size="lg" isOpen={visible}>
       <button
         type="button"
         aria-label="Close"

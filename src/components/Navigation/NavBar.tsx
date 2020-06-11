@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 //TODO: useUser not working in current relase
 import { useAuth } from "reactfire";
 
-const NavBar: React.FC<{}> = () => {
+const NavBar: React.FC<{ openAuthModal }> = ({ openAuthModal }) => {
   const auth = useAuth();
   const router = useRouter();
 
@@ -24,10 +24,10 @@ const NavBar: React.FC<{}> = () => {
           </a>
         </Link>
         <div className="media align-items-center navbar-profile">
-          <div className="media-body">
-            <h6>My Account</h6>
-            <div className="dropdown-menu">
-              {!!auth?.currentUser && (
+          {!!auth?.currentUser && (
+            <div className="media-body">
+              <h6>My Account</h6>
+              <div className="dropdown-menu">
                 <a
                   className="dropdown-item"
                   onClick={() => {
@@ -36,10 +36,20 @@ const NavBar: React.FC<{}> = () => {
                 >
                   Logout
                 </a>
-              )}
+                )
+              </div>
             </div>
-          </div>
-
+          )}
+          {!auth.currentUser && (
+            <button
+              className="btn btn-link"
+              onClick={() => {
+                openAuthModal();
+              }}
+            >
+              Login
+            </button>
+          )}
           {auth?.currentUser?.displayName && (
             <img
               className="rounded-circle"

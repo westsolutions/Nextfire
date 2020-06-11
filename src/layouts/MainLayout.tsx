@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "@components/Navigation/NavBar";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "reactfire";
 import SignInModal from "@components/Modal/SignInModal";
 
@@ -21,8 +21,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
   };
 
   const props = {
-    openAuthModal: () => toggleModal(true),
-    modalVisible: isModalVisible
+    openAuthModal: () => toggleModal(true)
   };
 
   return (
@@ -31,7 +30,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
         visible={isModalVisible}
         onClose={() => toggleModal(false)}
       />
-      <NavBar />
+      <NavBar openAuthModal={props.openAuthModal} />
       {children(props)}
     </div>
   );

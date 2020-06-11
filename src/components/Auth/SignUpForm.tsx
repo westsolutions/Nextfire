@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import classnames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { SIGN_IN, INDEX } from "@constants/routes";
 import { UserTable } from "@constants/db";
 //TODO: fix this later
 import * as firebase from "firebase";
@@ -32,7 +31,10 @@ interface User {
   displayName?: string;
 }
 
-const SignUpForm: React.FC<{}> = () => {
+const SignUpForm: React.FC<{
+  onSubmit: () => void;
+  chnangeAction: () => void;
+}> = ({ onSubmit, chnangeAction }) => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -66,7 +68,8 @@ const SignUpForm: React.FC<{}> = () => {
             })
             .then(() => {
               localStorage.setItem(email, "TRUE");
-              router.push(INDEX);
+              onSubmit();
+              //router.push(INDEX);
             });
         }
       })
@@ -103,7 +106,8 @@ const SignUpForm: React.FC<{}> = () => {
                 })
                 .then(() => {
                   localStorage.setItem(email, "TRUE");
-                  router.push(INDEX);
+                  onSubmit();
+                  //router.push(INDEX);
                 });
             }
           })
@@ -122,7 +126,7 @@ const SignUpForm: React.FC<{}> = () => {
 
   return (
     <>
-      <h1>Create Your Free account to access the live stream</h1>
+      <h1>Create an account to access content</h1>
       <Formik
         initialValues={{
           displayName: "",
@@ -236,9 +240,9 @@ const SignUpForm: React.FC<{}> = () => {
       </Formik>
       <div className="text-center mt-2">
         Already a member?&nbsp;
-        <Link href={SIGN_IN}>
-          <a>Login</a>
-        </Link>
+        <button className="btn btn-link" onClick={chnangeAction}>
+          Login
+        </button>
       </div>
       {isError && <div className="alert alert-danger mt-4">{isError}</div>}
       {isSuccess && <div className="alert alert-success mt-4">{isSuccess}</div>}

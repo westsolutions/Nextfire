@@ -365,7 +365,6 @@ body {
 .layout-access {
   background: $bg-dark;
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
   background-position: center center;
   background-repeat: no-repeat;
@@ -479,4 +478,9 @@ body {
       max-width: 275px;
     }
   }
+}
+
+.close-btn {
+  position: absolute;
+  right: 5px;
 }

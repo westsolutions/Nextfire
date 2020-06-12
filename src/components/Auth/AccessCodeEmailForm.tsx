@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { INDEX } from "@constants/routes";
 import { codeIsCorrect } from "@constants/checkAccessCode";
 import { UserTable } from "@constants/db";
+import { pushUserToFullStory } from "../../helpers";
 
 const AccessCodeEmailSchema = Yup.object().shape({
   email: Yup.string()
@@ -17,6 +18,12 @@ const AccessCodeEmailSchema = Yup.object().shape({
 interface AccessEmailDto {
   email: string;
 }
+
+// declare global {
+//   interface Window {
+//     FS: any;
+//   }
+// }
 
 const AccessCodeEmailForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
@@ -46,6 +53,11 @@ const AccessCodeEmailForm: React.FC<{}> = () => {
     auth
       .createUserWithEmailAndPassword(email, _accessCode)
       .then((user: any) => {
+        pushUserToFullStory({
+          id: email,
+          email,
+          platform: window.location.origin
+        });
         localStorage.setItem(email, "TRUE");
         setSuccess("Your account is created... we're signing you in...");
         if (process.browser) {

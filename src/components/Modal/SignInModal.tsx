@@ -11,15 +11,6 @@ const SignInModal: React.FC<{ visible; onClose }> = ({ visible, onClose }) => {
 
   return (
     <Modal className="modal-dialog-centered" size="lg" isOpen={visible}>
-      <button
-        type="button"
-        aria-label="Close"
-        className="close close-btn"
-        data-dismiss="modal"
-        onClick={() => onClose()}
-      >
-        <span aria-hidden={true}>×</span>
-      </button>
       <AccessLayout>
         <div className="sign-in">
           {isSignIn && (

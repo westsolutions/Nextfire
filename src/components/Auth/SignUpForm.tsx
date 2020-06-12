@@ -6,6 +6,7 @@ import classnames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { UserTable } from "@constants/db";
+import { pushUserToFullStory } from "../../helpers";
 //TODO: fix this later
 import * as firebase from "firebase";
 
@@ -69,7 +70,6 @@ const SignUpForm: React.FC<{
             .then(() => {
               localStorage.setItem(email, "TRUE");
               onSubmit();
-              //router.push(INDEX);
             });
         }
       })
@@ -87,6 +87,12 @@ const SignUpForm: React.FC<{
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((user: any) => {
+        pushUserToFullStory({
+          id: email,
+          email,
+          displayName,
+          platform: window.location.origin
+        });
         auth.currentUser.updateProfile({
           displayName: displayName
         });
@@ -107,7 +113,6 @@ const SignUpForm: React.FC<{
                 .then(() => {
                   localStorage.setItem(email, "TRUE");
                   onSubmit();
-                  //router.push(INDEX);
                 });
             }
           })

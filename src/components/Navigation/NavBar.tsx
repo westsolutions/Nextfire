@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 //TODO: useUser not working in current relase
@@ -8,11 +8,25 @@ const NavBar: React.FC<{ openAuthModal }> = ({ openAuthModal }) => {
   const auth = useAuth();
   const router = useRouter();
 
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const authSubscription = auth.onAuthStateChanged((currentUser: any) => {
+      if (authenticated !== !!currentUser) {
+        console.log(currentUser);
+        setAuthenticated(!!currentUser);
+      }
+    });
+    return () => authSubscription();
+  });
+
   const logout = () => {
     if (auth.currentUser && auth.currentUser.email) {
       localStorage.removeItem(auth.currentUser.email);
     }
-    auth.signOut().then(res => {});
+    auth.signOut().then(res => {
+      setAuthenticated(false);
+    });
   };
 
   return (
@@ -24,7 +38,7 @@ const NavBar: React.FC<{ openAuthModal }> = ({ openAuthModal }) => {
           </a>
         </Link>
         <div className="media align-items-center navbar-profile">
-          {!!auth?.currentUser && (
+          {authenticated && (
             <div className="media-body">
               <h6>My Account</h6>
               <div className="dropdown-menu">
@@ -36,11 +50,10 @@ const NavBar: React.FC<{ openAuthModal }> = ({ openAuthModal }) => {
                 >
                   Logout
                 </a>
-                )
               </div>
             </div>
           )}
-          {!auth.currentUser && (
+          {!authenticated && (
             <button
               className="btn btn-link"
               onClick={() => {
@@ -50,7 +63,7 @@ const NavBar: React.FC<{ openAuthModal }> = ({ openAuthModal }) => {
               Login
             </button>
           )}
-          {auth?.currentUser?.displayName && (
+          {authenticated && auth?.currentUser?.displayName && (
             <img
               className="rounded-circle"
               src={`https://getstream.io/random_svg/?name=${auth?.currentUser?.displayName}`}

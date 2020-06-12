@@ -16,7 +16,6 @@ function Index({ source }) {
               content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
             />
           </Head>
-          <div></div>
           {source &&
             source.length &&
             source.map((s, i) => (

@@ -37,9 +37,6 @@ module.exports = withCSS(
         "AIzaSyBb0--6EL3IyFtvA08t9akw8frWBggZzyQ",
       FIREBASE_AUTH_DOMAIN:
         process.env.FIREBASE_AUTH_DOMAIN || "tribesocial-a13fb.firebaseapp.com",
-      FIREBASE_DATABASE_URL:
-        process.env.FIREBASE_DATABASE_URL ||
-        "https://tribesocial-a13fb.firebaseio.com",
       FIREBASE_PROJECTID: process.env.FIREBASE_PROJECTID || "tribesocial-a13fb",
       FIREBASE_STORAGEBUCKET:
         process.env.FIREBASE_STORAGEBUCKET || "tribesocial-a13fb.appspot.com",

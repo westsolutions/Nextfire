@@ -29,7 +29,7 @@ module.exports = withCSS(
       CONTENT_CHAT_AVATAR:
         process.env.CONTENT_CHAT_AVATAR ||
         "https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png",
-      CONTENT_CHAT_ENABLED: process.env.CONTENT_CHAT_ENABLED || true,
+      CONTENT_CHAT_ENABLED: process.env.CONTENT_CHAT_ENABLED || false,
       CONTENT_IMG: process.env.CONTENT_IMG,
       CONTENT_IMG_HREF: process.env.CONTENT_IMG_HREF,
       FIREBASE_API_KEY:
@@ -53,7 +53,7 @@ module.exports = withCSS(
         process.env.CONTENT_JWT_SOURCE ||
         "https://cdn.jwplayer.com/v2/playlists/n8OU0HJb, https://cdn.jwplayer.com/v2/playlists/yYYotlJD, https://cdn.jwplayer.com/v2/playlists/qUrHB1bR",
       ACCESS_CODE: process.env.ACCESS_CODE || "CATWEST20",
-      FACEBOOK_AUTH_ENABLED: process.env.FACEBOOK_AUTH_ENABLED || false
+      FACEBOOK_AUTH_ENABLED: process.env.FACEBOOK_AUTH_ENABLED || true
     },
     webpack: function(cfg) {
       if (cfg.resolve.plugins) {

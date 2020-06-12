@@ -10,10 +10,12 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 const ChatBox = dynamic(() => import("@components/Chat"), { ssr: false });
 import fetch from "isomorphic-fetch";
+import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
 
-function VideoPage({ source }) {
+function VideoPage({ source, openAuthModal }) {
   const [userToken, setUserToken] = useState(null);
   const [userId, setUserName] = useState(null);
+  const [authenticated, setAuthenticated] = useState(false);
   const auth = useAuth();
 
   const fetchUserToken = async currentUser => {
@@ -60,7 +62,7 @@ function VideoPage({ source }) {
           </Head>
           <div className="s-video-single container">
             <div className="row">
-              {!!auth.currentUser && (
+              {true && (
                 <div className={videoColumnClass}>
                   {videoItem && (
                     <VideoPlayer
@@ -69,6 +71,7 @@ function VideoPage({ source }) {
                       videoItem={videoItem}
                       hasNext={hasNext}
                       redirectLink={redirectLink}
+                      openModal={props.openAuthModal}
                     />
                   )}
                 </div>

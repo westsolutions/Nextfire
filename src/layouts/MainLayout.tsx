@@ -17,14 +17,14 @@ const MainLayout: React.FC<Props> = ({ children }) => {
   const auth = useAuth();
   const [isModalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    const authSubscription = auth.onAuthStateChanged((currentUser: any) => {
-      if (isModalVisible !== !currentUser) {
-        setModalVisible(!currentUser);
-      }
-    });
-    return () => authSubscription();
-  });
+  // useEffect(() => {
+  //   // const authSubscription = auth.onAuthStateChanged((currentUser: any) => {
+  //   //   if (isModalVisible !== !currentUser) {
+  //   //     setModalVisible(!currentUser);
+  //   //   }
+  //   // });
+  //   // return () => authSubscription();
+  // });
 
   const toggleModal = (show: boolean) => {
     setModalVisible(show);

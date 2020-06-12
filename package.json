@@ -9,10 +9,10 @@
   "scripts": {
     "dev": "next",
     "dev:local": "npm-run-all --parallel backend dev",
-    "backend": "NODE_ENV=development node server.js",
-    "backend:inspect": "NODE_OPTIONS='--inspect' NODE_ENV=development node server.js",
+    "backend": "NODE_ENV=development next dev",
+    "backend:inspect": "NODE_OPTIONS='--inspect' NODE_ENV=development next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js -p $PORT",
+    "start": "NODE_ENV=production next start -p $PORT",
     "export": "next export",
     "format": "prettier --write \"src/**/*.+(js|ts|tsx|scss)\""
   },

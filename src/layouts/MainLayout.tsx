@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "@components/Navigation/NavBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "reactfire";
 import SignInModal from "@components/Modal/SignInModal";
 import Head from "next/head";
@@ -15,7 +15,16 @@ const MainLayout: React.FC<Props> = ({ children }) => {
     : null;
 
   const auth = useAuth();
-  const [isModalVisible, setModalVisible] = useState(!auth.currentUser);
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    const authSubscription = auth.onAuthStateChanged((currentUser: any) => {
+      if (isModalVisible !== !currentUser) {
+        setModalVisible(!currentUser);
+      }
+    });
+    return () => authSubscription();
+  });
 
   const toggleModal = (show: boolean) => {
     setModalVisible(show);

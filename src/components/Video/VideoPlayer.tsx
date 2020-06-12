@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import Link from "next/link";
 import DOMPurify from "dompurify";
 import { isMobile } from "../../helpers";
+import { useAuth } from "reactfire";
 
 declare global {
   interface Window {
@@ -17,12 +18,31 @@ export default ({
   title,
   subTitle,
   redirectLink = "/",
-  hasNext = false
+  hasNext = false,
+  openModal
 }) => {
   const [counter, setCounter] = useState(null);
   const [isFinished, setFinished] = useState(false);
   const [isPaused, setPaused] = useState(false);
   const router = useRouter();
+  const auth = useAuth();
+
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const authSubscription = auth.onAuthStateChanged((currentUser: any) => {
+      if (!currentUser) {
+        const player = window.jwplayer();
+        player.pause();
+        openModal();
+      }
+      if (authenticated !== !!currentUser) {
+        console.log(currentUser);
+        setAuthenticated(!!currentUser);
+      }
+    });
+    return () => authSubscription();
+  }, [authenticated]);
 
   const onPlay = () => {
     setPaused(false);
@@ -90,7 +110,8 @@ export default ({
             playerId="my-unique-1"
             playerScript="https://cdn.jwplayer.com/libraries/Izw2Kj6o.js"
             file={manifestFile[0].file}
-            isAutoPlay={!isMobile()}
+            isAutoPlay={authenticated && !isMobile()}
+            // isAutoPlay={!isMobile()}
           />
           {isFinished && (
             <div className="c-video__overlay">
@@ -153,9 +174,9 @@ export default ({
       <div>
         <div
           className="c-video__description"
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(videoItem.description)
-          }}
+          // dangerouslySetInnerHTML={{
+          //   __html: DOMPurify.sanitize(videoItem.description)
+          // }}
         ></div>
       </div>
     </div>

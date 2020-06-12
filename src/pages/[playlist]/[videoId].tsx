@@ -10,10 +10,12 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 const ChatBox = dynamic(() => import("@components/Chat"), { ssr: false });
 import fetch from "isomorphic-fetch";
+import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
 
-function VideoPage({ source }) {
+function VideoPage({ source, openAuthModal }) {
   const [userToken, setUserToken] = useState(null);
   const [userId, setUserName] = useState(null);
+  const [authenticated, setAuthenticated] = useState(false);
   const auth = useAuth();
 
   const fetchUserToken = async currentUser => {
@@ -53,38 +55,50 @@ function VideoPage({ source }) {
       : "/";
   return (
     <MainLayout>
-      <Head>
-        <title>Live Stream Event | Tribe</title>
-      </Head>
-      <div className="s-video-single container">
-        <div className="row">
-          <div className={videoColumnClass}>
-            {videoItem && (
-              <VideoPlayer
-                subTitle={source.title}
-                title={videoItem.title}
-                videoItem={videoItem}
-                hasNext={hasNext}
-                redirectLink={redirectLink}
-              />
-            )}
-          </div>
-          {process.env.CONTENT_CHAT_ENABLED && userToken && (
-            <div className="col-12 col-md-4">
-              <div className="c-chat">
-                <ChatBox
-                  userToken={userToken}
-                  userId={userId}
-                  image={process.env.CONTENT_CHAT_AVATAR}
-                  name={process.env.CONTENT_CHAT_TITLE}
-                />
-              </div>
+      {props => (
+        <>
+          <Head>
+            <title>Live Stream Event | Tribe</title>
+          </Head>
+          <div className="s-video-single container">
+            <div className="row">
+              {true && (
+                <div className={videoColumnClass}>
+                  {videoItem && (
+                    <VideoPlayer
+                      subTitle={source.title}
+                      title={videoItem.title}
+                      videoItem={videoItem}
+                      hasNext={hasNext}
+                      redirectLink={redirectLink}
+                      openModal={props.openAuthModal}
+                    />
+                  )}
+                </div>
+              )}
+              {process.env.CONTENT_CHAT_ENABLED && userToken && (
+                <div className="col-12 col-md-4">
+                  <div className="c-chat">
+                    <ChatBox
+                      userToken={userToken}
+                      userId={userId}
+                      image={process.env.CONTENT_CHAT_AVATAR}
+                      name={process.env.CONTENT_CHAT_TITLE}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </div>
-      <Ads />
-      <VideoList playlist={sourcePlaylist} title="Up Next" excludedId={id} />
+          </div>
+          <Ads />
+          <VideoList
+            playlist={sourcePlaylist}
+            title="Up Next"
+            excludedId={id}
+            openAuthModal={props.openAuthModal}
+          />
+        </>
+      )}
     </MainLayout>
   );
 }

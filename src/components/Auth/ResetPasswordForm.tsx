@@ -4,7 +4,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import classnames from "classnames";
 import Link from "next/link";
-import { SIGN_UP, SIGN_IN } from "@constants/routes";
+import { INDEX } from "@constants/routes";
 import { useRouter } from "next/router";
 
 const ChangePasswordSchema = Yup.object().shape({
@@ -43,7 +43,7 @@ const ResetPasswordForm: React.FC<{}> = () => {
           "Your password is changed. You will landed to login page in 5 seconds"
         );
         setTimeout(() => {
-          router.push(SIGN_IN);
+          router.push(INDEX);
         }, 5000);
       })
       .catch(err => {
@@ -124,7 +124,7 @@ const ResetPasswordForm: React.FC<{}> = () => {
       </Formik>
       <div className="text-center mt-2">
         Don't have account yet?&nbsp;
-        <Link href={SIGN_UP}>
+        <Link href={INDEX}>
           <a> Create account</a>
         </Link>
       </div>

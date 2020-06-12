@@ -37,9 +37,6 @@ module.exports = withCSS(
         "AIzaSyBb0--6EL3IyFtvA08t9akw8frWBggZzyQ",
       FIREBASE_AUTH_DOMAIN:
         process.env.FIREBASE_AUTH_DOMAIN || "tribesocial-a13fb.firebaseapp.com",
-      FIREBASE_DATABASE_URL:
-        process.env.FIREBASE_DATABASE_URL ||
-        "https://tribesocial-a13fb.firebaseio.com",
       FIREBASE_PROJECTID: process.env.FIREBASE_PROJECTID || "tribesocial-a13fb",
       FIREBASE_STORAGEBUCKET:
         process.env.FIREBASE_STORAGEBUCKET || "tribesocial-a13fb.appspot.com",
@@ -54,9 +51,9 @@ module.exports = withCSS(
         "RL8cqhtmJ8qyDIk0FNv_gmInUjJ4VFdHODNha2wxZG5rd04wYzJlRk5WY0hCblpHdFkn",
       CONTENT_JWT_SOURCE:
         process.env.CONTENT_JWT_SOURCE ||
-        "https://cdn.jwplayer.com/v2/playlists/yYYotlJD",
+        "https://cdn.jwplayer.com/v2/playlists/n8OU0HJb, https://cdn.jwplayer.com/v2/playlists/yYYotlJD, https://cdn.jwplayer.com/v2/playlists/qUrHB1bR",
       ACCESS_CODE: process.env.ACCESS_CODE || "CATWEST20",
-      FACEBOOK_AUTH_ENABLED: process.env.FACEBOOK_AUTH_ENABLED || false
+      FACEBOOK_AUTH_ENABLED: process.env.FACEBOOK_AUTH_ENABLED || true
     },
     webpack: function(cfg) {
       if (cfg.resolve.plugins) {

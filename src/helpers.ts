@@ -25,7 +25,6 @@ export const pushUserToFullStory = ({
   email,
   platform
 }) => {
-  debugger;
   window.FS.identify(id, {
     displayName,
     email,

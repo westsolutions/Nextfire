@@ -1,47 +1,77 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import NavBar from "@components/Navigation/NavBar";
-import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 import { useAuth } from "reactfire";
-import { ACCESS } from "@constants/routes";
-import Loader from "react-loader";
+import SignInModal from "@components/Modal/SignInModal";
+import Head from "next/head";
 
-const MainLayout: React.FC<{}> = ({ children }) => {
-  const auth = useAuth();
-  const router = useRouter();
-  const [isLoaded, setLoading] = useState(false);
+interface Props {
+  children: (prop) => JSX.Element;
+}
 
-  useEffect(() => {
-    auth.onAuthStateChanged((currentUser: any) => {
-      if (currentUser && localStorage.getItem(currentUser.email)) {
-        setLoading(true);
-      } else {
-        router.push(ACCESS);
-      }
-    });
-    return () => {
-      setLoading(true);
-    };
-  });
-
+const MainLayout: React.FC<Props> = ({ children }) => {
   const backgroundImage = process.env.BG_DASHBOARD_URL
     ? `url("${process.env.BG_DASHBOARD_URL}")`
     : null;
 
+  const auth = useAuth();
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  // useEffect(() => {
+  //   // const authSubscription = auth.onAuthStateChanged((currentUser: any) => {
+  //   //   if (isModalVisible !== !currentUser) {
+  //   //     setModalVisible(!currentUser);
+  //   //   }
+  //   // });
+  //   // return () => authSubscription();
+  // });
+
+  const toggleModal = (show: boolean) => {
+    setModalVisible(show);
+  };
+
+  const props = {
+    openAuthModal: () => toggleModal(true)
+  };
+
   return (
-    <Loader
-      loaded={isLoaded}
-      top={"50%"}
-      left={"50%"}
-      width={3}
-      length={1}
-      color="#fff"
-      position={"fixed"}
-    >
-      <div className="layout-main" style={{ backgroundImage }}>
-        <NavBar />
-        {children}
-      </div>
-    </Loader>
+    <div className="layout-main" style={{ backgroundImage }}>
+      <Head>
+        <title>Sign Up</title>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window['_fs_debug'] = false;
+            window['_fs_host'] = 'fullstory.com';
+            window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
+            window['_fs_org'] = 'TD8TT';
+            window['_fs_namespace'] = 'FS';
+            (function(m,n,e,t,l,o,g,y){
+                if (e in m) {if(m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');} return;}
+                g=m[e]=function(a,b,s){g.q?g.q.push([a,b,s]):g._api(a,b,s);};g.q=[];
+                o=n.createElement(t);o.async=1;o.crossOrigin='anonymous';o.src='https://'+_fs_script;
+                y=n.getElementsByTagName(t)[0];y.parentNode.insertBefore(o,y);
+                g.identify=function(i,v,s){g(l,{uid:i},s);if(v)g(l,v,s)};g.setUserVars=function(v,s){g(l,v,s)};g.event=function(i,v,s){g('event',{n:i,p:v},s)};
+                g.anonymize=function(){g.identify(!!0)};
+                g.shutdown=function(){g("rec",!1)};g.restart=function(){g("rec",!0)};
+                g.log = function(a,b){g("log",[a,b])};
+                g.consent=function(a){g("consent",!arguments.length||a)};
+                g.identifyAccount=function(i,v){o='account';v=v||{};v.acctId=i;g(o,v)};
+                g.clearUserCookie=function(){};
+                g._w={};y='XMLHttpRequest';g._w[y]=m[y];y='fetch';g._w[y]=m[y];
+                if(m[y])m[y]=function(){return g._w[y].apply(this,arguments)};
+                g._v="1.2.0";
+            })(window,document,window['_fs_namespace'],'script','user');`
+          }}
+        />
+      </Head>
+      <SignInModal
+        visible={isModalVisible}
+        onClose={() => toggleModal(false)}
+      />
+      <NavBar openAuthModal={props.openAuthModal} />
+      {children(props)}
+    </div>
   );
 };
 

@@ -1,12 +1,25 @@
 import Link from "next/link";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useAuth } from "reactfire";
 import Swiper from "react-id-swiper";
 
-export default ({ playlist, title, excludedId = null }) => {
+export default ({ playlist, title, excludedId = null, openAuthModal }) => {
   const [swiper, setSwiper] = useState(null);
   const [force, forceUpdate] = useState(0);
+
+  const auth = useAuth();
+  const router = useRouter();
+  const [authenticated, setAuthenticated] = useState(!!auth.currentUser);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((currentUser: any) => {
+      if (currentUser && localStorage.getItem(currentUser.email)) {
+        setAuthenticated(true);
+      }
+    });
+  });
 
   playlist = excludedId
     ? playlist.filter(i => i.mediaid !== excludedId)
@@ -31,7 +44,17 @@ export default ({ playlist, title, excludedId = null }) => {
     };
   });
 
-  const videoItems = playlist.map((s, i) => renderVideoItem(s, i));
+  const onVideoClick = (item, index) => {
+    if (authenticated) {
+      router.push(`/${item.feedid}/${item.mediaid}__${index}/`);
+    } else {
+      openAuthModal();
+    }
+  };
+
+  const videoItems = playlist.map((s, i) =>
+    renderVideoItem(s, i, onVideoClick)
+  );
 
   const Arrow = ({ child, className }) => {
     return <div className={className}>{child}</div>;
@@ -107,7 +130,18 @@ export default ({ playlist, title, excludedId = null }) => {
   );
 };
 
-const renderVideoItem = ({ finished, ...item }, index) => {
+const durationInMinutes = totalSeconds => {
+  const hours = Math.floor(totalSeconds / 3600);
+  totalSeconds %= 3600;
+  const minutes = Math.floor(totalSeconds / 60);
+  return `${hours ? hours + " h " : ""}${minutes ? minutes + " min" : ""}`;
+};
+
+const renderVideoItem = (
+  { finished, ...item },
+  index,
+  onClick: (item, index) => void
+) => {
   const [isSwiping, setSwiping] = useState(false);
   const router = useRouter();
   return (
@@ -124,7 +158,7 @@ const renderVideoItem = ({ finished, ...item }, index) => {
         if (isSwiping) {
           e.preventDefault;
         } else {
-          router.push(`/${item.feedid}/${item.mediaid}__${index}/`);
+          onClick(item, index);
         }
         setSwiping(false);
       }}
@@ -169,11 +203,4 @@ const renderVideoItem = ({ finished, ...item }, index) => {
       </small>
     </div>
   );
-};
-
-const durationInMinutes = totalSeconds => {
-  const hours = Math.floor(totalSeconds / 3600);
-  totalSeconds %= 3600;
-  const minutes = Math.floor(totalSeconds / 60);
-  return `${hours ? hours + " h " : ""}${minutes ? minutes + " min" : ""}`;
 };

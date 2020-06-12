@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "Live streaming app",
   "main": "index.js",
+  "engines": {
+    "node": ">11.0.0"
+  },
   "scripts": {
     "dev": "next",
     "dev:local": "npm-run-all --parallel backend dev",
-    "backend": "NODE_ENV=development node server.js",
+    "backend": "NODE_ENV=development next dev",
+    "backend:inspect": "NODE_OPTIONS='--inspect' NODE_ENV=development next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js -p $PORT",
+    "start": "NODE_ENV=production next start -p $PORT",
     "export": "next export",
     "format": "prettier --write \"src/**/*.+(js|ts|tsx|scss)\""
   },
@@ -56,6 +60,7 @@
     "react-redux": "^6.0.0",
     "react-spinners": "^0.4.8",
     "reactfire": "2.0.0-rc.1",
+    "reactstrap": "^8.4.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",

@@ -34,7 +34,7 @@ function Index({ source }) {
 
 Index.getInitialProps = async () => {
   let sources = process.env.CONTENT_JWT_SOURCE.split(",");
-  let results = await Promise.allSettled(
+  let results = await Promise.all(
     sources.map(source =>
       fetch(source).then(response => (response.ok ? response.json() : null))
     )
@@ -42,9 +42,7 @@ Index.getInitialProps = async () => {
   return {
     source:
       results && results.length
-        ? results
-            .filter(result => !!result["value"])
-            .map(result => result["value"])
+        ? results.filter(result => !!result).map(result => result)
         : []
   };
 };

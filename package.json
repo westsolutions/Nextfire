@@ -10,6 +10,7 @@
     "dev": "next",
     "dev:local": "npm-run-all --parallel backend dev",
     "backend": "NODE_ENV=development node server.js",
+    "backend:inspect": "NODE_OPTIONS='--inspect' NODE_ENV=development node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js -p $PORT",
     "export": "next export",

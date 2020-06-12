@@ -54,7 +54,7 @@ module.exports = withCSS(
         "RL8cqhtmJ8qyDIk0FNv_gmInUjJ4VFdHODNha2wxZG5rd04wYzJlRk5WY0hCblpHdFkn",
       CONTENT_JWT_SOURCE:
         process.env.CONTENT_JWT_SOURCE ||
-        "https://cdn.jwplayer.com/v2/playlists/yYYotlJD",
+        "https://cdn.jwplayer.com/v2/playlists/n8OU0HJb, https://cdn.jwplayer.com/v2/playlists/yYYotlJD, https://cdn.jwplayer.com/v2/playlists/qUrHB1bR",
       ACCESS_CODE: process.env.ACCESS_CODE || "CATWEST20",
       FACEBOOK_AUTH_ENABLED: process.env.FACEBOOK_AUTH_ENABLED || false
     },

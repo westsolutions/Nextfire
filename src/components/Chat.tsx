@@ -12,7 +12,6 @@ import { useAuth } from "reactfire";
 
 const ChatBox = ({ userToken, userId, image, name }) => {
   const auth = useAuth();
-  // debugger;
   const chatClient = new StreamChat(process.env.GET_STREAM_PUBLIC);
 
   chatClient.setUser(

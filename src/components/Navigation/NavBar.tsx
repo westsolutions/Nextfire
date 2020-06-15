@@ -55,7 +55,7 @@ const NavBar: React.FC<{ openAuthModal }> = ({ openAuthModal }) => {
           )}
           {!authenticated && (
             <button
-              className="btn btn-link"
+              className="btn btn-link btn-login"
               onClick={() => {
                 openAuthModal();
               }}

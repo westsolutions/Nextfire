@@ -483,3 +483,12 @@ body {
   position: absolute;
   right: 5px;
 }
+
+.btn-login {
+  color: #fff;
+  font-weight: bold;
+  &:hover {
+    color: #fff;
+    opacity: 0.8;
+  }
+}

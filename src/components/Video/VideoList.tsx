@@ -122,6 +122,8 @@ const durationInMinutes = totalSeconds => {
   return `${hours ? hours + " h " : ""}${minutes ? minutes + " min" : ""}`;
 };
 
+const widthStyle = item => (item.resumeAt / item.duration) * 100 + "%";
+
 const renderVideoItem = (
   { finished, ...item },
   index,
@@ -174,9 +176,7 @@ const renderVideoItem = (
         )}
         {item.resumeAt && (
           <div className="c-video-card__progress">
-            <span
-              style={{ width: (item.resumeAt / item.duration) * 100 + "%" }}
-            ></span>
+            <div style={{ width: widthStyle(item) }}></div>
           </div>
         )}
       </div>

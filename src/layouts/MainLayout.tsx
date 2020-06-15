@@ -14,17 +14,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
     ? `url("${process.env.BG_DASHBOARD_URL}")`
     : null;
 
-  const auth = useAuth();
   const [isModalVisible, setModalVisible] = useState(false);
-
-  // useEffect(() => {
-  //   // const authSubscription = auth.onAuthStateChanged((currentUser: any) => {
-  //   //   if (isModalVisible !== !currentUser) {
-  //   //     setModalVisible(!currentUser);
-  //   //   }
-  //   // });
-  //   // return () => authSubscription();
-  // });
 
   const toggleModal = (show: boolean) => {
     setModalVisible(show);

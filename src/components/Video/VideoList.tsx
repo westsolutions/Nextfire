@@ -2,24 +2,13 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useAuth } from "reactfire";
 import Swiper from "react-id-swiper";
 
-export default ({ playlist, title, excludedId = null, openAuthModal }) => {
+export default ({ playlist, title, excludedId = null }) => {
   const [swiper, setSwiper] = useState(null);
   const [force, forceUpdate] = useState(0);
 
-  const auth = useAuth();
   const router = useRouter();
-  const [authenticated, setAuthenticated] = useState(!!auth.currentUser);
-
-  useEffect(() => {
-    auth.onAuthStateChanged((currentUser: any) => {
-      if (currentUser && localStorage.getItem(currentUser.email)) {
-        setAuthenticated(true);
-      }
-    });
-  });
 
   playlist = excludedId
     ? playlist.filter(i => i.mediaid !== excludedId)
@@ -45,11 +34,7 @@ export default ({ playlist, title, excludedId = null, openAuthModal }) => {
   });
 
   const onVideoClick = (item, index) => {
-    if (authenticated) {
-      router.push(`/${item.feedid}/${item.mediaid}__${index}/`);
-    } else {
-      openAuthModal();
-    }
+    router.push(`/${item.feedid}/${item.mediaid}__${index}/`);
   };
 
   const videoItems = playlist.map((s, i) =>

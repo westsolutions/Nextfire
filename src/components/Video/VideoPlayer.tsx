@@ -31,12 +31,12 @@ export default ({
 
   useEffect(() => {
     const authSubscription = auth.onAuthStateChanged((currentUser: any) => {
-      if (!currentUser) {
+      if (!currentUser && !authenticated) {
         const player = window.jwplayer();
         player.pause();
         openModal();
       }
-      if (authenticated !== !!currentUser) {
+      if (currentUser && authenticated !== !!currentUser) {
         console.log(currentUser);
         setAuthenticated(!!currentUser);
       }

@@ -15,7 +15,6 @@ import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
 function VideoPage({ source, openAuthModal }) {
   const [userToken, setUserToken] = useState(null);
   const [userId, setUserName] = useState(null);
-  const [authenticated, setAuthenticated] = useState(false);
   const auth = useAuth();
 
   const fetchUserToken = async currentUser => {
@@ -95,7 +94,6 @@ function VideoPage({ source, openAuthModal }) {
             playlist={sourcePlaylist}
             title="Up Next"
             excludedId={id}
-            openAuthModal={props.openAuthModal}
           />
         </>
       )}

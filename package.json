@@ -15,7 +15,7 @@
     "start": "NODE_ENV=production next start -p $PORT",
     "export": "next export",
     "format": "prettier --write \"src/**/*.+(js|ts|tsx|scss)\"",
-    "upgrage-version": "npm --no-git-tag-version version patch; git commit -a -m \"update version\""
+    "upgrage-version": "npm --no-git-tag-version version patch; git commit -n -a -m \"update version\""
   },
   "repository": {
     "type": "git",

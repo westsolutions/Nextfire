@@ -1,6 +1,6 @@
 {
   "name": "tribesocial",
-  "version": "1.0.59",
+  "version": "1.0.61",
   "description": "Live streaming app",
   "main": "index.js",
   "engines": {
@@ -15,7 +15,7 @@
     "start": "NODE_ENV=production next start -p $PORT",
     "export": "next export",
     "format": "prettier --write \"src/**/*.+(js|ts|tsx|scss)\"",
-    "upgrage-version": "npm --no-git-tag-version version patch; git -a -m \"update version\""
+    "upgrage-version": "npm --no-git-tag-version version patch; git commit -a -m \"update version\""
   },
   "repository": {
     "type": "git",

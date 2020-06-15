@@ -28,10 +28,14 @@ const ChatBox = ({ userToken, userId, image, name }) => {
       userToken
     );
 
-    channel = chatClient.channel("messaging", process.env.CONTENT_CHAT_ID, {
-      image,
-      name
-    });
+    channel = chatClient.channel(
+      "messaging",
+      process.env.CONTENT_CHAT_ID || "71593",
+      {
+        image,
+        name
+      }
+    );
 
     channel.addMembers([userId]);
   }

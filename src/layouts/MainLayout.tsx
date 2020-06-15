@@ -61,6 +61,12 @@ const MainLayout: React.FC<Props> = ({ children }) => {
       />
       <NavBar openAuthModal={props.openAuthModal} />
       {children(props)}
+      <footer className="footer-app-version">
+        App version:{" "}
+        {process.env.HEROKU_RELEASE_VERSION
+          ? process.env.HEROKU_RELEASE_VERSION
+          : "n/a"}
+      </footer>
     </div>
   );
 };

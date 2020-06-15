@@ -1,8 +1,11 @@
-import Link from "next/link";
 import Cookies from "js-cookie";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import Swiper from "react-id-swiper";
+import dynamic from "next/dynamic";
+const Progress = dynamic(() => import("@components/Video/VideoProgress"), {
+  ssr: false
+});
 
 export default ({ playlist, title, excludedId = null }) => {
   const [swiper, setSwiper] = useState(null);
@@ -122,15 +125,12 @@ const durationInMinutes = totalSeconds => {
   return `${hours ? hours + " h " : ""}${minutes ? minutes + " min" : ""}`;
 };
 
-const widthStyle = item => (item.resumeAt / item.duration) * 100 + "%";
-
 const renderVideoItem = (
   { finished, ...item },
   index,
   onClick: (item, index) => void
 ) => {
   const [isSwiping, setSwiping] = useState(false);
-  const router = useRouter();
   return (
     <div
       key={item.mediaid + index}
@@ -174,11 +174,7 @@ const renderVideoItem = (
             </svg>
           </div>
         )}
-        {item.resumeAt && (
-          <div className="c-video-card__progress">
-            <div style={{ width: widthStyle(item) }}></div>
-          </div>
-        )}
+        {item.resumeAt && <Progress item={item} />}
       </div>
       <h4 className="c-video-card__title" title={item.title}>
         {item.title}

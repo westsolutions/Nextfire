@@ -32,6 +32,9 @@ function VideoPage({ source }) {
       if (process.env.CONTENT_CHAT_ENABLED && currentUser) {
         fetchUserToken(currentUser);
       }
+      if (!currentUser) {
+        setUserToken(null);
+      }
     });
     return () => unsubscribe();
   }, [userId]);

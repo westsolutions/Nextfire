@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "@components/Navigation/NavBar";
 import { useState, useEffect } from "react";
-import { useAuth } from "reactfire";
+import { version } from "../../package.json";
 import SignInModal from "@components/Modal/SignInModal";
 import Head from "next/head";
 
@@ -62,10 +62,7 @@ const MainLayout: React.FC<Props> = ({ children }) => {
       <NavBar openAuthModal={props.openAuthModal} />
       {children(props)}
       <footer className="footer-app-version">
-        App version:{" "}
-        {process.env.HEROKU_RELEASE_VERSION
-          ? process.env.HEROKU_RELEASE_VERSION
-          : "n/a"}
+        App version: {version ? version : "n/a"}
       </footer>
     </div>
   );

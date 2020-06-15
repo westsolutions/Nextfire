@@ -1,6 +1,6 @@
 {
   "name": "tribesocial",
-  "version": "1.0.0",
+  "version": "1.0.59",
   "description": "Live streaming app",
   "main": "index.js",
   "engines": {
@@ -14,7 +14,8 @@
     "build": "next build",
     "start": "NODE_ENV=production next start -p $PORT",
     "export": "next export",
-    "format": "prettier --write \"src/**/*.+(js|ts|tsx|scss)\""
+    "format": "prettier --write \"src/**/*.+(js|ts|tsx|scss)\"",
+    "upgrage-version": "npm --no-git-tag-version version patch; git -a -m \"update version\""
   },
   "repository": {
     "type": "git",
@@ -73,7 +74,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick --staged",
+      "pre-push": "npm run upgrage-version"
     }
   }
 }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 //TODO: useUser not working in current relase
 import { useAuth } from "reactfire";
+import { INDEX } from "@constants/routes";
 
 const NavBar: React.FC<{ openAuthModal }> = ({ openAuthModal }) => {
   const auth = useAuth();
@@ -13,7 +14,6 @@ const NavBar: React.FC<{ openAuthModal }> = ({ openAuthModal }) => {
   useEffect(() => {
     const authSubscription = auth.onAuthStateChanged((currentUser: any) => {
       if (authenticated !== !!currentUser) {
-        console.log(currentUser);
         setAuthenticated(!!currentUser);
       }
     });
@@ -25,7 +25,7 @@ const NavBar: React.FC<{ openAuthModal }> = ({ openAuthModal }) => {
       localStorage.removeItem(auth.currentUser.email);
     }
     auth.signOut().then(res => {
-      setAuthenticated(false);
+      router.push(INDEX);
     });
   };
 
@@ -55,7 +55,7 @@ const NavBar: React.FC<{ openAuthModal }> = ({ openAuthModal }) => {
           )}
           {!authenticated && (
             <button
-              className="btn btn-link"
+              className="btn btn-link btn-login"
               onClick={() => {
                 openAuthModal();
               }}

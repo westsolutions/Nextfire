@@ -12,33 +12,32 @@ import { useAuth } from "reactfire";
 
 const ChatBox = ({ userToken, userId, image, name }) => {
   const auth = useAuth();
-  const chatClient = new StreamChat(
-    process.env.GET_STREAM_PUBLIC,
-    process.env.GET_STREAM_SECRET
-  );
-  let channel = null;
-  if (userId) {
-    chatClient.setUser(
-      {
-        id: userId,
-        name: auth?.currentUser?.displayName,
-        image: `https://getstream.io/random_svg/?name=${auth?.currentUser?.displayName}`,
-        role: "GUEST"
-      },
-      userToken
-    );
+  const chatClient = new StreamChat(process.env.GET_STREAM_PUBLIC);
 
-    channel = chatClient.channel("messaging", process.env.CONTENT_CHAT_ID, {
+  chatClient.setUser(
+    {
+      id: userId,
+      name: auth?.currentUser?.displayName,
+      image: `https://getstream.io/random_svg/?name=${auth?.currentUser?.displayName}`,
+      role: "GUEST"
+    },
+    userToken
+  );
+
+  const channel = chatClient.channel(
+    "messaging",
+    process.env.CONTENT_CHAT_ID || "71593",
+    {
       image,
       name
-    });
+    }
+  );
 
-    channel.addMembers([userId]);
-  }
+  channel.addMembers([userId]);
 
   return (
     <>
-      {userId && (
+      {channel && (
         <Chat client={chatClient} theme={"messaging dark"}>
           <Channel channel={channel}>
             <Window>

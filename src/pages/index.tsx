@@ -19,12 +19,7 @@ function Index({ source }) {
           {source &&
             source.length &&
             source.map((s, i) => (
-              <VideoList
-                playlist={s.playlist}
-                title={s.title}
-                key={i}
-                openAuthModal={props.openAuthModal}
-              />
+              <VideoList playlist={s.playlist} title={s.title} key={i} />
             ))}
         </>
       )}

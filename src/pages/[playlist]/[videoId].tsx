@@ -10,30 +10,31 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 const ChatBox = dynamic(() => import("@components/Chat"), { ssr: false });
 import fetch from "isomorphic-fetch";
-import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
 
-function VideoPage({ source, openAuthModal }) {
+function VideoPage({ source }) {
   const [userToken, setUserToken] = useState(null);
   const [userId, setUserName] = useState(null);
-  const [authenticated, setAuthenticated] = useState(false);
   const auth = useAuth();
 
   const fetchUserToken = async currentUser => {
-    await fetch(`${process.env.BASE_URL}api/chat?user=${currentUser.uid}`)
+    return await fetch(
+      `${process.env.BASE_URL}api/chat?user=${currentUser.uid}`
+    )
       .then(response => response.json())
-      .then(res => {
-        setUserToken(res.token);
+      .then(user => {
+        setUserToken(user.token);
         setUserName(currentUser.uid);
       });
   };
 
   useEffect(() => {
-    auth.onAuthStateChanged((currentUser: any) => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser: any) => {
       if (process.env.CONTENT_CHAT_ENABLED && currentUser) {
         fetchUserToken(currentUser);
       }
     });
-  }, []);
+    return () => unsubscribe();
+  }, [userId]);
 
   const router = useRouter();
   const { playlist, videoId } = router.query;
@@ -62,20 +63,18 @@ function VideoPage({ source, openAuthModal }) {
           </Head>
           <div className="s-video-single container">
             <div className="row">
-              {true && (
-                <div className={videoColumnClass}>
-                  {videoItem && (
-                    <VideoPlayer
-                      subTitle={source.title}
-                      title={videoItem.title}
-                      videoItem={videoItem}
-                      hasNext={hasNext}
-                      redirectLink={redirectLink}
-                      openModal={props.openAuthModal}
-                    />
-                  )}
-                </div>
-              )}
+              <div className={videoColumnClass}>
+                {videoItem && (
+                  <VideoPlayer
+                    subTitle={source.title}
+                    title={videoItem.title}
+                    videoItem={videoItem}
+                    hasNext={hasNext}
+                    redirectLink={redirectLink}
+                    openModal={props.openAuthModal}
+                  />
+                )}
+              </div>
               {process.env.CONTENT_CHAT_ENABLED && userToken && (
                 <div className="col-12 col-md-4">
                   <div className="c-chat">
@@ -95,7 +94,6 @@ function VideoPage({ source, openAuthModal }) {
             playlist={sourcePlaylist}
             title="Up Next"
             excludedId={id}
-            openAuthModal={props.openAuthModal}
           />
         </>
       )}

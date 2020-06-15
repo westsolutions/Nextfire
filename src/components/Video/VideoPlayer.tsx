@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import ReactJWPlayer from "react-jw-player";
 import Cookies from "js-cookie";
 import Link from "next/link";
-import DOMPurify from "dompurify";
 import { isMobile } from "../../helpers";
 import { useAuth } from "reactfire";
+import sanitizeHtml from "sanitize-html-react";
 
 declare global {
   interface Window {
@@ -31,12 +31,12 @@ export default ({
 
   useEffect(() => {
     const authSubscription = auth.onAuthStateChanged((currentUser: any) => {
-      if (!currentUser) {
+      if (!currentUser && !authenticated) {
         const player = window.jwplayer();
         player.pause();
         openModal();
       }
-      if (authenticated !== !!currentUser) {
+      if (currentUser && authenticated !== !!currentUser) {
         console.log(currentUser);
         setAuthenticated(!!currentUser);
       }
@@ -174,9 +174,9 @@ export default ({
       <div>
         <div
           className="c-video__description"
-          // dangerouslySetInnerHTML={{
-          //   __html: DOMPurify.sanitize(videoItem.description)
-          // }}
+          dangerouslySetInnerHTML={{
+            __html: sanitizeHtml(videoItem.description)
+          }}
         ></div>
       </div>
     </div>

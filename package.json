@@ -75,7 +75,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged",
-      "pre-push": "npm run upgrage-version"
+      "post-commit": "npm run upgrage-version"
     }
   }
 }

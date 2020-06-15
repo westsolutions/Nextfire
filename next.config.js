@@ -53,7 +53,8 @@ module.exports = withCSS(
         process.env.CONTENT_JWT_SOURCE ||
         "https://cdn.jwplayer.com/v2/playlists/n8OU0HJb, https://cdn.jwplayer.com/v2/playlists/yYYotlJD, https://cdn.jwplayer.com/v2/playlists/qUrHB1bR",
       ACCESS_CODE: process.env.ACCESS_CODE || "CATWEST20",
-      FACEBOOK_AUTH_ENABLED: process.env.FACEBOOK_AUTH_ENABLED || true
+      FACEBOOK_AUTH_ENABLED: process.env.FACEBOOK_AUTH_ENABLED || true,
+      HEROKU_RELEASE_VERSION: process.env.HEROKU_RELEASE_VERSION
     },
     webpack: function(cfg) {
       if (cfg.resolve.plugins) {

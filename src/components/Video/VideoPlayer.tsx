@@ -39,7 +39,7 @@ export default ({
           }
         }
 
-        // openModal();
+        openModal();
       }
       setAuthenticated(!!currentUser);
     });

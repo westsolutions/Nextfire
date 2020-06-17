@@ -16,7 +16,7 @@ interface ResetPasswordDto {
   email: string;
 }
 
-const ResetPasswordForm: React.FC<{}> = () => {
+const ForgotPasswordForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -98,4 +98,4 @@ const ResetPasswordForm: React.FC<{}> = () => {
     </>
   );
 };
-export default ResetPasswordForm;
+export default ForgotPasswordForm;

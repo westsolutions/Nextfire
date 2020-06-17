@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useAuth, useFirestore, useFirebaseApp } from "reactfire";
+import { useAuth, useFirestore } from "reactfire";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import classnames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { UserTable } from "@constants/db";
-import { PASSWORD_FORGOT, INDEX, SIGN_UP, SIGN_IN } from "@constants/routes";
+import { INDEX, SIGN_IN } from "@constants/routes";
 import { pushUserToFullStory } from "../../helpers";
 //TODO: fix this later
 import * as firebase from "firebase";
@@ -252,4 +252,5 @@ const SignUpForm: React.FC<{}> = () => {
     </>
   );
 };
+
 export default SignUpForm;

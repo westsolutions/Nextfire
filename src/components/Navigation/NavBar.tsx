@@ -24,7 +24,7 @@ const NavBar: React.FC<{}> = () => {
       localStorage.removeItem(auth.currentUser.email);
     }
     auth.signOut().then(res => {
-      router.push(INDEX);
+      router.push(SIGN_IN);
     });
   };
 
@@ -58,11 +58,6 @@ const NavBar: React.FC<{}> = () => {
                 Logout
               </div>
             </>
-          )}
-          {!authenticated && (
-            <Link href={SIGN_IN}>
-              <a className="navbar-brand">Login</a>
-            </Link>
           )}
         </div>
       </div>

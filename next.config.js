@@ -14,45 +14,22 @@ module.exports = withCSS(
       BG_AUTH_URL: process.env.BG_AUTH_URL || null,
       BG_DASHBOARD_URL: process.env.BG_DASHBOARD_URL || null,
       BACKEND_URL: process.env.BACKEND_URL || "http://localhost:5000/",
-      GET_STREAM_PUBLIC: process.env.GET_STREAM_PUBLIC || "hxewefpgsj8j",
-      GET_STREAM_SECRET:
-        process.env.GET_STREAM_SECRET ||
-        "rsusyvfkm2wgppvjc4mbpqwt9wvwtg5txqzantj3x4a9tctnrq7ngx5aay6adued",
-      CONTENT_VIDEO_YOUTUBE_ID:
-        process.env.CONTENT_VIDEO_YOUTUBE_ID || "NvqKZHpKs-g",
-      CONTENT_VIDEO_TITLE: process.env.CONTENT_VIDEO_TITLE || "VIDEO TITLE",
-      CONTENT_VIDEO_CONTENT:
-        process.env.CONTENT_VIDEO_CONTENT ||
-        "asdfasdfasdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdfasdfasdfasdfasdfasdf asdfasdfasdfasdfasdfasdfasdfasdfasdf",
-      CONTENT_CHAT_TITLE: process.env.CONTENT_CHAT_TITLE || "",
-      CONTENT_CHAT_ID: process.env.CONTENT_CHAT_ID || null,
-      CONTENT_CHAT_AVATAR:
-        process.env.CONTENT_CHAT_AVATAR ||
-        "https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png",
-      CONTENT_CHAT_ENABLED: process.env.CONTENT_CHAT_ENABLED || true,
-      CONTENT_IMG: process.env.CONTENT_IMG,
-      CONTENT_IMG_HREF: process.env.CONTENT_IMG_HREF,
       FIREBASE_API_KEY:
         process.env.FIREBASE_API_KEY ||
-        "AIzaSyBb0--6EL3IyFtvA08t9akw8frWBggZzyQ",
+        "AIzaSyCFN4eMkFqIRVR5v9bqyFT70zzQCQoX_d4",
       FIREBASE_AUTH_DOMAIN:
-        process.env.FIREBASE_AUTH_DOMAIN || "tribesocial-a13fb.firebaseapp.com",
-      FIREBASE_PROJECTID: process.env.FIREBASE_PROJECTID || "tribesocial-a13fb",
+        process.env.FIREBASE_AUTH_DOMAIN ||
+        "nextjs-starter-86e34.firebaseapp.com",
+      FIREBASE_PROJECTID:
+        process.env.FIREBASE_PROJECTID || "nextjs-starter-86e34",
       FIREBASE_STORAGEBUCKET:
-        process.env.FIREBASE_STORAGEBUCKET || "tribesocial-a13fb.appspot.com",
+        process.env.FIREBASE_STORAGEBUCKET ||
+        "nextjs-starter-86e34.appspot.com",
       FIREBASE_MESSAGINGSENDERID:
-        process.env.FIREBASE_MESSAGINGSENDERID || "736494109878",
+        process.env.FIREBASE_MESSAGINGSENDERID || "563001395565",
       FIREBASE_APPID:
         process.env.FIREBASE_APPID ||
-        "1:736494109878:web:dac83729db2ddfe78d5217",
-      CONTENT_JWT_NAME: process.env.CONTENT_JWT_NAME || "tribe_social",
-      CONTENT_JWT_SECRET:
-        process.env.CONTENT_JWT_SECRET ||
-        "RL8cqhtmJ8qyDIk0FNv_gmInUjJ4VFdHODNha2wxZG5rd04wYzJlRk5WY0hCblpHdFkn",
-      CONTENT_JWT_SOURCE:
-        process.env.CONTENT_JWT_SOURCE ||
-        "https://cdn.jwplayer.com/v2/playlists/n8OU0HJb, https://cdn.jwplayer.com/v2/playlists/yYYotlJD, https://cdn.jwplayer.com/v2/playlists/qUrHB1bR",
-      ACCESS_CODE: process.env.ACCESS_CODE || "CATWEST20",
+        "1:563001395565:web:13075f18cf8e1b18e8f264",
       FACEBOOK_AUTH_ENABLED: process.env.FACEBOOK_AUTH_ENABLED || true,
       HEROKU_RELEASE_VERSION: process.env.HEROKU_RELEASE_VERSION
     },

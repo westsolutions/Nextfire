@@ -15,8 +15,6 @@ $bg-dark: #000000;
 $card-bg: #ebebeb;
 
 @import "~bootstrap/scss/bootstrap";
-@import "chat/index";
-@import "components/video-card";
 
 img {
   max-width: 100%;
@@ -95,7 +93,7 @@ body {
     background-position: top center;
     animation: fadeInBackground 0.6s ease-in-out;
     z-index: -1;
-    background-image: url("https://cdn.tribesocial.io/images/cat_Video%20Player_BG.jpg");
+    // background-image: url("https://cdn.tribesocial.io/images/cat_Video%20Player_BG.jpg");
   }
 
   min-height: 100vh;
@@ -180,6 +178,10 @@ body {
       margin-left: 0.5rem;
     }
   }
+}
+.navbar-logout {
+  cursor: pointer;
+  margin-left: 20px;
 }
 
 .loader {

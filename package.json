@@ -1,6 +1,6 @@
 {
   "name": "tribesocial",
-  "version": "1.0.70",
+  "version": "1.0.71",
   "description": "Live streaming app",
   "main": "index.js",
   "engines": {
@@ -54,20 +54,14 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-file-utils": "0.3.13",
-    "react-horizontal-scrolling-menu": "^0.7.7",
-    "react-id-swiper": "^3.0.0",
-    "react-jw-player": "^1.19.1",
     "react-loader": "^2.4.7",
     "react-redux": "^6.0.0",
     "react-spinners": "^0.4.8",
     "reactfire": "2.0.0-rc.1",
-    "reactstrap": "^8.4.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "sanitize-html-react": "^1.13.0",
     "stream-chat-react": "1.1.2",
-    "swiper": "^5.3.6",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typescript": "^3.8.3",
     "yup": "^0.28.1"

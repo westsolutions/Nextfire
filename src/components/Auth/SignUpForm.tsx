@@ -6,6 +6,7 @@ import classnames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { UserTable } from "@constants/db";
+import { PASSWORD_FORGOT, INDEX, SIGN_UP, SIGN_IN } from "@constants/routes";
 import { pushUserToFullStory } from "../../helpers";
 //TODO: fix this later
 import * as firebase from "firebase";
@@ -32,10 +33,7 @@ interface User {
   displayName?: string;
 }
 
-const SignUpForm: React.FC<{
-  onSubmit: () => void;
-  chnangeAction: () => void;
-}> = ({ onSubmit, chnangeAction }) => {
+const SignUpForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -69,7 +67,7 @@ const SignUpForm: React.FC<{
             })
             .then(() => {
               localStorage.setItem(email, "TRUE");
-              onSubmit();
+              router.push(INDEX);
             });
         }
       })
@@ -112,7 +110,7 @@ const SignUpForm: React.FC<{
                 })
                 .then(() => {
                   localStorage.setItem(email, "TRUE");
-                  onSubmit();
+                  router.push(INDEX);
                 });
             }
           })
@@ -245,9 +243,9 @@ const SignUpForm: React.FC<{
       </Formik>
       <div className="text-center mt-2">
         Already a member?&nbsp;
-        <button className="btn btn-link" onClick={chnangeAction}>
-          Login
-        </button>
+        <Link href={SIGN_IN}>
+          <a>Login</a>
+        </Link>
       </div>
       {isError && <div className="alert alert-danger mt-4">{isError}</div>}
       {isSuccess && <div className="alert alert-success mt-4">{isSuccess}</div>}

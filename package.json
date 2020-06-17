@@ -1,6 +1,6 @@
 {
   "name": "tribesocial",
-  "version": "1.0.72",
+  "version": "1.0.73",
   "description": "Live streaming app",
   "main": "index.js",
   "engines": {

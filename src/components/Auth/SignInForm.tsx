@@ -4,7 +4,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import classnames from "classnames";
 import Link from "next/link";
-import { PASSWORD_FORGOT, INDEX } from "@constants/routes";
+import { PASSWORD_FORGOT, INDEX, SIGN_UP } from "@constants/routes";
 import "@firebase/auth";
 import { useRouter } from "next/router";
 import * as firebase from "firebase";
@@ -19,10 +19,7 @@ interface Login {
   password: string;
 }
 
-const SignInForm: React.FC<{
-  onSubmit: () => void;
-  chnangeAction: () => void;
-}> = ({ onSubmit, chnangeAction }) => {
+const SignInForm: React.FC<{}> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -43,7 +40,7 @@ const SignInForm: React.FC<{
       .then(result => {
         setLoading(false);
         localStorage.setItem(result.user.email, "TRUE");
-        onSubmit();
+        router.push(INDEX);
       })
       .catch(err => {
         setLoading(false);
@@ -61,7 +58,7 @@ const SignInForm: React.FC<{
       .then(res => {
         setLoading(false);
         localStorage.setItem(email, "TRUE");
-        onSubmit();
+        router.push(INDEX);
       })
       .catch(err => {
         setLoading(false);
@@ -158,13 +155,14 @@ const SignInForm: React.FC<{
       </Formik>
       <div className="text-center mt-2">
         Don't have account yet?&nbsp;
-        <button className="btn btn-link" onClick={chnangeAction}>
-          Create account
-        </button>
+        <Link href={SIGN_UP}>
+          <a>Create account</a>
+        </Link>
       </div>
       {isError && <div className="alert alert-danger mt-4">{isError}</div>}
       {isSuccess && <div className="alert alert-success mt-4">{isSuccess}</div>}
     </>
   );
 };
+
 export default SignInForm;

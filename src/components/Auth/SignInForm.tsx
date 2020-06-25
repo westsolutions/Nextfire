@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { useAuth } from "reactfire";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import classnames from "classnames";
-import Link from "next/link";
-import { PASSWORD_FORGOT, INDEX, SIGN_UP } from "@constants/routes";
-import "@firebase/auth";
-import { useRouter } from "next/router";
-import * as firebase from "firebase";
+import React, { useState } from 'react';
+import { useAuth } from 'reactfire';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import classnames from 'classnames';
+import Link from 'next/link';
+import { PASSWORD_FORGOT, INDEX, SIGN_UP } from '@constants/routes';
+import '@firebase/auth';
+import { useRouter } from 'next/router';
+import * as firebase from 'firebase';
 
 const SignInSchema = Yup.object().shape({
-  email: Yup.string().required("This field is required"),
-  password: Yup.string().required("This field is required")
+  email: Yup.string().required('This field is required'),
+  password: Yup.string().required('This field is required'),
 });
 
 interface Login {
@@ -19,32 +19,31 @@ interface Login {
   password: string;
 }
 
-const SignInForm: React.FC<{}> = () => {
+const SignInForm: React.FC<unknown> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
   const router = useRouter();
   const auth = useAuth();
-  const provider = new firebase.auth.FacebookAuthProvider();
 
   const signInWithFacebook = () => {
     setError(null);
     setSuccess(null);
     setLoading(true);
-    var provider = new firebase.auth.FacebookAuthProvider();
+    const provider = new firebase.auth.FacebookAuthProvider();
 
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(result => {
+      .then((result) => {
         setLoading(false);
-        localStorage.setItem(result.user.email, "TRUE");
+        localStorage.setItem(result.user.email, 'TRUE');
         router.push(INDEX);
       })
-      .catch(err => {
+      .catch((err) => {
         setLoading(false);
-        setError(err?.message ? err?.message : "Something went wrong");
+        setError(err?.message ? err?.message : 'Something went wrong');
         console.log(err?.message);
       });
   };
@@ -55,14 +54,14 @@ const SignInForm: React.FC<{}> = () => {
     setLoading(true);
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(res => {
+      .then(() => {
         setLoading(false);
-        localStorage.setItem(email, "TRUE");
+        localStorage.setItem(email, 'TRUE');
         router.push(INDEX);
       })
-      .catch(err => {
+      .catch((err) => {
         setLoading(false);
-        setError(err?.message ? err?.message : "Something went wrong");
+        setError(err?.message ? err?.message : 'Something went wrong');
         console.log(err?.message);
       });
   };
@@ -72,11 +71,11 @@ const SignInForm: React.FC<{}> = () => {
       <h1>Login to your account</h1>
       <Formik
         initialValues={{
-          email: "",
-          password: ""
+          email: '',
+          password: '',
         }}
         validationSchema={SignInSchema}
-        onSubmit={values => {
+        onSubmit={(values) => {
           signIn(values);
         }}
       >
@@ -88,8 +87,8 @@ const SignInForm: React.FC<{}> = () => {
                 type="email"
                 placeholder="E-mail"
                 className={classnames([
-                  "form-control",
-                  { "is-invalid": errors.email && touched.email }
+                  'form-control',
+                  { 'is-invalid': errors.email && touched.email },
                 ])}
               />
               {errors.email && touched.email ? (
@@ -102,13 +101,13 @@ const SignInForm: React.FC<{}> = () => {
                 type="password"
                 placeholder="Password"
                 className={classnames([
-                  "form-control",
-                  { "is-invalid": errors.password && touched.password }
+                  'form-control',
+                  { 'is-invalid': errors.password && touched.password },
                 ])}
               />
               <div className="text-center">
                 <small>
-                  Don't know your password?&nbsp;
+                  {"Don't know your password?&nbsp;"}
                   <Link href={PASSWORD_FORGOT}>
                     <a>Forgot password</a>
                   </Link>
@@ -133,7 +132,7 @@ const SignInForm: React.FC<{}> = () => {
               )}
               {!isLoading && <span>Login</span>}
             </button>
-            {process.env.FACEBOOK_AUTH_ENABLED && (
+            {process.env.NEXT_PUBLIC_FACEBOOK_AUTH_ENABLED && (
               <button
                 onClick={() => signInWithFacebook()}
                 className="btn btn-primary btn-block btn-facebook"
@@ -154,7 +153,7 @@ const SignInForm: React.FC<{}> = () => {
         )}
       </Formik>
       <div className="text-center mt-2">
-        Don't have account yet?&nbsp;
+        {"Don't have account yet?&nbsp;"}
         <Link href={SIGN_UP}>
           <a>Create account</a>
         </Link>

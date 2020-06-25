@@ -1,30 +1,27 @@
-import React, { useState } from "react";
-import { useAuth, useFirestore } from "reactfire";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import classnames from "classnames";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { UserTable } from "@constants/db";
-import { INDEX, SIGN_IN } from "@constants/routes";
-import { pushUserToFullStory } from "../../helpers";
+import React, { useState } from 'react';
+import { useAuth, useFirestore } from 'reactfire';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import classnames from 'classnames';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { UserTable } from '@constants/db';
+import { INDEX, SIGN_IN } from '@constants/routes';
 //TODO: fix this later
-import * as firebase from "firebase";
+import * as firebase from 'firebase';
 
 const SignupSchema = Yup.object().shape({
   displayName: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("This field is required"),
-  email: Yup.string()
-    .email("Invalid email")
-    .required("This field is required"),
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('This field is required'),
+  email: Yup.string().email('Invalid email').required('This field is required'),
   password: Yup.string()
-    .min(6, "Too Short!")
-    .required("This field is required"),
+    .min(6, 'Too Short!')
+    .required('This field is required'),
   passwordConfirmation: Yup.string()
-    .required("This field is required")
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required('This field is required')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
 interface User {
@@ -33,7 +30,7 @@ interface User {
   displayName?: string;
 }
 
-const SignUpForm: React.FC<{}> = () => {
+const SignUpForm: React.FC<unknown> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -52,9 +49,9 @@ const SignUpForm: React.FC<{}> = () => {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(result => {
+      .then((result) => {
         setLoading(false);
-        let user = result.user;
+        const user = result.user;
         const { displayName, email } = user;
         if (process.browser) {
           firestore
@@ -63,17 +60,17 @@ const SignUpForm: React.FC<{}> = () => {
               displayName,
               email,
               // password,
-              platform: window.location.origin
+              platform: window.location.origin,
             })
             .then(() => {
-              localStorage.setItem(email, "TRUE");
+              localStorage.setItem(email, 'TRUE');
               router.push(INDEX);
             });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         setLoading(false);
-        setError(err?.message ? err?.message : "Something went wrong");
+        setError(err?.message ? err?.message : 'Something went wrong');
         console.log(err?.message);
       });
   };
@@ -84,20 +81,14 @@ const SignUpForm: React.FC<{}> = () => {
     setLoading(true);
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then((user: any) => {
-        pushUserToFullStory({
-          id: email,
-          email,
-          displayName,
-          platform: window.location.origin
-        });
+      .then(() => {
         auth.currentUser.updateProfile({
-          displayName: displayName
+          displayName: displayName,
         });
         setSuccess("Your account is created... we're signing you in...");
         auth
           .signInWithEmailAndPassword(email, password)
-          .then(res => {
+          .then(() => {
             setLoading(false);
             if (process.browser) {
               firestore
@@ -106,23 +97,23 @@ const SignUpForm: React.FC<{}> = () => {
                   displayName,
                   email,
                   // password,
-                  platform: window.location.origin
+                  platform: window.location.origin,
                 })
                 .then(() => {
-                  localStorage.setItem(email, "TRUE");
+                  localStorage.setItem(email, 'TRUE');
                   router.push(INDEX);
                 });
             }
           })
-          .catch(err => {
+          .catch((err) => {
             setLoading(false);
-            setError(err?.message ? err?.message : "Something went wrong");
+            setError(err?.message ? err?.message : 'Something went wrong');
             console.log(err?.message);
           });
       })
-      .catch(err => {
+      .catch((err) => {
         setLoading(false);
-        setError(err?.message ? err?.message : "Something went wrong");
+        setError(err?.message ? err?.message : 'Something went wrong');
         console.log(err?.message);
       });
   };
@@ -132,13 +123,13 @@ const SignUpForm: React.FC<{}> = () => {
       <h1>Create an account to access content</h1>
       <Formik
         initialValues={{
-          displayName: "",
-          email: "",
-          password: "",
-          passwordConfirmation: ""
+          displayName: '',
+          email: '',
+          password: '',
+          passwordConfirmation: '',
         }}
         validationSchema={SignupSchema}
-        onSubmit={values => {
+        onSubmit={(values) => {
           signUp(values);
         }}
       >
@@ -149,8 +140,8 @@ const SignUpForm: React.FC<{}> = () => {
                 name="displayName"
                 placeholder="Full name"
                 className={classnames([
-                  "form-control",
-                  { "is-invalid": errors.displayName && touched.displayName }
+                  'form-control',
+                  { 'is-invalid': errors.displayName && touched.displayName },
                 ])}
               />
               {errors.displayName && touched.displayName ? (
@@ -163,8 +154,8 @@ const SignUpForm: React.FC<{}> = () => {
                 type="email"
                 placeholder="E-mail"
                 className={classnames([
-                  "form-control",
-                  { "is-invalid": errors.email && touched.email }
+                  'form-control',
+                  { 'is-invalid': errors.email && touched.email },
                 ])}
               />
               {errors.email && touched.email ? (
@@ -177,8 +168,8 @@ const SignUpForm: React.FC<{}> = () => {
                 type="password"
                 placeholder="Password"
                 className={classnames([
-                  "form-control",
-                  { "is-invalid": errors.password && touched.password }
+                  'form-control',
+                  { 'is-invalid': errors.password && touched.password },
                 ])}
               />
               {errors.password && touched.password ? (
@@ -191,12 +182,12 @@ const SignUpForm: React.FC<{}> = () => {
                 type="password"
                 placeholder="Password confirmation"
                 className={classnames([
-                  "form-control",
+                  'form-control',
                   {
-                    "is-invalid":
+                    'is-invalid':
                       errors.passwordConfirmation &&
-                      touched.passwordConfirmation
-                  }
+                      touched.passwordConfirmation,
+                  },
                 ])}
               />
               {errors.passwordConfirmation && touched.passwordConfirmation ? (
@@ -221,7 +212,7 @@ const SignUpForm: React.FC<{}> = () => {
               {!isLoading && <span>Sign Up</span>}
             </button>
 
-            {process.env.FACEBOOK_AUTH_ENABLED && (
+            {process.env.NEXT_PUBLIC_FACEBOOK_AUTH_ENABLED && (
               <button
                 onClick={() => signUpWithFacebook()}
                 className="btn btn-primary btn-block btn-facebook"

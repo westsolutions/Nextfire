@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useAuth } from "reactfire";
-import { INDEX, SIGN_IN } from "@constants/routes";
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useAuth } from 'reactfire';
+import { SIGN_IN } from '@constants/routes';
 
-const NavBar: React.FC<{}> = () => {
+const NavBar: React.FC<unknown> = () => {
   const auth = useAuth();
   const router = useRouter();
 
@@ -23,7 +23,7 @@ const NavBar: React.FC<{}> = () => {
     if (auth.currentUser && auth.currentUser.email) {
       localStorage.removeItem(auth.currentUser.email);
     }
-    auth.signOut().then(res => {
+    auth.signOut().then((res) => {
       router.push(SIGN_IN);
     });
   };
@@ -33,7 +33,7 @@ const NavBar: React.FC<{}> = () => {
       <div className="container d-flex justify-content-between">
         <Link href="/">
           <a className="navbar-brand">
-            <img src={process.env.LOGO_URL} />
+            <img src={process.env.NEXT_PUBLIC_LOGO_URL} />
           </a>
         </Link>
         <div className="media align-items-center navbar-profile">

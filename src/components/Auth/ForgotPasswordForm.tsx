@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { useAuth } from "reactfire";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import classnames from "classnames";
-import Link from "next/link";
-import { SIGN_UP } from "@constants/routes";
+import React, { useState } from 'react';
+import { useAuth } from 'reactfire';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import classnames from 'classnames';
+import Link from 'next/link';
+import { SIGN_UP } from '@constants/routes';
 
 const ForgotPasswordSchema = Yup.object().shape({
   email: Yup.string()
-    .email("Email is invalid")
-    .required("This field is required")
+    .email('Email is invalid')
+    .required('This field is required'),
 });
 
 interface ResetPasswordDto {
   email: string;
 }
 
-const ForgotPasswordForm: React.FC<{}> = () => {
+const ForgotPasswordForm: React.FC<unknown> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -29,14 +29,14 @@ const ForgotPasswordForm: React.FC<{}> = () => {
     setLoading(true);
     auth
       .sendPasswordResetEmail(email)
-      .then(res => {
+      .then((res) => {
         setLoading(false);
-        setSuccess("Check your email");
+        setSuccess('Check your email');
         console.log(res);
       })
-      .catch(err => {
+      .catch((err) => {
         setLoading(false);
-        setError(err?.message ? err?.message : "Something went wrong");
+        setError(err?.message ? err?.message : 'Something went wrong');
         console.log(err?.message);
       });
   };
@@ -46,10 +46,10 @@ const ForgotPasswordForm: React.FC<{}> = () => {
       <h1>Enter your password</h1>
       <Formik
         initialValues={{
-          email: ""
+          email: '',
         }}
         validationSchema={ForgotPasswordSchema}
-        onSubmit={values => {
+        onSubmit={(values) => {
           forgotPasswordRequest(values);
         }}
       >
@@ -61,8 +61,8 @@ const ForgotPasswordForm: React.FC<{}> = () => {
                 type="email"
                 placeholder="E-mail"
                 className={classnames([
-                  "form-control",
-                  { "is-invalid": errors.email && touched.email }
+                  'form-control',
+                  { 'is-invalid': errors.email && touched.email },
                 ])}
               />
               {errors.email && touched.email ? (
@@ -88,7 +88,7 @@ const ForgotPasswordForm: React.FC<{}> = () => {
         )}
       </Formik>
       <div className="text-center mt-2">
-        Don't have account yet?&nbsp;
+        {"Don't have account yet?&nbsp;"}
         <Link href={SIGN_UP}>
           <a> Create account</a>
         </Link>

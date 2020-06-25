@@ -1,6 +1,6 @@
-import React from "react";
-import MainLayout from "@layouts/MainLayout";
-import Head from "next/head";
+import React from 'react';
+import MainLayout from '@layouts/MainLayout';
+import Head from 'next/head';
 
 function Index() {
   return (
@@ -15,5 +15,4 @@ function Index() {
     </MainLayout>
   );
 }
-
 export default Index;

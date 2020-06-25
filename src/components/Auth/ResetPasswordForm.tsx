@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { useAuth } from "reactfire";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import classnames from "classnames";
-import Link from "next/link";
-import { INDEX } from "@constants/routes";
-import { useRouter } from "next/router";
+import React, { useState } from 'react';
+import { useAuth } from 'reactfire';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import classnames from 'classnames';
+import Link from 'next/link';
+import { INDEX } from '@constants/routes';
+import { useRouter } from 'next/router';
 
 const ChangePasswordSchema = Yup.object().shape({
   password: Yup.string()
-    .min(6, "Too Short!")
-    .required("This field is required"),
+    .min(6, 'Too Short!')
+    .required('This field is required'),
   passwordConfirmation: Yup.string()
-    .required("This field is required")
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required('This field is required')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
 interface ChangePasswordDto {
@@ -21,7 +21,7 @@ interface ChangePasswordDto {
   passwordConfirmation: string;
 }
 
-const ResetPasswordForm: React.FC<{}> = () => {
+const ResetPasswordForm: React.FC<unknown> = () => {
   const [isError, setError] = useState<string | null>(null);
   const [isSuccess, setSuccess] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -37,18 +37,18 @@ const ResetPasswordForm: React.FC<{}> = () => {
     const oobCode: string = router.query.oobCode as string;
     auth
       .confirmPasswordReset(oobCode, password)
-      .then(res => {
+      .then(() => {
         setLoading(false);
         setSuccess(
-          "Your password is changed. You will landed to login page in 5 seconds"
+          'Your password is changed. You will landed to login page in 5 seconds',
         );
         setTimeout(() => {
           router.push(INDEX);
         }, 5000);
       })
-      .catch(err => {
+      .catch((err) => {
         setLoading(false);
-        setError(err?.message ? err?.message : "Something went wrong");
+        setError(err?.message ? err?.message : 'Something went wrong');
         console.log(err?.message);
       });
   };
@@ -58,11 +58,11 @@ const ResetPasswordForm: React.FC<{}> = () => {
       <h1>Type your new password</h1>
       <Formik
         initialValues={{
-          password: "",
-          passwordConfirmation: ""
+          password: '',
+          passwordConfirmation: '',
         }}
         validationSchema={ChangePasswordSchema}
-        onSubmit={values => {
+        onSubmit={(values) => {
           forgotChangeConfirmationRequest(values);
         }}
       >
@@ -74,10 +74,10 @@ const ResetPasswordForm: React.FC<{}> = () => {
                 type="password"
                 placeholder="Password"
                 className={classnames([
-                  "form-control",
+                  'form-control',
                   {
-                    "is-invalid": errors.password && touched.password
-                  }
+                    'is-invalid': errors.password && touched.password,
+                  },
                 ])}
               />
               {errors.password && touched.password ? (
@@ -90,12 +90,12 @@ const ResetPasswordForm: React.FC<{}> = () => {
                 type="password"
                 placeholder="Password confirmation"
                 className={classnames([
-                  "form-control",
+                  'form-control',
                   {
-                    "is-invalid":
+                    'is-invalid':
                       errors.passwordConfirmation &&
-                      touched.passwordConfirmation
-                  }
+                      touched.passwordConfirmation,
+                  },
                 ])}
               />
               {errors.passwordConfirmation && touched.passwordConfirmation ? (
@@ -123,7 +123,7 @@ const ResetPasswordForm: React.FC<{}> = () => {
         )}
       </Formik>
       <div className="text-center mt-2">
-        Don't have account yet?&nbsp;
+        {"Don't have account yet?&nbsp;"}
         <Link href={INDEX}>
           <a> Create account</a>
         </Link>

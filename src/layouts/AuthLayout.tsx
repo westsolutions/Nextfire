@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useAuth } from "reactfire";
-import Loader from "react-loader";
-import { INDEX } from "@constants/routes";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useAuth } from 'reactfire';
+import Loader from 'react-loader';
+import { INDEX } from '@constants/routes';
 
-const AuthLayout: React.FC<{}> = ({ children }) => {
+const AuthLayout: React.FC<unknown> = ({ children }) => {
   const auth = useAuth();
   const router = useRouter();
   const [isLoaded, setLoaing] = useState(false);
 
   useEffect(() => {
-    auth.onAuthStateChanged((currentUser: any) => {
+    auth.onAuthStateChanged((currentUser) => {
       if (currentUser && localStorage.getItem(currentUser.email)) {
         router.push(INDEX);
       } else {
@@ -23,8 +23,8 @@ const AuthLayout: React.FC<{}> = ({ children }) => {
     };
   });
 
-  const backgroundImage = process.env.BG_AUTH_URL
-    ? `url("${process.env.BG_AUTH_URL}")`
+  const backgroundImage = process.env.NEXT_PUBLIC_BG_AUTH_URL
+    ? `url("${process.env.NEXT_PUBLIC_BG_AUTH_URL}")`
     : null;
 
   return (
@@ -33,9 +33,9 @@ const AuthLayout: React.FC<{}> = ({ children }) => {
       width={3}
       color="#fff"
       length={1}
-      top={"50%"}
-      left={"50%"}
-      position={"fixed"}
+      top={'50%'}
+      left={'50%'}
+      position={'fixed'}
     >
       <div className="layout-auth" style={{ backgroundImage }}>
         <div className="container">

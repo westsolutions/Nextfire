@@ -189,182 +189,8 @@ body {
   height: 100vh;
 }
 
-.c-youtube {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
-  padding-top: 25;
-  height: 0;
-  margin-bottom: 1rem;
-  iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-}
 
-.c-live {
-  border: 2px solid $danger;
-  border-radius: 2px;
-  text-transform: uppercase;
-  padding: 1px 5px 1px 20px;
-  position: relative;
-  color: $danger;
-  // display: inline-block;
-  display: none;
-  margin: 5px 0;
-  line-height: 20px;
-  &:before {
-    content: "";
-    $size: 10px;
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    border-radius: $size;
-    width: $size;
-    height: $size;
-    background: $danger;
-    transform: translate(-50%, -50%);
-  }
-}
-
-.str-chat-channel {
-  max-height: 550px;
-  height: 550px;
-}
-
-.rfu-file-upload-button {
-  label {
-    margin-bottom: 3px;
-  }
-}
-
-.str-chat__send-button {
-  height: 45px;
-}
-
-.str-chat__input-emojiselect,
-.str-chat__input .rfu-file-upload-button {
-  top: calc(100% - 40px);
-}
-
-.str-chat__header-livestream-right {
-  display: none !important;
-}
-.str-chat__header-livestream {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-@include media-breakpoint-down(sm) {
-  .str-chat__input-emojiselect {
-    right: 60px;
-  }
-
-  .str-chat__input .rfu-file-upload-button {
-    right: 80px;
-  }
-}
-
-.messaging.str-chat .str-chat__list {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-.str-chat__message-simple__actions {
-  min-width: 20px;
-  flex-direction: column;
-}
-
-.messaging.str-chat .str-chat__thread {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  z-index: 100;
-  margin: 0;
-}
-
-.str-chat__container {
-  position: relative;
-}
-
-.str-chat__date-separator {
-  margin: 20px;
-}
-
-@media screen and (min-width: 420px) {
-  .str-chat__message-inner,
-  .str-chat__message-simple-inner {
-    margin-right: 0;
-  }
-}
-
-.messaging.str-chat .str-chat__list {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-.str-chat__message--received {
-  &.str-chat__message--me {
-    .str-chat__message-text,
-    .str-chat__message-simple-text {
-      max-width: 100%;
-    }
-    .str-chat__message-attachment-container {
-      max-width: 100%;
-    }
-  }
-
-  .str-chat__message-text,
-  .str-chat__message-simple-text {
-    max-width: calc(100% - 80px);
-  }
-}
-
-.str-chat__li--single .str-chat__message-text-inner--has-attachment {
-  max-width: 100%;
-}
-
-.str-chat__message-simple-text-inner a {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 100%;
-  display: inline-block;
-}
-
-@media screen and (min-width: 420px) {
-  .str-chat__message-inner,
-  .str-chat__message-simple-inner {
-    max-width: 100%;
-  }
-  .str-chat__message--me .str-chat__message-inner,
-  .str-chat__message--me .str-chat__message-inner {
-    // margin-left: 0;
-    max-width: calc(100% - 50px);
-  }
-}
-
-.messaging.str-chat .str-chat__message,
-.messaging.str-chat .str-chat__message--me {
-  max-width: 100%;
-}
-.str-chat__message-attachment-container {
-  max-width: calc(100% - 90px);
-}
-
-.container {
-  max-width: 960px;
-}
-
-.s-video-single ~ .c-video-list {
-  .c-video-list__title {
-    margin-bottom: 35px;
-  }
-}
-
-.layout-access {
+.profile {
   background: $bg-dark;
   display: flex;
   flex-direction: column;
@@ -373,31 +199,14 @@ body {
   background-size: cover;
 
   .container {
-    padding-top: 1rem;
+    padding-top: 10vh;
     padding-bottom: 1rem;
-    min-height: 90vh;
+    min-height: 80vh;
     padding-bottom: 10vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
   }
   &__container {
-    max-width: 450px;
     color: #fff;
-
-    @media screen and (max-width: 768px) {
-      max-width: 500px;
-    }
-
     .form {
-      max-width: 355px;
-      margin: auto;
-
-      @media screen and (max-width: 768px) {
-        max-width: 100%;
-      }
-
       input[name="code"] {
         color: red;
         font-weight: bold;
@@ -522,4 +331,10 @@ body {
   position: absolute;
   bottom: 1rem;
   width: 100%;
+}
+
+.dropzone {
+  padding: 3rem;
+  border: 1px dotted #fff;
+  text-align: center;
 }

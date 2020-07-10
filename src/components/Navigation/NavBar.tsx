@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useAuth } from 'reactfire';
-import { SIGN_IN } from '@constants/routes';
+import { SIGN_IN, PROFILE } from '@constants/routes';
 
 const NavBar: React.FC<unknown> = () => {
   const auth = useAuth();
@@ -40,7 +40,11 @@ const NavBar: React.FC<unknown> = () => {
           {authenticated && (
             <>
               <div className="media-body">
-                <h6>My Account</h6>
+                <Link href={PROFILE}>
+                  <a className="navbar-brand">
+                    <h6>My Account</h6>
+                  </a>
+                </Link>
               </div>
               {auth?.currentUser?.displayName && (
                 <img

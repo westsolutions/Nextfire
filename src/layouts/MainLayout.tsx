@@ -13,7 +13,7 @@ interface Props {
 const MainLayout: React.FC<Props> = ({ children }) => {
   const auth = useAuth();
   const router = useRouter();
-  const [isLoaded, setLoading] = useState(true);
+  const [isLoaded, setLoading] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((currentUser) => {

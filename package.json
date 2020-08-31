@@ -1,6 +1,6 @@
 {
   "name": "tribesocial",
-  "version": "1.0.86",
+  "version": "1.0.87",
   "description": "Live streaming app",
   "main": "index.js",
   "engines": {
@@ -24,7 +24,7 @@
     "type": "git",
     "url": "git@git.geekyants.com:products/nextjs-typescript-firebase.git"
   },
-  "author": "Taras Kumpanenko <taras.kumpanenko@gmail.com> ",
+  "author": "Taras Kumpanenko <tk@wwwest.solutions>",
   "license": "ISC",
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
@@ -64,7 +64,6 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "stream-chat-react": "1.1.2",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typescript": "^3.8.3",
     "yup": "^0.28.1"
